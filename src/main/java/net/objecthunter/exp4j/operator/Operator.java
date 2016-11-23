@@ -70,7 +70,7 @@ public abstract class Operator {
     public static final double BOOLEAN_THRESHOLD = 1.0E-12;
 
     /**
-     * The set of allowed operator chars (default: {@value})
+     * The set of allowed operator chars
      */
     public static final char[] ALLOWED_OPERATOR_CHARS = {
         '+', '-', '*', '/', '%', 

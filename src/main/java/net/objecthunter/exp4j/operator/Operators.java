@@ -28,9 +28,9 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * {@code false}</li>
  * <li>boolean operations will always have lower precedence than arithmetic operations (i.e. they
  * will be evaluated last)</li>
- * <li>The precedence (order) of the boolean operators will always be ¬ & | (in accordance to the 
- * analogy with arithmetic operators), so that:<pre>
- *             a & b| b & ¬c -> ((a & b) | (b & (¬c)))</pre></li>
+ * <li>The precedence (order) of the boolean operators will always be ¬ &amp; | (in accordance to
+ * the analogy with arithmetic operators), so that:<pre>
+ *             a &amp; b| b &amp; ¬c -&gt; ((a &amp; b) | (b &amp; (¬c)))</pre></li>
  * </ol>
  */
 public abstract class Operators {
