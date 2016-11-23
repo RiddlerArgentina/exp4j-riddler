@@ -16,6 +16,8 @@
 
 package net.objecthunter.exp4j;
 
+import java.util.Arrays;
+
 import static java.lang.Math.*;
 import static org.junit.Assert.*;
 
@@ -913,7 +915,7 @@ public class ExpressionBuilderTest {
         assertTrue(result == 7 * varX + 3 * varY - Math.pow(Math.log(varY / varX * 12), varY));
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testExpressionBuilder05() throws Exception {
         double varX = 1.3d;
         double varY = 4.22d;
