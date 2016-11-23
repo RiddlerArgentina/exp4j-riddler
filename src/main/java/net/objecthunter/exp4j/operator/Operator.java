@@ -20,42 +20,64 @@ package net.objecthunter.exp4j.operator;
  */
 public abstract class Operator {
     /**
-     * The precedence value for the addition operation
+     * The precedence value for the addition operation (default: {@value})
      */
     public static final int PRECEDENCE_ADDITION = 500;
     /**
-     * The precedence value for the subtraction operation
+     * The precedence value for the subtraction operation (default: {@value})
      */
     public static final int PRECEDENCE_SUBTRACTION = PRECEDENCE_ADDITION;
     /**
-     * The precedence value for the multiplication operation
+     * The precedence value for the multiplication operation (default: {@value})
      */
     public static final int PRECEDENCE_MULTIPLICATION = 1000;
     /**
-     * The precedence value for the division operation
+     * The precedence value for the division operation (default: {@value})
      */
     public static final int PRECEDENCE_DIVISION = PRECEDENCE_MULTIPLICATION;
     /**
-     * The precedence value for the modulo operation
+     * The precedence value for the modulo operation (default: {@value})
      */
     public static final int PRECEDENCE_MODULO = PRECEDENCE_DIVISION;
     /**
-     * The precedence value for the power operation
+     * The precedence value for the power operation (default: {@value})
      */
     public static final int PRECEDENCE_POWER = 10000;
     /**
-     * The precedence value for the unary minus operation
+     * The precedence value for the unary minus operation (default: {@value})
      */
     public static final int PRECEDENCE_UNARY_MINUS = 5000;
     /**
-     * The precedence value for the unary plus operation
+     * The precedence value for the unary plus operation (default: {@value})
      */
     public static final int PRECEDENCE_UNARY_PLUS = PRECEDENCE_UNARY_MINUS;
+    /**
+     * The precedence value for the boolean not (default: {@value})
+     */
+    public static final int PRECEDENCE_NOT = PRECEDENCE_ADDITION - 200;
+    /**
+     * The precedence value for the boolean and (default: {@value})
+     */
+    public static final int PRECEDENCE_AND = PRECEDENCE_ADDITION - 300;
+    /**
+     * The precedence value for the boolean or (default: {@value})
+     */
+    public static final int PRECEDENCE_OR  = PRECEDENCE_ADDITION - 400;
+    /**
+     * This is the threshold used to consider {@code false} values false, it has a default value
+     * of {@value}
+     */
+    public static final double BOOLEAN_THRESHOLD = 1.0E-12;
 
     /**
-     * The set of allowed operator chars
+     * The set of allowed operator chars (default: {@value})
      */
-    public static final char[] ALLOWED_OPERATOR_CHARS = { '+', '-', '*', '/', '%', '^', '!', '#','§', '$', '&', ';', ':', '~', '<', '>', '|', '='};
+    public static final char[] ALLOWED_OPERATOR_CHARS = {
+        '+', '-', '*', '/', '%', 
+        '^', '!', '#', '§', '$',
+        '&', ';', ':', '~', '<', 
+        '>', '|', '=', '¬'
+    };
 
     protected final int numOperands;
     protected final boolean leftAssociative;
@@ -66,7 +88,8 @@ public abstract class Operator {
      * Create a new operator for use in expressions
      * @param symbol the symbol of the operator
      * @param numberOfOperands the number of operands the operator takes (1 or 2)
-     * @param leftAssociative set to true if the operator is left associative, false if it is right associative
+     * @param leftAssociative set to true if the operator is left associative, false if it is right 
+     * associative
      * @param precedence the precedence value of the operator
      */
     public Operator(String symbol, int numberOfOperands, boolean leftAssociative,
