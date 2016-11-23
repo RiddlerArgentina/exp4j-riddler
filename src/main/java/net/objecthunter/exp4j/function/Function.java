@@ -24,6 +24,28 @@ public abstract class Function {
     protected final String name;
 
     protected final int numArguments;
+    
+    protected final boolean deterministic;
+
+    /**
+     * Create a new Function with a given name and number of arguments
+     * 
+     * @param name the name of the Function
+     * @param numArguments the number of arguments the function takes
+     * @param deterministic {@code true} if the function is deterministic (i.e. can be simplified)
+     * {@code false} otherwise
+     */
+    public Function(String name, int numArguments, boolean deterministic) {
+        if (numArguments < 0) {
+            throw new IllegalArgumentException("The number of function arguments can not be less than 0 for '" + name + "'");
+        }
+        if (!isValidFunctionName(name)) {
+            throw new IllegalArgumentException("The function name '" + name + "' is invalid");
+        }
+        this.name = name;
+        this.numArguments = numArguments;
+        this.deterministic = deterministic;
+    }
 
     /**
      * Create a new Function with a given name and number of arguments
@@ -32,16 +54,7 @@ public abstract class Function {
      * @param numArguments the number of arguments the function takes
      */
     public Function(String name, int numArguments) {
-        if (numArguments < 0) {
-            throw new IllegalArgumentException("The number of function arguments can not be less than 0 for '" +
-                    name + "'");
-        }
-        if (!isValidFunctionName(name)) {
-            throw new IllegalArgumentException("The function name '" + name + "' is invalid");
-        }
-        this.name = name;
-        this.numArguments = numArguments;
-
+        this(name, numArguments, true);
     }
 
     /**
@@ -51,6 +64,10 @@ public abstract class Function {
      */
     public Function(String name) {
         this(name, 1);
+    }
+    
+    public boolean isDeterministic() {
+        return deterministic;
     }
 
     /**

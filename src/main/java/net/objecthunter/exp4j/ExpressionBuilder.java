@@ -22,6 +22,7 @@ import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.shuntingyard.ShuntingYard;
+import net.objecthunter.exp4j.tokenizer.Token;
 
 /**
  * Factory class for {@link Expression} instances. This class is the main API entrypoint. Users should create new
@@ -149,6 +150,16 @@ public class ExpressionBuilder {
      * @return an {@link Expression} instance which can be used to evaluate the result of the expression
      */
     public Expression build() {
+        return build(false);
+    }
+
+    /**
+     * Build the {@link Expression} instance using the custom operators and functions set.
+     * @param simplify {@code true} if you want to attempt to simplify constants {@code false}
+     * otherwise
+     * @return an {@link Expression} instance which can be used to evaluate the result of the expression
+     */
+    public Expression build(boolean simplify) {
         if (expression.length() == 0) {
             throw new IllegalArgumentException("The expression can not be empty");
         }
@@ -163,8 +174,14 @@ public class ExpressionBuilder {
                 throw new IllegalArgumentException("A variable can not have the same name as a function [" + var + "]");
             }
         }
-        return new Expression(ShuntingYard.convertToRPN(this.expression, this.userFunctions, this.userOperators, this.variableNames),
-                this.userFunctions.keySet());
+        
+        Token[] tokens = ShuntingYard.convertToRPN(this.expression, this.userFunctions, this.userOperators, this.variableNames); 
+        
+        if (simplify) {
+            tokens = Simplifier.simplify(tokens);
+        }
+        
+        return new Expression(tokens, this.userFunctions.keySet());
     }
 
 }
