@@ -43,8 +43,10 @@ public abstract class Functions {
     private static final int INDEX_LOG10 = 19;
     private static final int INDEX_LOG2 = 20;
     private static final int INDEX_SGN = 21;
+    private static final int INDEX_PI = 22;
+    private static final int INDEX_E = 23;
 
-    private static final Function[] builtinFunctions = new Function[22];
+    private static final Function[] builtinFunctions = new Function[24];
 
     static {
         builtinFunctions[INDEX_SIN] = new Function("sin") {
@@ -185,6 +187,18 @@ public abstract class Functions {
                 }
             }
         };
+        builtinFunctions[INDEX_PI] = new Function("pi", 0) {
+            @Override
+            public double apply(double... args) {
+                return Math.PI;
+            }
+        };
+        builtinFunctions[INDEX_E] = new Function("e", 0) {
+            @Override
+            public double apply(double... args) {
+                return Math.E;
+            }
+        };
     }
     
     /**
@@ -225,6 +239,8 @@ public abstract class Functions {
             case "exp":   return builtinFunctions[INDEX_EXP];
             case "expm1": return builtinFunctions[INDEX_EXPM1];
             case "signum":return builtinFunctions[INDEX_SGN];
+            case "pi":    return builtinFunctions[INDEX_PI];
+            case "e":     return builtinFunctions[INDEX_E];
             default:
                 return null;
         }

@@ -20,7 +20,7 @@ import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
- * This class contains a small set of useful functions that don't actually fall in the 
+ * This class contains a small set of useful functions that don't really fit in the 
  * other categories.
  * 
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
