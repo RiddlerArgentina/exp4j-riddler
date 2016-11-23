@@ -1,10 +1,12 @@
- <project name="exp4j-fido" basedir="." default="main">
+ <project name="exp4j" basedir="." default="main">
 
     <property name="main.build.dir" value="build/main"/>
     <property name="main.src.dir"   value="src/main/java"/>
     <property name="test.build.dir" value="build/test"/>
     <property name="test.src.dir"   value="src/test/java"/>
+    <property name="doc.dir"        value="doc"/>
     <property name="jar.dir"        value="dist"/>
+    <property name="proj.ver"       value ="fido-0.5"/>
 
     <path id="classpath.test">
         <pathelement location="lib/junit-4.12.jar"/>
@@ -40,18 +42,19 @@
     <target name="clean">
         <delete dir="build" includeEmptyDirs="true"/>
         <delete dir="${jar.dir}" includeEmptyDirs="true"/>
+        <delete dir="${doc.dir}" includeEmptyDirs="true"/>
     </target>
 
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${main.build.dir}"></jar>
+        <jar destfile="${jar.dir}/${ant.project.name}-${proj.ver}.jar" basedir="${main.build.dir}"></jar>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>
 
     <target name="main" depends="clean,run"/>
 
-    <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
+    <path id="application" location="${jar.dir}/${ant.project.name}-${proj.ver}.jar"/>
     <target name="run" depends="jar">
         <java fork="true">
             <classpath>
@@ -71,6 +74,24 @@
                 <fileset dir="${test.dir}" includes="*Test.java"/>
             </batchtest>
         </junit>
+    </target>
+
+    <!-- Generate javadocs for current project into ${doc.dir} -->
+    <target name="doc" depends="" description="generate documentation">
+        <javadoc sourcepath="${main.src.dir}" destdir="${doc.dir}"/>
+    </target>
+
+    <target description="bundle sources in a jar" name="package-sources">
+        <mkdir dir="${jar.dir}"/>
+        <jar basedir="${main.src.dir}" destfile="${jar.dir}/${ant.project.name}-${proj.ver}-sources.jar"/>
+    </target>
+
+    <target description="bundle docs in a jar" depends="doc" name="package-docs">
+        <mkdir dir="${jar.dir}"/>
+        <jar basedir="${doc.dir}" destfile="${jar.dir}/${ant.project.name}-${proj.ver}-docs.jar"/>
+    </target>
+
+    <target description="packages everything" depends="jar,package-docs,package-sources" name="build-all">
     </target>
 
 </project>
