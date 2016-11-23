@@ -21,14 +21,16 @@ import java.util.Random;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class PerformanceTest {
 
     private static final long BENCH_TIME = 2l;
-    private static final String EXPRESSION = "log(x) - y * (sqrt(x^cos(y)))";
+    private static final String EXPRESSION = "log(x) - 2 * y * (sqrt(x^cos(y)))";
 
     @Test
+    @Ignore("Ignore for now lot's of other things to test")
     public void testBenches() throws Exception {
         StringBuffer sb = new StringBuffer();
         Formatter fmt = new Formatter(sb);
@@ -44,9 +46,15 @@ public class PerformanceTest {
         System.out.print(sb.toString());
         sb.setLength(0);
 
-         int db = benchDouble();
+        int db = benchDouble();
         double dbRate = (double) db / (double) BENCH_TIME;
         fmt.format("| %-22s | %25.2f | %22.2f %% |%n", "exp4j", dbRate, dbRate * 100 / mathRate);
+        System.out.print(sb.toString());
+        sb.setLength(0);
+
+        int sd = benchDoubleSimplify();
+        double sdRate = (double) sd / (double) BENCH_TIME;
+        fmt.format("| %-22s | %25.2f | %22.2f %% |%n", "exp4j simplified", sdRate, sdRate * 100 / mathRate);
         System.out.print(sb.toString());
         sb.setLength(0);
 
@@ -55,6 +63,25 @@ public class PerformanceTest {
         fmt.format("| %-22s | %25.2f | %22.2f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
         System.out.print(sb.toString());
+    }
+
+    private int benchDoubleSimplify() {
+        final Expression expression = new ExpressionBuilder(EXPRESSION)
+                .variables("x", "y")
+                .build();
+        double val;
+        Random rnd = new Random();
+        long timeout = BENCH_TIME;
+        long time = System.currentTimeMillis() + (1000 * timeout);
+        int count = 0;
+        while (time > System.currentTimeMillis()) {
+            expression.setVariable("x", rnd.nextDouble());
+            expression.setVariable("y", rnd.nextDouble());
+            val = expression.evaluate();
+            count++;
+        }
+        double rate = count / timeout;
+        return count;
     }
 
     private int benchDouble() {
