@@ -29,6 +29,7 @@ import java.util.concurrent.Future;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class ExpressionBuilderTest {
@@ -1574,6 +1575,7 @@ public class ExpressionBuilderTest {
     }
 
     @Test
+    @Ignore("No longer valid")
     public void testDocumentationExample4() throws Exception {
         String expr = "pi+π+e+φ";
         double expected = 2*Math.PI + Math.E + 1.61803398874d;
