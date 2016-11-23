@@ -15,6 +15,7 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class Tokenizer {
 
     private final Map<String, Operator> userOperators;
 
-    private final Set<String> variableNames;
+    private final Map<String, VariableToken> variableTokens;
 
     private int pos = 0;
 
@@ -45,7 +46,15 @@ public class Tokenizer {
         this.expressionLength = this.expression.length;
         this.userFunctions = userFunctions;
         this.userOperators = userOperators;
-        this.variableNames = variableNames;
+        
+        if (variableNames == null) {
+            variableTokens = new HashMap<>(0);
+        } else {
+            this.variableTokens = new HashMap<>(variableNames.size());
+            for (String vn : variableNames) {
+                variableTokens.put(vn, new VariableToken(vn));
+            }
+        }
     }
 
     public boolean hasNext() {
@@ -146,9 +155,9 @@ public class Tokenizer {
         while (!isEndOfExpression(testPos) &&
                 isVariableOrFunctionCharacter(expression[testPos])) {
             String name = new String(expression, offset, len);
-            if (variableNames != null && variableNames.contains(name)) {
+            if (variableTokens.containsKey(name)) {
                 lastValidLen = len;
-                lastValidToken = new VariableToken(name);
+                lastValidToken = variableTokens.get(name);
             } else {
                 final Function f = getFunction(name);
                 if (f != null) {

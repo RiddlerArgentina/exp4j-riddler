@@ -20,6 +20,8 @@ package net.objecthunter.exp4j.tokenizer;
  */
 public class VariableToken extends Token {
     private final String name;
+    private boolean valueSet;
+    private double value;
 
     /**
      * Get the name of the setVariable
@@ -36,5 +38,30 @@ public class VariableToken extends Token {
     public VariableToken(String name) {
         super(TOKEN_VARIABLE);
         this.name = name;
+    }
+    
+    /**
+     * Retrieves the currently assigned value for this Variable
+     * @return value
+     */
+    public double getValue() {
+        return value;
+    }
+    
+    /**
+     * Sets a new value for this Variable
+     * @param value new value for this variable
+     */
+    public void setValue(double value) {
+        this.value = value;
+        valueSet = true;
+    }
+    
+    /**
+     * Tells if a value has been set for this variable
+     * @return {@code true} if a value has been set, and {@code false} otherwise
+     */
+    public boolean isValueSet() {
+        return valueSet;
     }
 }

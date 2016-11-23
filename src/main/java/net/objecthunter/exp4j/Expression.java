@@ -40,10 +40,9 @@ public class Expression {
 
     private final Token[] tokens;
 
-    private final Map<String, Double> variables = new HashMap<>();
-
     private final Set<String> userFunctionNames;
     
+    private final HashMap<String, VariableToken> variables = new HashMap<>(4);
     /**
      * Creates a new expression that is a copy of the existing one.
      * 
@@ -51,23 +50,33 @@ public class Expression {
      */
     public Expression(final Expression existing) {
     	this.tokens = Arrays.copyOf(existing.tokens, existing.tokens.length);
-    	this.variables.putAll(existing.variables);
     	this.userFunctionNames = new HashSet<>(existing.userFunctionNames);
+        populateVariablesMap();
     }
 
     Expression(final Token[] tokens) {
         this.tokens = tokens;
         this.userFunctionNames = Collections.<String>emptySet();
+        populateVariablesMap();
     }
 
     Expression(final Token[] tokens, Set<String> userFunctionNames) {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
+        populateVariablesMap();
     }
 
+    private void populateVariablesMap() {
+        for (final Token t: tokens) {
+            if (t.getType() == Token.TOKEN_VARIABLE) {
+                variables.put(((VariableToken)t).getName(), (VariableToken)t);
+            }
+        }
+    }
+    
     public Expression setVariable(final String name, final double value) {
         this.checkVariableName(name);
-        this.variables.put(name, value);
+        variables.get(name).setValue(value);
         return this;
     }
 
@@ -87,26 +96,32 @@ public class Expression {
         return this;
     }
 
+    /**
+     * Retrieves a {@link Set} containing all the variable names
+     * 
+     * @return variable names
+     */
     public Set<String> getVariableNames() {
-        final Set<String> variables = new HashSet<>();
-        for (final Token t: tokens) {
-            if (t.getType() == Token.TOKEN_VARIABLE) {
-                variables.add(((VariableToken)t).getName());
-            }
-        }
-        return variables;
+        return variables.keySet();
+    }
+
+    /**
+     * Tells if a variable exists in the expression
+     * 
+     * @param name variable name
+     * @return {@code true} if the variable exists and {@code false} otherwise
+     */
+    public boolean containsVariable(String name) {
+        return variables.containsKey(name);
     }
 
     public ValidationResult validate(boolean checkVariablesSet) {
         final List<String> errors = new ArrayList<>(0);
         if (checkVariablesSet) {
             /* check that all vars have a value set */
-            for (final Token t : this.tokens) {
-                if (t.getType() == Token.TOKEN_VARIABLE) {
-                    final String var = ((VariableToken) t).getName();
-                    if (!variables.containsKey(var)) {
-                        errors.add("The setVariable '" + var + "' has not been set");
-                    }
+            for (VariableToken vt : variables.values()) {
+                if (!vt.isValueSet()) {
+                    errors.add("The setVariable '" + vt.getName() + "' has not been set");
                 }
             }
         }
@@ -175,14 +190,13 @@ public class Expression {
             if (t.getType() == Token.TOKEN_NUMBER) {
                 output.push(((NumberToken) t).getValue());
             } else if (t.getType() == Token.TOKEN_VARIABLE) {
-                final String name = ((VariableToken) t).getName();
-                final Double value = this.variables.get(name);
-                if (value == null) {
+                final VariableToken vt = (VariableToken)t;
+                if (!vt.isValueSet()) {
                     throw new IllegalArgumentException(
-                            "No value has been set for the setVariable '" + name + "'."
+                            "No value has been set for the setVariable '" + vt.getName() + "'."
                     );
                 }
-                output.push(value);
+                output.push(vt.getValue());
             } else if (t.getType() == Token.TOKEN_OPERATOR) {
                 OperatorToken op = (OperatorToken) t;
                 if (output.size() < op.getOperator().getNumOperands()) {
