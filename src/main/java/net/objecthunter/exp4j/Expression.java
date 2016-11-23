@@ -87,6 +87,9 @@ public class Expression {
                   + "there exists a function with the same name"
             );
         }
+        if (!variables.containsKey(name)) {
+            throw new IllegalArgumentException("Variable '" + name + "' doesn't exist.");
+        }
     }
 
     public Expression setVariables(Map<String, Double> variables) {
