@@ -331,16 +331,15 @@ public class OperatorsComparisonTest {
 
     @Test
     public void testDocExample() {
-        String expr1 = "a + b * c > d / e & f < g == (((a + (b * c)) > (d / e)) & (f < g))";
+        String expr1 = "a + b * c > d / a & f < g == (((a + (b * c)) > (d / a)) & (f < g))";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operator(OperatorsComparison.getOperators())
-                .variables("a", "b", "c", "d", "e", "f", "g")
+                .variables("a", "b", "c", "d", "f", "g")
                 .build();
         e1.setVariable("a", Math.random());
         e1.setVariable("b", Math.random());
         e1.setVariable("c", Math.random());
         e1.setVariable("d", Math.random());
-        e1.setVariable("e", Math.random());
         e1.setVariable("f", Math.random());
         e1.setVariable("g", Math.random());
         assertEquals(1, e1.evaluate(), 0d);
@@ -348,27 +347,26 @@ public class OperatorsComparisonTest {
 
     @Test
     public void testDocExample2() {
-        String expr1 = "a + b * c > d / e & f < g == (((a + (b * c)) > (d / e)) & (f < g))";
-        String expr2 = "((a + b * c > d / e & f < g) == (((a + (b * c)) > (d / e)) & (f < g)))";
-        String expr3 = "a + b * c > d / e & f < g == a + b * c > d / e & f < g";
+        String expr1 = "a + b * c > d / a & f < g == (((a + (b * c)) > (d / a)) & (f < g))";
+        String expr2 = "((a + b * c > d / a & f < g) == (((a + (b * c)) > (d / a)) & (f < g)))";
+        String expr3 = "a + b * c > d / a & f < g == a + b * c > d / a & f < g";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operator(OperatorsComparison.getOperators())
-                .variables("a", "b", "c", "d", "e", "f", "g")
+                .variables("a", "b", "c", "d", "f", "g")
                 .build();
         Expression e2 = new ExpressionBuilder(expr2)
                 .operator(OperatorsComparison.getOperators())
-                .variables("a", "b", "c", "d", "e", "f", "g")
+                .variables("a", "b", "c", "d", "f", "g")
                 .build();
         Expression e3 = new ExpressionBuilder(expr3)
                 .operator(OperatorsComparison.getOperators())
-                .variables("a", "b", "c", "d", "e", "f", "g")
+                .variables("a", "b", "c", "d", "f", "g")
                 .build();
         HashMap<String, Double> vars = new HashMap<>(7);
         vars.put("a", Math.random());
         vars.put("b", Math.random());
         vars.put("c", Math.random());
         vars.put("d", Math.random());
-        vars.put("e", Math.random());
         vars.put("f", Math.random());
         vars.put("g", Math.random());
         e1.setVariables(vars);
