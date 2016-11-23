@@ -15,6 +15,8 @@
 */
 package net.objecthunter.exp4j.operator;
 
+import java.util.Arrays;
+
 import static net.objecthunter.exp4j.operator.Operator.*;
 
 /**
@@ -126,6 +128,10 @@ public abstract class Operators {
                 return (Math.abs(args[0]) < BOOLEAN_THRESHOLD) ? 1 : 0;
             }
         };
+    }
+    
+    public static Operator[] getOperators() {
+        return Arrays.copyOf(builtinOperators, builtinOperators.length);
     }
 
     public static Operator getBuiltinOperator(final char symbol, final int numArguments) {

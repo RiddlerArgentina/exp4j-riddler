@@ -15,6 +15,8 @@
 */
 package net.objecthunter.exp4j.function;
 
+import java.util.Arrays;
+
 /**
  * Class representing the builtin functions available for use in expressions
  */
@@ -184,14 +186,22 @@ public abstract class Functions {
             }
         };
     }
+    
+    /**
+     * Retrieves all the functions in this class
+     * 
+     * @return function list
+     */
+    public static Function[] getFunctions() {
+        return Arrays.copyOf(builtinFunctions, builtinFunctions.length);
+    }
 
     /**
      * Get the builtin function for a given name
-     * @param name te name of the function
+     * @param name the name of the function
      * @return a Function instance
      */
     public static Function getBuiltinFunction(final String name) {
-
         switch (name) {
             case "sin":   return builtinFunctions[INDEX_SIN];
             case "cos":   return builtinFunctions[INDEX_COS];

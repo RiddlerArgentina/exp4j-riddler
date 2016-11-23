@@ -115,4 +115,18 @@ public class OperatorsComparison {
     public static Operator[] getOperators() {
         return Arrays.copyOf(OPERATORS, OPERATORS.length);
     }
+    
+    public static Operator getOperator(final String symbol) {
+        switch(symbol) {
+            case ">":  return OPERATORS[INDEX_OP_GT];
+            case ">=": return OPERATORS[INDEX_OP_GOE];
+            case "<":  return OPERATORS[INDEX_OP_LT];
+            case "<=": return OPERATORS[INDEX_OP_LOE];
+            case "==": return OPERATORS[INDEX_OP_EQU];
+            case "!=": return OPERATORS[INDEX_OP_NEQ];
+            default:
+                return null;
+        }
+    }
+
 }
