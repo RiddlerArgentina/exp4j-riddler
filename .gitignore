@@ -1,6 +1,26 @@
-.*
-target/
-*.iml
-*.log
-!.gitignore
-dependency-reduced-pom.xml
+# Ignore compiled sources #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Ignore Backup Files #
+*~
+*.bak
+*.old
+# Ignore Dolphin files
+*.directory
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+# Ignore Netbeans Folders #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
