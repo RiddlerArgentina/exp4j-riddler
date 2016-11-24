@@ -33,7 +33,7 @@ public abstract class Token {
         this.type = type;
     }
 
-    public int getType() {
+    public final int getType() {
         return type;
     }
 
