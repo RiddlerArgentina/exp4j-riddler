@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package net.objecthunter.exp4j;
+package net.objecthunter.exp4j.shuntingyard;
 
 import java.util.Stack;
 import net.objecthunter.exp4j.operator.Operator;
@@ -28,7 +28,7 @@ import net.objecthunter.exp4j.tokenizer.Token;
  */
 class Simplifier {
     public static Token[] simplify (Token[] tokens) {        
-        final Stack<Token> output = new Stack<>();
+        final TokenStack output = new TokenStack(tokens.length);
         for (Token t : tokens) {
             switch(t.getType()) {
                 case Token.TOKEN_NUMBER:
@@ -112,7 +112,7 @@ class Simplifier {
             }
         }
         
-        return output.toArray(new Token[output.size()]);
+        return output.toArray();
     }
     
     private static double[] reverseInPlace(Token[] args) {

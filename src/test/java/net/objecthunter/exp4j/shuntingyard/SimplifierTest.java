@@ -13,17 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License. 
  */
-package net.objecthunter.exp4j;
+package net.objecthunter.exp4j.shuntingyard;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+import net.objecthunter.exp4j.ValidationResult;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
-import net.objecthunter.exp4j.shuntingyard.ShuntingYard;
 import net.objecthunter.exp4j.tokenizer.NumberToken;
 import net.objecthunter.exp4j.tokenizer.Token;
 import org.junit.Test;
@@ -36,6 +38,34 @@ import static org.junit.Assert.*;
  */
 public class SimplifierTest {
 
+    @Test
+    public void testSimplifierFlag() {
+        final String expression = "2.5333333333/2 * 17.41 + (12*2)^(log(2.764) - sin(5.6664))";
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        final Set<String> variableNames = new HashSet<>(4);
+
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+
+        final Token[] stokens = ShuntingYard.convertToRPN(
+                true,
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+
+        assertEquals(1, stokens.length);
+        assertTrue(tokens.length > stokens.length);
+        assertEquals(Simplifier.simplify(tokens).length, stokens.length);
+    }
+    
     @Test
     public void testResult1() {
         Expression e = new ExpressionBuilder("2^3 + 4 / 2").build();
@@ -152,6 +182,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -163,8 +194,8 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -179,6 +210,7 @@ public class SimplifierTest {
         userFunctions.put(PI.getName(), PI);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -190,8 +222,8 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -207,6 +239,7 @@ public class SimplifierTest {
         variableNames.add("x");
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -218,12 +251,9 @@ public class SimplifierTest {
         assertEquals(3, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens)
-                                    .setVariable("x", 1)
-                                    .evaluate();
-        final double actual   = new Expression(stokens)
-                                    .setVariable("x", 1)
-                                    .evaluate();
+
+        final double expected = new ExpressionBuilder(expression).variable("x").build().setVariable("x", 1).evaluate();
+        final double actual   = new ExpressionBuilder(expression).variable("x").build(true).setVariable("x", 1).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -236,6 +266,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -247,8 +278,8 @@ public class SimplifierTest {
         assertEquals(1,  stokens.length);
         assertEquals(27, tokens .length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -261,6 +292,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
         
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -272,8 +304,8 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -288,6 +320,7 @@ public class SimplifierTest {
         variableNames.add("x");
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -299,12 +332,8 @@ public class SimplifierTest {
         assertTrue(stokens.length > 0);
         assertEquals(tokens.length, stokens.length);
 
-        final double expected = new Expression(tokens)
-                                    .setVariable("x", 4)
-                                    .evaluate();
-        final double actual   = new Expression(stokens)
-                                    .setVariable("x", 4)
-                                    .evaluate();
+        final double expected = new ExpressionBuilder(expression).variable("x").build().setVariable("x", 4).evaluate();
+        final double actual   = new ExpressionBuilder(expression).variable("x").build(true).setVariable("x", 4).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -317,6 +346,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
         
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -328,8 +358,8 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -344,6 +374,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
         
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -355,8 +386,8 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
 
-        final double expected = new Expression(tokens).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression).build().evaluate();
+        final double actual   = new ExpressionBuilder(expression).build(true).evaluate();
 
         assertEquals(expected, actual, 0d);
     }
@@ -379,6 +410,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -398,6 +430,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -438,6 +471,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -451,8 +485,14 @@ public class SimplifierTest {
         assertNotEquals(tokens.length, stokens.length);
 
         final double real     = 0;
-        final double expected = new Expression(tokens ).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .build().evaluate();
+        final double actual   = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .build(true).evaluate();
         assertEquals(real, expected, 0d);
         assertEquals(expected, actual, 0d);
         assertEquals(actual, real, 0d);
@@ -469,6 +509,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -482,8 +523,16 @@ public class SimplifierTest {
         assertNotEquals(tokens.length, stokens.length);
 
         final double real     = Math.E;
-        final double expected = new Expression(tokens ).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
+        final double expected = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .build().evaluate();
+        final double actual   = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .build(true).evaluate();
         assertEquals(real, expected, 0d);
         assertEquals(expected, actual, 0d);
         assertEquals(actual, real, 0d);
@@ -501,6 +550,7 @@ public class SimplifierTest {
         variableNames.add("a");
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -515,8 +565,18 @@ public class SimplifierTest {
         assertNotEquals(tokens.length, stokens.length);
 
         final double real     = Math.PI;
-        final double expected = new Expression(tokens ).setVariable("a", 0).evaluate();
-        final double actual   = new Expression(stokens).setVariable("a", 0).evaluate();
+        final double expected = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .variable("a")
+                                            .build().setVariable("a", Math.random()).evaluate();
+        final double actual   = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .variable("a")
+                                            .build(true).setVariable("a", Math.random()).evaluate();
         assertEquals(real, expected, 0d);
         assertEquals(expected, actual, 0d);
         assertEquals(actual, real, 0d);
@@ -534,6 +594,7 @@ public class SimplifierTest {
         variableNames.add("a");
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -548,8 +609,18 @@ public class SimplifierTest {
         assertNotEquals(tokens.length, stokens.length);
 
         final double real     = 0;
-        final double expected = new Expression(tokens ).setVariable("a", 0).evaluate();
-        final double actual   = new Expression(stokens).setVariable("a", 0).evaluate();
+        final double expected = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .variable("a")
+                                            .build().setVariable("a", 0).evaluate();
+        final double actual   = new ExpressionBuilder(expression)
+                                            .operator(OperatorsComparison.getOperator(">"))
+                                            .operator(OperatorsComparison.getOperator("<"))
+                                            .function(FunctionsMisc.getFunction("if"))
+                                            .variable("a")
+                                            .build(true).setVariable("a", 0).evaluate();
         assertEquals(real, expected, 0d);
         assertEquals(expected, actual, 0d);
         assertEquals(actual, real, 0d);
@@ -566,6 +637,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -577,10 +649,12 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertEquals(tokens.length, stokens.length);
 
-        final double expected = new Expression(tokens ).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
-        final double actual2  = new Expression(stokens).evaluate();
-        final double actual3  = new Expression(stokens).evaluate();
+        Expression exp1 = new ExpressionBuilder(expression).function(RAND_ND).build();
+        Expression exp2 = new ExpressionBuilder(expression).function(RAND_ND).build(true);
+        final double expected = exp1.evaluate();
+        final double actual   = exp2.evaluate();
+        final double actual2  = exp2.evaluate();
+        final double actual3  = exp2.evaluate();
         
         //Since the function is marked as 'non-deterministic' the simplifier 
         //will treat it as a variable, so the value should be different every 
@@ -603,6 +677,7 @@ public class SimplifierTest {
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
                 expression,
                 userFunctions,
                 userOperators,
@@ -614,10 +689,12 @@ public class SimplifierTest {
         assertEquals(1, stokens.length);
         assertEquals(tokens.length, stokens.length);
 
-        final double expected = new Expression(tokens ).evaluate();
-        final double actual   = new Expression(stokens).evaluate();
-        final double actual2  = new Expression(stokens).evaluate();
-        final double actual3  = new Expression(stokens).evaluate();
+        Expression exp1 = new ExpressionBuilder(expression).function(RAND_D).build();
+        Expression exp2 = new ExpressionBuilder(expression).function(RAND_D).build(true);
+        final double expected = exp1.evaluate();
+        final double actual   = exp2.evaluate();
+        final double actual2  = exp2.evaluate();
+        final double actual3  = exp2.evaluate();
 
         //Since the function is marked as 'deterministic' the optimization will
         //replace it with it's value, so every time it's evaluated it should 
