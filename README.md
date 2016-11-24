@@ -5,7 +5,7 @@ most likely create problems for regular `exp4j` users.
 
 I will change this fork to fit my specific needs, please use the original
 `exp4j` which will always have the latest features, and it will be more stable,
-updated, backwards compatible and small (this is one already in ~55kb).
+updated, backwards compatible and small (this one is already ~55kb).
 
 `exp4j`
 -----
