@@ -57,7 +57,9 @@ public class ShuntingYard {
                     output.add(stack.pop());
                 }
                 if (stack.empty() || stack.peek().getType() != Token.TOKEN_PARENTHESES_OPEN) {
-                    throw new IllegalArgumentException("Misplaced function separator ',' or mismatched parentheses");
+                    throw new IllegalArgumentException(
+                        "Misplaced function separator ',' or mismatched parentheses"
+                    );
                 }
                 break;
             case Token.TOKEN_OPERATOR:
@@ -88,13 +90,18 @@ public class ShuntingYard {
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unknown Token type encountered. This should not happen");
+                throw new IllegalArgumentException(
+                    "Unknown Token type encountered. This should not happen"
+                );
             }
         }
         while (!stack.empty()) {
             Token t = stack.pop();
-            if (t.getType() == Token.TOKEN_PARENTHESES_CLOSE || t.getType() == Token.TOKEN_PARENTHESES_OPEN) {
-                throw new IllegalArgumentException("Mismatched parentheses detected. Please check the expression");
+            if (t.getType() == Token.TOKEN_PARENTHESES_CLOSE || 
+                t.getType() == Token.TOKEN_PARENTHESES_OPEN) {
+                throw new IllegalArgumentException(
+                    "Mismatched parentheses detected. Please check the expression"
+                );
             } else {
                 output.add(t);
             }

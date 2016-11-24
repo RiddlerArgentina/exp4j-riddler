@@ -82,13 +82,13 @@ public class Expression {
 
     private void checkVariableName(String name) {
         if (this.userFunctionNames.contains(name) || Functions.getBuiltinFunction(name) != null) {
-            throw new IllegalArgumentException(
-                    "The variable name '" + name + "' is invalid. Since "
-                  + "there exists a function with the same name"
-            );
+            throw new IllegalArgumentException(String.format(
+                    "The variable name '%s' is invalid. Since "
+                  + "there exists a function with the same name", name
+            ));
         }
         if (!variables.containsKey(name)) {
-            throw new IllegalArgumentException("Variable '" + name + "' doesn't exist.");
+            throw new IllegalArgumentException(String.format("Variable '%s' doesn't exist.", name));
         }
     }
 
@@ -124,7 +124,7 @@ public class Expression {
             /* check that all vars have a value set */
             for (VariableToken vt : variables.values()) {
                 if (!vt.isValueSet()) {
-                    errors.add("The setVariable '" + vt.getName() + "' has not been set");
+                    errors.add(String.format("The setVariable '%s' has not been set", vt.getName()));
                 }
             }
         }
@@ -146,7 +146,7 @@ public class Expression {
                     final Function func = ((FunctionToken) tok).getFunction();
                     final int argsNum = func.getNumArguments(); 
                     if (argsNum > count) {
-                        errors.add("Not enough arguments for '" + func.getName() + "'");
+                        errors.add(String.format("Not enough arguments for '%s'", func.getName()));
                     }
                     if (argsNum > 1) {
                         count -= argsNum - 1;
@@ -195,18 +195,17 @@ public class Expression {
             } else if (t.getType() == Token.TOKEN_VARIABLE) {
                 final VariableToken vt = (VariableToken)t;
                 if (!vt.isValueSet()) {
-                    throw new IllegalArgumentException(
-                            "No value has been set for the setVariable '" + vt.getName() + "'."
-                    );
+                    throw new IllegalArgumentException(String.format(
+                            "No value has been set for variable '%s'", vt.getName()
+                    ));
                 }
                 output.push(vt.getValue());
             } else if (t.getType() == Token.TOKEN_OPERATOR) {
                 OperatorToken op = (OperatorToken) t;
                 if (output.size() < op.getOperator().getNumOperands()) {
-                    throw new IllegalArgumentException(
-                            "Invalid number of operands available for '" 
-                           + op.getOperator().getSymbol() + "' operator"
-                    );
+                    throw new IllegalArgumentException(String.format(
+                        "Invalid number of operands available for '%s' operator", op.getOperator().getSymbol()
+                    ));
                 }
                 if (op.getOperator().getNumOperands() == 2) {
                     /* pop the operands and push the result of the operation */
@@ -222,10 +221,9 @@ public class Expression {
                 FunctionToken func = (FunctionToken) t;
                 final int numArguments = func.getFunction().getNumArguments();
                 if (output.size() < numArguments) {
-                    throw new IllegalArgumentException(
-                            "Invalid number of arguments available for '" 
-                           + func.getFunction().getName() + "' function"
-                    );
+                    throw new IllegalArgumentException(String.format(
+                        "Invalid number of arguments available for '%s' function", func.getFunction().getName()
+                    ));
                 }
                 /* collect the arguments from the stack */
                 double[] args = new double[numArguments];

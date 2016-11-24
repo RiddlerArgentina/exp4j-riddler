@@ -42,9 +42,7 @@ class Simplifier {
                     final Operator operator = op.getOperator();
                     
                     if (output.size()  < operator.getNumOperands()) {
-                        throw new IllegalArgumentException(
-                                "Invalid number of operands available"
-                        );
+                        throw new IllegalArgumentException("Invalid number of operands available");
                     }
 
                     if (operator.getNumOperands() == 2) {
@@ -89,9 +87,7 @@ class Simplifier {
                         //If this were to work correctly there's a chance of
                         //IllegalArgumentException when build() is called, and
                         //that might break currently existing applications.
-                        throw new IllegalArgumentException(
-                                "Invalid number of arguments available"
-                        );
+                        throw new IllegalArgumentException("Invalid number of arguments available");
                     }
                     
                     //collect the arguments from the stack

@@ -37,10 +37,14 @@ public abstract class Function {
      */
     public Function(String name, int numArguments, boolean deterministic) {
         if (numArguments < 0) {
-            throw new IllegalArgumentException("The number of function arguments can not be less than 0 for '" + name + "'");
+            throw new IllegalArgumentException(String.format(
+                "The number of function arguments can not be less than 0 for '%s'", name
+            ));
         }
         if (!isValidFunctionName(name)) {
-            throw new IllegalArgumentException("The function name '" + name + "' is invalid");
+            throw new IllegalArgumentException(String.format(
+                "Function name '%s' is invalid", name
+            ));
         }
         this.name = name;
         this.numArguments = numArguments;
@@ -100,8 +104,9 @@ public abstract class Function {
      * Get the set of characters which are allowed for use in Function names.
      * 
      * @return the set of characters allowed
-     * @deprecated since 0.4.5 All unicode letters are allowed to be used in function names since 0.4.3. This API
-     *             Function can be safely ignored. Checks for function name validity can be done using Character.isLetter() et al.
+     * @deprecated since 0.4.5 All unicode letters are allowed to be used in function names since
+     * 0.4.3. This API Function can be safely ignored. Checks for function name validity can be done 
+     * using Character#isLetter() et al.
      */
     public static char[] getAllowedFunctionCharacters() {
         char[] chars = new char[53];

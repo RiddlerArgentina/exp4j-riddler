@@ -17,11 +17,13 @@ public class UnknownFunctionOrVariableException extends IllegalArgumentException
 	private final String token;
 	private final int position;
 
-	public UnknownFunctionOrVariableException(String expression, int position, int length) {
-		this.expression = expression;
-		this.token = token(expression, position, length);
+	public UnknownFunctionOrVariableException(String exp, int position, int length) {
+		this.expression = exp;
+		this.token = token(exp, position, length);
 		this.position = position;
-		this.message = "Unknown function or variable '" + token + "' at pos " + position + " in expression '" + expression + "'";
+		this.message = String.format(
+            "Unknown function or variable '%s' at pos %d in expression '%s'", token, position, exp
+        );
 	}
 
 	private static String token(String expression, int position, int length) {

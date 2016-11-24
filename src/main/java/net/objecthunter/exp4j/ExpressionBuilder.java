@@ -126,7 +126,9 @@ public class ExpressionBuilder {
         String name = op.getSymbol();
         for (char ch : name.toCharArray()) {
             if (!Operator.isAllowedOperatorChar(ch)) {
-                throw new IllegalArgumentException("The operator symbol '" + name + "' is invalid");
+                throw new IllegalArgumentException(String.format(
+                    "The operator symbol '%s' is invalid", name
+                ));
             }
         }
     }
@@ -181,9 +183,9 @@ public class ExpressionBuilder {
         /* Check if there are duplicate vars/functions */
         for (String var : variableNames) {
             if (Functions.getBuiltinFunction(var) != null || userFunctions.containsKey(var)) {
-                throw new IllegalArgumentException(
-                        "A variable can not have the same name as a function [" + var + "]"
-                );
+                throw new IllegalArgumentException(String.format(
+                    "A variable can not have the same name as a function [%s]", var
+                ));
             }
         }
         
