@@ -49,40 +49,40 @@ public abstract class Operators {
     private static final int INDEX_OP_OR  = 9;
     private static final int INDEX_OP_NOT = 10;
     
-    private static final Operator[] builtinOperators = new Operator[11];
+    private static final Operator[] BUILTIN = new Operator[11];
 
     static {
-        builtinOperators[INDEX_ADDITION]= new Operator("+", 2, true, PRECEDENCE_ADDITION) {
+        BUILTIN[INDEX_ADDITION]= new Operator("+", 2, true, PRECEDENCE_ADDITION) {
             @Override
             public double apply(final double... args) {
                 return args[0] + args[1];
             }
         };
-        builtinOperators[INDEX_SUBTRACTION]= new Operator("-", 2, true, PRECEDENCE_ADDITION) {
+        BUILTIN[INDEX_SUBTRACTION]= new Operator("-", 2, true, PRECEDENCE_ADDITION) {
             @Override
             public double apply(final double... args) {
                 return args[0] - args[1];
             }
         };
-        builtinOperators[INDEX_UNARYMINUS]= new Operator("-", 1, false, PRECEDENCE_UNARY_MINUS) {
+        BUILTIN[INDEX_UNARYMINUS]= new Operator("-", 1, false, PRECEDENCE_UNARY_MINUS) {
             @Override
             public double apply(final double... args) {
                 return -args[0];
             }
         };
-        builtinOperators[INDEX_UNARYPLUS]= new Operator("+", 1, false, PRECEDENCE_UNARY_PLUS) {
+        BUILTIN[INDEX_UNARYPLUS]= new Operator("+", 1, false, PRECEDENCE_UNARY_PLUS) {
             @Override
             public double apply(final double... args) {
                 return args[0];
             }
         };
-        builtinOperators[INDEX_MUTLIPLICATION]= new Operator("*", 2, true, PRECEDENCE_MULTIPLICATION) {
+        BUILTIN[INDEX_MUTLIPLICATION]= new Operator("*", 2, true, PRECEDENCE_MULTIPLICATION) {
             @Override
             public double apply(final double... args) {
                 return args[0] * args[1];
             }
         };
-        builtinOperators[INDEX_DIVISION]= new Operator("/", 2, true, PRECEDENCE_DIVISION) {
+        BUILTIN[INDEX_DIVISION]= new Operator("/", 2, true, PRECEDENCE_DIVISION) {
             @Override
             public double apply(final double... args) {
                 if (args[1] == 0d) {
@@ -91,13 +91,13 @@ public abstract class Operators {
                 return args[0] / args[1];
             }
         };
-        builtinOperators[INDEX_POWER]= new Operator("^", 2, false, PRECEDENCE_POWER) {
+        BUILTIN[INDEX_POWER]= new Operator("^", 2, false, PRECEDENCE_POWER) {
             @Override
             public double apply(final double... args) {
                 return Math.pow(args[0], args[1]);
             }
         };
-        builtinOperators[INDEX_MODULO]= new Operator("%", 2, true, PRECEDENCE_MODULO) {
+        BUILTIN[INDEX_MODULO]= new Operator("%", 2, true, PRECEDENCE_MODULO) {
             @Override
             public double apply(final double... args) {
                 if (args[1] == 0d) {
@@ -106,7 +106,7 @@ public abstract class Operators {
                 return args[0] % args[1];
             }
         };
-        builtinOperators[INDEX_OP_AND]= new Operator("&", 2, true, PRECEDENCE_AND) {
+        BUILTIN[INDEX_OP_AND]= new Operator("&", 2, true, PRECEDENCE_AND) {
             @Override
             public double apply(final double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -114,7 +114,7 @@ public abstract class Operators {
                 return (a & b) ? 1 : 0;
             }
         };
-        builtinOperators[INDEX_OP_OR]= new Operator("|", 2, true, PRECEDENCE_OR) {
+        BUILTIN[INDEX_OP_OR]= new Operator("|", 2, true, PRECEDENCE_OR) {
             @Override
             public double apply(final double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -122,7 +122,7 @@ public abstract class Operators {
                 return (a | b) ? 1 : 0;
             }
         };
-        builtinOperators[INDEX_OP_NOT]= new Operator("¬", 1, false, PRECEDENCE_NOT) {
+        BUILTIN[INDEX_OP_NOT]= new Operator("¬", 1, false, PRECEDENCE_NOT) {
             @Override
             public double apply(final double... args) {
                 return (Math.abs(args[0]) < BOOLEAN_THRESHOLD) ? 1 : 0;
@@ -131,30 +131,30 @@ public abstract class Operators {
     }
     
     public static Operator[] getOperators() {
-        return Arrays.copyOf(builtinOperators, builtinOperators.length);
+        return Arrays.copyOf(BUILTIN, BUILTIN.length);
     }
 
     public static Operator getBuiltinOperator(final char symbol, final int numArguments) {
         switch(symbol) {
             case '+':
                 if (numArguments != 1) {
-                    return builtinOperators[INDEX_ADDITION];
+                    return BUILTIN[INDEX_ADDITION];
                 } else{
-                    return builtinOperators[INDEX_UNARYPLUS];
+                    return BUILTIN[INDEX_UNARYPLUS];
                 }
             case '-':
                 if (numArguments != 1) {
-                    return builtinOperators[INDEX_SUBTRACTION];
+                    return BUILTIN[INDEX_SUBTRACTION];
                 } else{
-                    return builtinOperators[INDEX_UNARYMINUS];
+                    return BUILTIN[INDEX_UNARYMINUS];
                 }
-            case '*': return builtinOperators[INDEX_MUTLIPLICATION];
-            case '/': return builtinOperators[INDEX_DIVISION];
-            case '^': return builtinOperators[INDEX_POWER];
-            case '%': return builtinOperators[INDEX_MODULO];
-            case '&': return builtinOperators[INDEX_OP_AND];
-            case '|': return builtinOperators[INDEX_OP_OR];
-            case '¬': return builtinOperators[INDEX_OP_NOT];
+            case '*': return BUILTIN[INDEX_MUTLIPLICATION];
+            case '/': return BUILTIN[INDEX_DIVISION];
+            case '^': return BUILTIN[INDEX_POWER];
+            case '%': return BUILTIN[INDEX_MODULO];
+            case '&': return BUILTIN[INDEX_OP_AND];
+            case '|': return BUILTIN[INDEX_OP_OR];
+            case '¬': return BUILTIN[INDEX_OP_NOT];
             default:
                 return null;
         }
