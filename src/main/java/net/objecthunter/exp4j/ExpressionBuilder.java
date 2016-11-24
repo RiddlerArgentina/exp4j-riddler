@@ -16,7 +16,6 @@
 
 package net.objecthunter.exp4j;
 
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -190,15 +189,12 @@ public class ExpressionBuilder {
         }
         
         Token[] tokens = ShuntingYard.convertToRPN(
+                simplify,
                 this.expression, 
                 this.userFunctions,
                 this.userOperators,
                 this.variableNames
         ); 
-        
-        if (simplify) {
-            tokens = Simplifier.simplify(tokens);
-        }
         
         return new Expression(tokens, this.userFunctions.keySet());
     }
