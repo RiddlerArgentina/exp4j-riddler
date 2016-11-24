@@ -100,27 +100,6 @@ public abstract class Function {
      */
     public abstract double apply(double... args);
 
-    /**
-     * Get the set of characters which are allowed for use in Function names.
-     * 
-     * @return the set of characters allowed
-     * @deprecated since 0.4.5 All unicode letters are allowed to be used in function names since
-     * 0.4.3. This API Function can be safely ignored. Checks for function name validity can be done 
-     * using Character#isLetter() et al.
-     */
-    public static char[] getAllowedFunctionCharacters() {
-        char[] chars = new char[53];
-        int count = 0;
-        for (int i = 65; i < 91; i++) {
-            chars[count++] = (char) i;
-        }
-        for (int i = 97; i < 123; i++) {
-            chars[count++] = (char) i;
-        }
-        chars[count] = '_';
-        return chars;
-    }
-
     public static boolean isValidFunctionName(final String name) {
         if (name == null) {
             return false;
