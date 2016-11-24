@@ -38,8 +38,8 @@ public class ShuntingYard {
      */
     public static Token[] convertToRPN(final String expression, final Map<String, Function> userFunctions,
             final Map<String, Operator> userOperators, final Set<String> variableNames){
-        final Stack<Token> stack = new Stack<Token>();
-        final List<Token> output = new ArrayList<Token>();
+        final Stack<Token> stack = new Stack<>();
+        final List<Token> output = new ArrayList<>();
 
         final Tokenizer tokenizer = new Tokenizer(expression, userFunctions, userOperators, variableNames);
         while (tokenizer.hasNext()) {
@@ -64,14 +64,14 @@ public class ShuntingYard {
                 break;
             case Token.TOKEN_OPERATOR:
                 while (!stack.empty() && stack.peek().getType() == Token.TOKEN_OPERATOR) {
-                    OperatorToken o1 = (OperatorToken) token;
-                    OperatorToken o2 = (OperatorToken) stack.peek();
-                    if (o1.getOperator().getNumOperands() == 1 && o2.getOperator().getNumOperands() == 2) {
+                    final Operator o1 = ((OperatorToken) token).getOperator();
+                    final Operator o2 = ((OperatorToken) stack.peek()).getOperator();
+                    if (o1.getNumOperands() == 1 && o2.getNumOperands() == 2) {
                         break;
-                    } else if ((o1.getOperator().isLeftAssociative() && o1.getOperator().getPrecedence() <= o2.getOperator().getPrecedence())
-                            || (o1.getOperator().getPrecedence() < o2.getOperator().getPrecedence())) {
+                    } else if ((o1.isLeftAssociative() && o1.getPrecedence() <= o2.getPrecedence())
+                            || (o1.getPrecedence() < o2.getPrecedence())) {
                         output.add(stack.pop());
-                    }else {
+                    } else {
                         break;
                     }
                 }

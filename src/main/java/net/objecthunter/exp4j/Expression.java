@@ -156,7 +156,7 @@ public class Expression {
                     }
                     break;
                 case Token.TOKEN_OPERATOR:
-                    Operator op = ((OperatorToken) tok).getOperator();
+                    final Operator op = ((OperatorToken) tok).getOperator();
                     if (op.getNumOperands() == 2) {
                         count--;
                     }
@@ -201,36 +201,40 @@ public class Expression {
                 }
                 output.push(vt.getValue());
             } else if (t.getType() == Token.TOKEN_OPERATOR) {
-                OperatorToken op = (OperatorToken) t;
-                if (output.size() < op.getOperator().getNumOperands()) {
+                final Operator op = ((OperatorToken) t).getOperator();
+                if (output.size() < op.getNumOperands()) {
                     throw new IllegalArgumentException(String.format(
-                        "Invalid number of operands available for '%s' operator", op.getOperator().getSymbol()
+                        "Invalid number of operands available for '%s' operator", op.getSymbol()
                     ));
                 }
-                if (op.getOperator().getNumOperands() == 2) {
+                
+                if (op.getNumOperands() == 2) {
                     /* pop the operands and push the result of the operation */
                     double rightArg = output.pop();
                     double leftArg = output.pop();
-                    output.push(op.getOperator().apply(leftArg, rightArg));
-                } else if (op.getOperator().getNumOperands() == 1) {
+                    output.push(op.apply(leftArg, rightArg));
+                } else if (op.getNumOperands() == 1) {
                     /* pop the operand and push the result of the operation */
                     double arg = output.pop();
-                    output.push(op.getOperator().apply(arg));
+                    output.push(op.apply(arg));
                 }
             } else if (t.getType() == Token.TOKEN_FUNCTION) {
-                FunctionToken func = (FunctionToken) t;
-                final int numArguments = func.getFunction().getNumArguments();
+                final Function func = ((FunctionToken) t).getFunction();
+                final int numArguments = func.getNumArguments();
+                
                 if (output.size() < numArguments) {
                     throw new IllegalArgumentException(String.format(
-                        "Invalid number of arguments available for '%s' function", func.getFunction().getName()
+                        "Invalid number of arguments available for '%s' function", func.getName()
                     ));
                 }
+                
                 /* collect the arguments from the stack */
-                double[] args = new double[numArguments];
+                final double[] args = new double[numArguments];
                 for (int j = numArguments - 1; j >= 0; j--) {
                     args[j] = output.pop();
                 }
-                output.push(func.getFunction().apply(args));
+                
+                output.push(func.apply(args));
             }
         }
         
