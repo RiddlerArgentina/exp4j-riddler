@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import net.objecthunter.exp4j.extras.FunctionsMisc;
+import net.objecthunter.exp4j.extras.OperatorsComparison;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.shuntingyard.ShuntingYard;
@@ -26,13 +28,11 @@ import net.objecthunter.exp4j.tokenizer.NumberToken;
 import net.objecthunter.exp4j.tokenizer.Token;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  *
- * @author Federico Vera <dktcoding [at] gmail>
+ * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class SimplifierTest {
 
@@ -41,7 +41,6 @@ public class SimplifierTest {
         Expression e = new ExpressionBuilder("2^3 + 4 / 2").build();
         final double expected = e.evaluate();
 
-        System.setProperty("exp4j.simplify_enabled", "true");
         Expression e2 = new ExpressionBuilder("2^3 + 4 / 2").build(true);
         final double actual = e2.evaluate();
         assertEquals(expected, actual, 0d);
@@ -172,8 +171,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization2() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "4 * cos(sin(pi()))";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -201,8 +198,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization3() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "4 * cos(sin(pi())) + x";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -235,8 +230,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization4() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "12^-+-+-+-+-+-+---2 * (-14) / 2 ^ -log(2.22323)";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -262,8 +255,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization5() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "(3 + 3 * 14) * (2 * (24-17) - 14)/((34) -2)";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -289,8 +280,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization6() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "24 + 4 * 2^x";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -322,8 +311,6 @@ public class SimplifierTest {
 
     @Test
     public void testOptimization7() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = " -1 + + 2 +   -   1";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -432,13 +419,140 @@ public class SimplifierTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testOptimization15() throws Exception {
-        System.setProperty("exp4j.simplify_enabled", "true");
         new ExpressionBuilder("pow(3,2,5)").build(true).evaluate();
     }
 
     @Test
     public void testOptimization16() throws Exception {
         new ExpressionBuilder("pow(3,2,5)").build(true);
+    }
+
+    @Test
+    public void testOptimization17() throws Exception {
+        final String expression = "1 > 2 & 3 < 4";
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        userOperators.put(">", OperatorsComparison.getOperator(">"));
+        userOperators.put("<", OperatorsComparison.getOperator("<"));
+        
+        final Set<String> variableNames = new HashSet<>(4);
+
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        final Token[] stokens = Simplifier.simplify(tokens);
+
+        //Since the expression is constant only the result should be in here
+        assertEquals(1, stokens.length);
+        assertNotEquals(tokens.length, stokens.length);
+
+        final double real     = 0;
+        final double expected = new Expression(tokens ).evaluate();
+        final double actual   = new Expression(stokens).evaluate();
+        assertEquals(real, expected, 0d);
+        assertEquals(expected, actual, 0d);
+        assertEquals(actual, real, 0d);
+    }
+
+    @Test
+    public void testOptimization18() throws Exception {
+        final String expression = "if(1 > 2 & 3 < 4, pi(), e())";
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        userOperators.put(">", OperatorsComparison.getOperator(">"));
+        userOperators.put("<", OperatorsComparison.getOperator("<"));
+        userFunctions.put("if", FunctionsMisc.getFunction("if"));
+        final Set<String> variableNames = new HashSet<>(4);
+
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        final Token[] stokens = Simplifier.simplify(tokens);
+
+        //Since the expression is constant only the result should be in here
+        assertEquals(1, stokens.length);
+        assertNotEquals(tokens.length, stokens.length);
+
+        final double real     = Math.E;
+        final double expected = new Expression(tokens ).evaluate();
+        final double actual   = new Expression(stokens).evaluate();
+        assertEquals(real, expected, 0d);
+        assertEquals(expected, actual, 0d);
+        assertEquals(actual, real, 0d);
+    }
+
+    @Test
+    public void testOptimization19() throws Exception {
+        final String expression = "if(1 > a & 3 < 4, pi(), e())";
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        userOperators.put(">", OperatorsComparison.getOperator(">"));
+        userOperators.put("<", OperatorsComparison.getOperator("<"));
+        userFunctions.put("if", FunctionsMisc.getFunction("if"));
+        final Set<String> variableNames = new HashSet<>(4);
+        variableNames.add("a");
+
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        final Token[] stokens = Simplifier.simplify(tokens);
+
+        //Since the expression is constant only the result should be in here
+        assertEquals(10, tokens.length);
+        assertEquals(8, stokens.length);
+        assertNotEquals(tokens.length, stokens.length);
+
+        final double real     = Math.PI;
+        final double expected = new Expression(tokens ).setVariable("a", 0).evaluate();
+        final double actual   = new Expression(stokens).setVariable("a", 0).evaluate();
+        assertEquals(real, expected, 0d);
+        assertEquals(expected, actual, 0d);
+        assertEquals(actual, real, 0d);
+    }
+
+    @Test
+    public void testOptimization20() throws Exception {
+        final String expression = "if(1 > 0 & 3 < 4, a * pi(), e())";
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        userOperators.put(">", OperatorsComparison.getOperator(">"));
+        userOperators.put("<", OperatorsComparison.getOperator("<"));
+        userFunctions.put("if", FunctionsMisc.getFunction("if"));
+        final Set<String> variableNames = new HashSet<>(4);
+        variableNames.add("a");
+
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        final Token[] stokens = Simplifier.simplify(tokens);
+
+        //This should be simplified to if(1, a * pi(), e()) 
+        assertEquals(12, tokens.length);
+        assertEquals(6, stokens.length);
+        assertNotEquals(tokens.length, stokens.length);
+
+        final double real     = 0;
+        final double expected = new Expression(tokens ).setVariable("a", 0).evaluate();
+        final double actual   = new Expression(stokens).setVariable("a", 0).evaluate();
+        assertEquals(real, expected, 0d);
+        assertEquals(expected, actual, 0d);
+        assertEquals(actual, real, 0d);
     }
 
     @Test
@@ -468,12 +582,12 @@ public class SimplifierTest {
         final double actual2  = new Expression(stokens).evaluate();
         final double actual3  = new Expression(stokens).evaluate();
         
-        //Since the function is marked as 'non-deterministic' the symplifier 
+        //Since the function is marked as 'non-deterministic' the simplifier 
         //will treat it as a variable, so the value should be different every 
         //time
-        assertTrue(expected != actual);
-        assertTrue(actual   != actual2);
-        assertTrue(actual   != actual3);
+        assertNotEquals(expected, actual, 0d);
+        assertNotEquals(actual, actual2, 0d);
+        assertNotEquals(actual, actual3, 0d);
     }
 
     @Test
@@ -509,7 +623,7 @@ public class SimplifierTest {
         //replace it with it's value, so every time it's evaluated it should 
         //return the same numeric value (This will not apply for different calls
         //in the same expression)
-        assertTrue(expected != actual);
+        assertNotEquals(expected, actual, 0d);
         assertEquals(actual, actual2, 0d);
         assertEquals(actual, actual3, 0d);
     }
@@ -555,13 +669,4 @@ public class SimplifierTest {
             return Math.random();
         }
     };
-    
-    private static Map<String, Double> createDefaultVariables() {
-        final Map<String, Double> vars = new HashMap<String, Double>(4);
-        vars.put("pi", Math.PI);
-        vars.put("π", Math.PI);
-        vars.put("φ", 1.61803398874d);
-        vars.put("e", Math.E);
-        return vars;
-    }
 }
