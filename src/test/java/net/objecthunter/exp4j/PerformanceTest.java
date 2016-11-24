@@ -27,7 +27,7 @@ import org.junit.Test;
 public class PerformanceTest {
 
     private static final long BENCH_TIME = 2l;
-    private static final String EXPRESSION = "log(x) - 2 * y * (sqrt(x^cos(y)))";
+    private static final String EXPRESSION = "log(x) - (2 + 1) * y * (sqrt(x^cos(y)))";
 
     @Test
     @Ignore("Ignore for now lot's of other things to test")
@@ -68,7 +68,7 @@ public class PerformanceTest {
     private int benchDoubleSimplify() {
         final Expression expression = new ExpressionBuilder(EXPRESSION)
                 .variables("x", "y")
-                .build();
+                .build(true);
         double val;
         Random rnd = new Random();
         long timeout = BENCH_TIME;
@@ -112,7 +112,7 @@ public class PerformanceTest {
         while (time > System.currentTimeMillis()) {
             x = rnd.nextDouble();
             y = rnd.nextDouble();
-            val = Math.log(x) - y * (Math.sqrt(Math.pow(x, Math.cos(y))));
+            val = Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
             count++;
         }
         rate = count / timeout;
@@ -136,7 +136,7 @@ public class PerformanceTest {
             while (time > System.currentTimeMillis()) {
                 x = rnd.nextDouble();
                 y = rnd.nextDouble();
-                engine.eval("Math.log(" + x + ") - " + y + "* (Math.sqrt(" + x + "^Math.cos(" + y + ")))");
+                engine.eval("Math.log(" + x + ") - (2 + 1) * " + y + "* (Math.sqrt(" + x + "^Math.cos(" + y + ")))");
                 count++;
             }
             rate = count / timeout;

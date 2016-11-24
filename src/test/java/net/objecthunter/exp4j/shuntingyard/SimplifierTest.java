@@ -704,6 +704,44 @@ public class SimplifierTest {
         assertEquals(actual, actual2, 0d);
         assertEquals(actual, actual3, 0d);
     }
+    
+    @Test
+    public void testPerformanceTestExpression() {
+        String exp = "log(x) - (2 + 1) * y * (sqrt(x^cos(y)))";
+        
+        final Map<String, Function> userFunctions = new HashMap<>(4);
+        final Map<String, Operator> userOperators = new HashMap<>(4);
+        final Set<String> variableNames = new HashSet<>(4);
+        variableNames.add("x");
+        variableNames.add("y");
+        final Token[] tokens = ShuntingYard.convertToRPN(
+                false,
+                exp,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        final Token[] stokens  = ShuntingYard.convertToRPN(
+                true,
+                exp,
+                userFunctions,
+                userOperators,
+                variableNames
+        );
+        
+        assertTrue(tokens.length > stokens.length);    
+        
+        Expression exp1 = new ExpressionBuilder(exp).variables("x", "y").build();
+        Expression exp2 = new ExpressionBuilder(exp).variables("x", "y").build(true);
+        
+        Map<String, Double> vals = new HashMap<>(2);
+        for (int i = 0; i < 10; i++) {
+            vals.put("x", Math.random());
+            vals.put("y", Math.random());
+            assertEquals(exp1.setVariables(vals).evaluate(), exp2.setVariables(vals).evaluate(), 0d);
+        }
+    }
 
     private static final Operator FACT = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
         @Override
