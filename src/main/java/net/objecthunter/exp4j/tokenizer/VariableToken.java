@@ -64,4 +64,12 @@ public class VariableToken extends Token {
     public boolean isValueSet() {
         return valueSet;
     }
+    
+    @Override
+    public String toString() {
+        if (!valueSet) {
+            return name;
+        }
+        return name + "(" + value + ")";
+    }
 }

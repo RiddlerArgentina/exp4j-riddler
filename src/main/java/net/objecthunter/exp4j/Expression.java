@@ -249,4 +249,25 @@ public class Expression {
         
         return output.pop();
     }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(tokens.length * 15);
+        
+        for (Token token : tokens) {
+            sb.append(token).append(' ');
+        }
+        
+        return sb.substring(0, sb.length() - 1);
+    }
+    
+    public String toTokenString() {
+        StringBuilder sb = new StringBuilder(tokens.length * 35);
+        
+        for (Token token : tokens) {
+            sb.append(token.getType()).append('[').append(token).append("] ");
+        }
+        
+        return sb.substring(0, sb.length() - 1);
+    }
 }

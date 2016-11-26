@@ -27,4 +27,9 @@ public class FunctionToken extends Token{
     public Function getFunction() {
         return function;
     }
+    
+    @Override
+    public String toString() {
+        return function.getName();
+    }
 }
