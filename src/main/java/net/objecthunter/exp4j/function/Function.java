@@ -70,6 +70,13 @@ public abstract class Function {
         this(name, 1);
     }
     
+    /**
+     * Tells if a function is deterministic, in this scenario basically applies to functions that
+     * are not supposed to be simplified.
+     * 
+     * @return {@code true} if the function is to be simplified (deterministic) and {@code false}
+     * otherwise
+     */
     public boolean isDeterministic() {
         return deterministic;
     }
