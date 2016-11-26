@@ -30,7 +30,7 @@ public class PerformanceTest {
     private static final String EXPRESSION = "log(x) - (2 + 1) * y * (sqrt(x^cos(y)))";
 
     @Test
-//    @Ignore("Ignore for now lot's of other things to test")
+    @Ignore("Ignore for now lot's of other things to test")
     public void testBenches() throws Exception {
         StringBuffer sb = new StringBuffer();
         Formatter fmt = new Formatter(sb);
