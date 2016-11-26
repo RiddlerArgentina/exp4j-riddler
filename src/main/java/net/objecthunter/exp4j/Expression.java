@@ -36,6 +36,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
+import static net.objecthunter.exp4j.tokenizer.TokenType.*;
+
 public class Expression {
 
     private final Token[] tokens;
@@ -68,7 +70,7 @@ public class Expression {
 
     private void populateVariablesMap() {
         for (final Token t: tokens) {
-            if (t.getType() == Token.TOKEN_VARIABLE) {
+            if (t.getType() == VARIABLE) {
                 variables.put(((VariableToken)t).getName(), (VariableToken)t);
             }
         }
@@ -138,11 +140,11 @@ public class Expression {
         int count = 0;
         for (Token tok : this.tokens) {
             switch (tok.getType()) {
-                case Token.TOKEN_NUMBER:
-                case Token.TOKEN_VARIABLE:
+                case NUMBER:
+                case VARIABLE:
                     count++;
                     break;
-                case Token.TOKEN_FUNCTION:
+                case FUNCTION:
                     final Function func = ((FunctionToken) tok).getFunction();
                     final int argsNum = func.getNumArguments(); 
                     if (argsNum > count) {
@@ -155,7 +157,7 @@ public class Expression {
                         count++;
                     }
                     break;
-                case Token.TOKEN_OPERATOR:
+                case OPERATOR:
                     final Operator op = ((OperatorToken) tok).getOperator();
                     if (op.getNumOperands() == 2) {
                         count--;
@@ -190,9 +192,9 @@ public class Expression {
     public double evaluate() {
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
-            if (t.getType() == Token.TOKEN_NUMBER) {
+            if (t.getType() == NUMBER) {
                 output.push(((NumberToken) t).getValue());
-            } else if (t.getType() == Token.TOKEN_VARIABLE) {
+            } else if (t.getType() == VARIABLE) {
                 final VariableToken vt = (VariableToken)t;
                 if (!vt.isValueSet()) {
                     throw new IllegalArgumentException(String.format(
@@ -200,7 +202,7 @@ public class Expression {
                     ));
                 }
                 output.push(vt.getValue());
-            } else if (t.getType() == Token.TOKEN_OPERATOR) {
+            } else if (t.getType() == OPERATOR) {
                 final Operator op = ((OperatorToken) t).getOperator();
                 if (output.size() < op.getNumOperands()) {
                     throw new IllegalArgumentException(String.format(
@@ -218,7 +220,7 @@ public class Expression {
                     double arg = output.pop();
                     output.push(op.apply(arg));
                 }
-            } else if (t.getType() == Token.TOKEN_FUNCTION) {
+            } else if (t.getType() == FUNCTION) {
                 final Function func = ((FunctionToken) t).getFunction();
                 final int numArguments = func.getNumArguments();
                 
@@ -246,5 +248,26 @@ public class Expression {
         }
         
         return output.pop();
+    }
+    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(tokens.length * 15);
+        
+        for (Token token : tokens) {
+            sb.append(token).append(' ');
+        }
+        
+        return sb.substring(0, sb.length() - 1);
+    }
+    
+    public String toTokenString() {
+        StringBuilder sb = new StringBuilder(tokens.length * 35);
+        
+        for (Token token : tokens) {
+            sb.append(token.getType()).append('[').append(token).append("] ");
+        }
+        
+        return sb.substring(0, sb.length() - 1);
     }
 }

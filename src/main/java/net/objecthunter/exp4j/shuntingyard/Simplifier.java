@@ -15,12 +15,13 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
-import java.util.Stack;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.tokenizer.FunctionToken;
 import net.objecthunter.exp4j.tokenizer.NumberToken;
 import net.objecthunter.exp4j.tokenizer.OperatorToken;
 import net.objecthunter.exp4j.tokenizer.Token;
+
+import static net.objecthunter.exp4j.tokenizer.TokenType.NUMBER;
 
 /**
  *
@@ -31,13 +32,13 @@ class Simplifier {
         final TokenStack output = new TokenStack(tokens.length);
         for (Token t : tokens) {
             switch(t.getType()) {
-                case Token.TOKEN_NUMBER:
+                case NUMBER:
                     output.push(t);
                     break;
-                case Token.TOKEN_VARIABLE:
+                case VARIABLE:
                     output.push(t);
                     break;
-                case Token.TOKEN_OPERATOR:
+                case OPERATOR:
                     final OperatorToken op  = (OperatorToken) t;
                     final Operator operator = op.getOperator();
                     
@@ -49,8 +50,8 @@ class Simplifier {
                         final Token rightArg = output.pop();
                         final Token leftArg  = output.pop();
                         
-                        if (rightArg.getType() == Token.TOKEN_NUMBER &&
-                            leftArg .getType() == Token.TOKEN_NUMBER) {
+                        if (rightArg.getType() == NUMBER &&
+                            leftArg .getType() == NUMBER) {
                             
                             output.push(new NumberToken(operator.apply(
                                     ((NumberToken)leftArg ).getValue(),
@@ -65,7 +66,7 @@ class Simplifier {
                     } else if (operator.getNumOperands() == 1) {
                         final Token arg = output.pop();
                         
-                        if (arg.getType() == Token.TOKEN_NUMBER) {
+                        if (arg.getType() == NUMBER) {
                             output.push(new NumberToken(operator.apply(
                                     ((NumberToken)arg).getValue()
                                 ))
@@ -76,7 +77,7 @@ class Simplifier {
                         }
                     }
                     break;
-                case Token.TOKEN_FUNCTION:
+                case FUNCTION:
                     final FunctionToken func = (FunctionToken) t;
                     final int numArgs = func.getFunction().getNumArguments();
                     
@@ -96,7 +97,7 @@ class Simplifier {
                     
                     for (int j = 0; j < numArgs; j++) {
                         args[j] = output.pop();
-                        areNumbers &= args[j].getType() == Token.TOKEN_NUMBER;
+                        areNumbers &= args[j].getType() == NUMBER;
                     }
                     
                     if (areNumbers && func.getFunction().isDeterministic()) {

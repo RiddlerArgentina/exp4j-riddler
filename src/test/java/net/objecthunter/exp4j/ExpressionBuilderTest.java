@@ -2705,4 +2705,11 @@ public class ExpressionBuilderTest {
                 .build();
         assertEquals(-1, e.evaluate(), 0d);
     }
- }
+    
+    @Test
+    public void testToString() {
+        assertEquals("-12", new ExpressionBuilder("-12").toString());
+        assertEquals("(x) + pi()", new ExpressionBuilder("(x) + pi()").toString());
+        assertEquals("Blah blah blah", new ExpressionBuilder("Blah blah blah").toString());
+    }
+}

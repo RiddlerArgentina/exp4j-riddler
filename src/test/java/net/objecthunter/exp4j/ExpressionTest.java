@@ -86,4 +86,32 @@ public class ExpressionTest {
             });
         }
     }
+    
+    @Test
+    public void testToString() {
+        Expression exp = new ExpressionBuilder("1 + 1").build();
+        assertEquals("1.0 1.0 +", exp.toString());
+        exp = new ExpressionBuilder("1 + 1").build(true);
+        assertEquals("2.0", exp.toString());
+        exp = new ExpressionBuilder("2x + 1").variable("x").build(true);
+        assertEquals("2.0 x * 1.0 +", exp.toString());
+        exp = new ExpressionBuilder("2 ^ sin(pi())").build(true);
+        assertEquals("1.0", exp.toString());
+        exp = new ExpressionBuilder("2 ^ sin(pi())").build(false);
+        assertEquals("2.0 pi sin ^", exp.toString());
+    }
+    
+    @Test
+    public void testToTokenString() {
+        Expression exp = new ExpressionBuilder("1 + 1").build();
+        assertEquals("NUMBER[1.0] NUMBER[1.0] OPERATOR[+]", exp.toTokenString());
+        exp = new ExpressionBuilder("1 + 1").build(true);
+        assertEquals("NUMBER[2.0]", exp.toTokenString());
+        exp = new ExpressionBuilder("2x + 1").variable("x").build(true);
+        assertEquals("NUMBER[2.0] VARIABLE[x] OPERATOR[*] NUMBER[1.0] OPERATOR[+]", exp.toTokenString());
+        exp = new ExpressionBuilder("2 ^ sin(pi())").build(true);
+        assertEquals("NUMBER[1.0]", exp.toTokenString());
+        exp = new ExpressionBuilder("2 ^ sin(pi())").build(false);
+        assertEquals("NUMBER[2.0] FUNCTION[pi] FUNCTION[sin] OPERATOR[^]", exp.toTokenString());
+    }
 }

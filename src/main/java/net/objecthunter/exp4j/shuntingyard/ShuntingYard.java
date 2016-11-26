@@ -23,6 +23,8 @@ import net.objecthunter.exp4j.tokenizer.OperatorToken;
 import net.objecthunter.exp4j.tokenizer.Token;
 import net.objecthunter.exp4j.tokenizer.Tokenizer;
 
+import static net.objecthunter.exp4j.tokenizer.TokenType.*;
+
 /**
  * Shunting yard implementation to convert infix to reverse polish notation
  */
@@ -49,25 +51,25 @@ public class ShuntingYard {
         while (tokenizer.hasNext()) {
             Token token = tokenizer.nextToken();
             switch (token.getType()) {
-            case Token.TOKEN_NUMBER:
-            case Token.TOKEN_VARIABLE:
+            case NUMBER:
+            case VARIABLE:
                 output.push(token);
                 break;
-            case Token.TOKEN_FUNCTION:
+            case FUNCTION:
                 stack.push(token);
                 break;
-            case Token.TOKEN_SEPARATOR:
-                while (!stack.isEmpty() && stack.peek().getType() != Token.TOKEN_PARENTHESES_OPEN) {
+            case SEPARATOR:
+                while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
                     output.push(stack.pop());
                 }
-                if (stack.isEmpty() || stack.peek().getType() != Token.TOKEN_PARENTHESES_OPEN) {
+                if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
                     throw new IllegalArgumentException(
                         "Misplaced function separator ',' or mismatched parentheses"
                     );
                 }
                 break;
-            case Token.TOKEN_OPERATOR:
-                while (!stack.isEmpty() && stack.peek().getType() == Token.TOKEN_OPERATOR) {
+            case OPERATOR:
+                while (!stack.isEmpty() && stack.peek().getType() == OPERATOR) {
                     final Operator o1 = ((OperatorToken) token).getOperator();
                     final Operator o2 = ((OperatorToken) stack.peek()).getOperator();
                     if (o1.getNumOperands() == 1 && o2.getNumOperands() == 2) {
@@ -81,28 +83,25 @@ public class ShuntingYard {
                 }
                 stack.push(token);
                 break;
-            case Token.TOKEN_PARENTHESES_OPEN:
+            case PARENTHESES_OPEN:
                 stack.push(token);
                 break;
-            case Token.TOKEN_PARENTHESES_CLOSE:
-                while (stack.peek().getType() != Token.TOKEN_PARENTHESES_OPEN) {
+            case PARENTHESES_CLOSE:
+                while (stack.peek().getType() != PARENTHESES_OPEN) {
                     output.push(stack.pop());
                 }
                 stack.pop();
-                if (!stack.isEmpty() && stack.peek().getType() == Token.TOKEN_FUNCTION) {
+                if (!stack.isEmpty() && stack.peek().getType() == FUNCTION) {
                     output.push(stack.pop());
                 }
                 break;
-            default:
-                throw new IllegalArgumentException(
-                    "Unknown Token type encountered. This should not happen"
-                );
             }
         }
+        
         while (!stack.isEmpty()) {
             Token t = stack.pop();
-            if (t.getType() == Token.TOKEN_PARENTHESES_CLOSE || 
-                t.getType() == Token.TOKEN_PARENTHESES_OPEN) {
+            if (t.getType() == PARENTHESES_CLOSE || 
+                t.getType() == PARENTHESES_OPEN) {
                 throw new IllegalArgumentException(
                     "Mismatched parentheses detected. Please check the expression"
                 );
@@ -110,6 +109,7 @@ public class ShuntingYard {
                 output.push(t);
             }
         }
+        
         if (simplify) {
             return Simplifier.simplify(output.toArray());
         } 

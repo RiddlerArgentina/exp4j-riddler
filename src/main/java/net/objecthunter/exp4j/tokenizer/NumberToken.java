@@ -26,7 +26,7 @@ public final class NumberToken extends Token {
      * @param value the value of the number
      */
     public NumberToken(double value) {
-        super(TOKEN_NUMBER);
+        super(TokenType.NUMBER);
         this.value = value;
     }
 
@@ -40,5 +40,10 @@ public final class NumberToken extends Token {
      */
     public double getValue() {
         return value;
+    }
+    
+    @Override
+    public String toString() {
+        return Double.toString(value);
     }
 }
