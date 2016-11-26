@@ -198,5 +198,10 @@ public class ExpressionBuilder {
         
         return new Expression(tokens, this.userFunctions.keySet());
     }
+    
+    @Override
+    public String toString() {
+        return expression;
+    }
 
 }
