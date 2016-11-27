@@ -35,7 +35,7 @@ public class FunctionsMiscTest {
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsMisc.getFunctions())
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
 
         assertEquals(1, e1.evaluate(), 0d);
@@ -48,7 +48,7 @@ public class FunctionsMiscTest {
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsMisc.getFunctions())
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
 
         assertEquals(0, e1.evaluate(), 0d);
@@ -61,7 +61,7 @@ public class FunctionsMiscTest {
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsMisc.getFunctions())
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
 
         assertEquals(1, e1.evaluate(), 0d);

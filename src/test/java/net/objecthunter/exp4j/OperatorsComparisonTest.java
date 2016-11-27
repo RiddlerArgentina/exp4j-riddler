@@ -35,12 +35,12 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
 
         Expression e2 = new ExpressionBuilder(expr2)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
         
         assertEquals(1, e1.evaluate(), 0D);
@@ -53,7 +53,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
         
         assertEquals(1, e1.evaluate(), 0D);
@@ -65,7 +65,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
         
         assertEquals(1, e1.evaluate(), 0D);
@@ -77,7 +77,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .build();
         
         assertEquals(1, e1.evaluate(), 0D);
@@ -89,7 +89,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b")
                 .build();
 
@@ -108,7 +108,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b")
                 .build();
 
@@ -127,7 +127,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a")
                 .build();
 
@@ -143,7 +143,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b")
                 .build();
 
@@ -160,7 +160,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterThan1() {
         String expr1 = "1 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -168,7 +168,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterThan2() {
         String expr1 = "10 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -176,7 +176,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterThan3() {
         String expr1 = "2 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -184,7 +184,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterOrEqualThan1() {
         String expr1 = "1 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -192,7 +192,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterOrEqualThan2() {
         String expr1 = "10 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -200,7 +200,7 @@ public class OperatorsComparisonTest {
     public void testOpGreaterOrEqualThan3() {
         String expr1 = "2 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -208,7 +208,7 @@ public class OperatorsComparisonTest {
     public void testOpLessThan1() {
         String expr1 = "1 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -216,7 +216,7 @@ public class OperatorsComparisonTest {
     public void testOpLessThan2() {
         String expr1 = "10 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -224,7 +224,7 @@ public class OperatorsComparisonTest {
     public void testOpLessThan3() {
         String expr1 = "2 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -232,7 +232,7 @@ public class OperatorsComparisonTest {
     public void testOpLessOrEqualThan1() {
         String expr1 = "1 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -240,7 +240,7 @@ public class OperatorsComparisonTest {
     public void testOpLessOrEqualThan2() {
         String expr1 = "10 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -248,7 +248,7 @@ public class OperatorsComparisonTest {
     public void testOpLessOrEqualThan3() {
         String expr1 = "2 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -256,7 +256,7 @@ public class OperatorsComparisonTest {
     public void testOpEqual2() {
         String expr1 = "1 == 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -264,7 +264,7 @@ public class OperatorsComparisonTest {
     public void testOpEqual3() {
         String expr1 = "0 == 0";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -272,7 +272,7 @@ public class OperatorsComparisonTest {
     public void testOpEqual4() {
         String expr1 = "154 * 54 + 4 == 154 * 54 + 4";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -282,7 +282,7 @@ public class OperatorsComparisonTest {
 
         Expression e1 = new ExpressionBuilder(expr1)
                 .functions(FunctionsBoolean.getFunctions())
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a")
                 .build();
 
@@ -293,7 +293,7 @@ public class OperatorsComparisonTest {
     public void testOpNotEqual1() {
         String expr1 = "1 != 2";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -301,7 +301,7 @@ public class OperatorsComparisonTest {
     public void testOpNotEqual2() {
         String expr1 = "0 != 0";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -309,7 +309,7 @@ public class OperatorsComparisonTest {
     public void testOpNotEqual3() {
         String expr1 = "154 * 54 + 4 != 154 * 54 + 4";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -317,7 +317,7 @@ public class OperatorsComparisonTest {
     public void testOpNotEqualThreshold1() {
         String expr1 = "1 != 1.0000000000001";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(0, e1.evaluate(), 0d);
     }
 
@@ -325,7 +325,7 @@ public class OperatorsComparisonTest {
     public void testOpNotEqualThreshold2() {
         String expr1 = "1 != 1.000000000001";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators()).build();
+                .operators(OperatorsComparison.getOperators()).build();
         assertEquals(1, e1.evaluate(), 0d);
     }
 
@@ -333,7 +333,7 @@ public class OperatorsComparisonTest {
     public void testDocExample() {
         String expr1 = "a + b * c > d / a & f < g == (((a + (b * c)) > (d / a)) & (f < g))";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b", "c", "d", "f", "g")
                 .build();
         e1.setVariable("a", Math.random());
@@ -351,15 +351,15 @@ public class OperatorsComparisonTest {
         String expr2 = "((a + b * c > d / a & f < g) == (((a + (b * c)) > (d / a)) & (f < g)))";
         String expr3 = "a + b * c > d / a & f < g == a + b * c > d / a & f < g";
         Expression e1 = new ExpressionBuilder(expr1)
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b", "c", "d", "f", "g")
                 .build();
         Expression e2 = new ExpressionBuilder(expr2)
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b", "c", "d", "f", "g")
                 .build();
         Expression e3 = new ExpressionBuilder(expr3)
-                .operator(OperatorsComparison.getOperators())
+                .operators(OperatorsComparison.getOperators())
                 .variables("a", "b", "c", "d", "f", "g")
                 .build();
         HashMap<String, Double> vars = new HashMap<>(7);

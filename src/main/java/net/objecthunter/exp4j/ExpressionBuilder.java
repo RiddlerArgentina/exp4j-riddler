@@ -138,7 +138,7 @@ public class ExpressionBuilder {
      * @param operators the set of custom {@link Operator} implementations to add
      * @return the ExpressionBuilder instance
      */
-    public ExpressionBuilder operator(Operator... operators) {
+    public ExpressionBuilder operators(Operator... operators) {
         for (Operator o : operators) {
             this.operator(o);
         }
@@ -151,7 +151,7 @@ public class ExpressionBuilder {
      * @param operators the {@link List} of custom {@link Operator} implementations to add
      * @return the ExpressionBuilder instance
      */
-    public ExpressionBuilder operator(List<Operator> operators) {
+    public ExpressionBuilder operators(List<Operator> operators) {
         for (Operator o : operators) {
             this.operator(o);
         }
