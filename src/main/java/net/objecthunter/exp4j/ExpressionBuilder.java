@@ -95,16 +95,37 @@ public class ExpressionBuilder {
         return this;
     }
 
+    /**
+     * Add multiple {@code variables} that <b>must</b> be used in the expression.<br><br>
+     * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
+     * 
+     * @param variableNames variables to use
+     * @return the ExpressionBuilder instance
+     */
     public ExpressionBuilder variables(Set<String> variableNames) {
         this.variableNames.addAll(variableNames);
         return this;
     }
 
+    /**
+     * Add multiple {@code variables} that <b>must</b> be used in the expression.<br><br>
+     * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
+     * 
+     * @param variableNames variables to use
+     * @return the ExpressionBuilder instance
+     */
     public ExpressionBuilder variables(String ... variableNames) {
         Collections.addAll(this.variableNames, variableNames);
         return this;
     }
 
+    /**
+     * Add a {@code variable} that <b>must</b> be used in the expression.<br><br>
+     * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
+     * 
+     * @param variableName variable to use
+     * @return the ExpressionBuilder instance
+     */
     public ExpressionBuilder variable(String variableName) {
         this.variableNames.add(variableName);
         return this;
