@@ -76,6 +76,20 @@ public class Expression {
         }
     }
     
+    /**
+     * Sets the value of a variable, the variable to set must exist at build time and can't be the
+     * name of a function.
+     * All variables must be set before calling {@link Expression#evaluate()}
+     * 
+     * @param name variable name as passed to {@link ExpressionBuilder}
+     * @param value value of the variable
+     * @return {@code this}
+     * @throws IllegalArgumentException if the variable name is a function name or if the variable
+     * doesn't exist at build time.
+     * @see ExpressionBuilder#build() 
+     * @see Expression#containsVariable(java.lang.String) 
+     * @see Expression#getVariableNames() 
+     */
     public Expression setVariable(final String name, final double value) {
         this.checkVariableName(name);
         variables.get(name).setValue(value);
@@ -93,7 +107,21 @@ public class Expression {
             throw new IllegalArgumentException(String.format("Variable '%s' doesn't exist.", name));
         }
     }
-
+    
+    /**
+     * Sets the value of a set of variables, the variables to set must exist at build time and can't
+     * be the name of a function.
+     * All variables must be set before calling {@link Expression#evaluate()}
+     * 
+     * @param variables a {@code Map<String,Double>} containing all of the (name, value) pairs.
+     * @return {@code this}
+     * @throws IllegalArgumentException if the variable name is a function name or if the variable
+     * doesn't exist at build time.
+     * @see ExpressionBuilder#build() 
+     * @see Expression#containsVariable(java.lang.String) 
+     * @see Expression#getVariableNames() 
+     * @see Expression#setVariable(java.lang.String, double) 
+     */
     public Expression setVariables(Map<String, Double> variables) {
         for (Map.Entry<String, Double> v : variables.entrySet()) {
             this.setVariable(v.getKey(), v.getValue());
@@ -120,6 +148,17 @@ public class Expression {
         return variables.containsKey(name);
     }
 
+    /**
+     * Validates an expression.<br>
+     * Building an expression is not the only metric of <i>correctness</i>, this method will 
+     * generate a {@link ValidationResult} telling if a variables are set, if the number of 
+     * operands is correct, and if all functions have the right number of parameters.<br><br>
+     * <i><b>Note:</b></i> future version will most likely fail on build, and not at this stage
+     * (at least that's my plan).
+     * @param checkVariablesSet {@code true} to check if all variables are set and {@code false}
+     * otherwise
+     * @return {@link ValidationResult}
+     */
     public ValidationResult validate(boolean checkVariablesSet) {
         final List<String> errors = new ArrayList<>(0);
         if (checkVariablesSet) {
@@ -176,6 +215,12 @@ public class Expression {
 
     }
 
+    /**
+     * Alias for {@code Expression#validate(true)}
+     * 
+     * @return {@link ValidationResult}
+     * @see Expression#validate(boolean)
+     */
     public ValidationResult validate() {
         return validate(true);
     }
@@ -189,6 +234,17 @@ public class Expression {
         });
     }
 
+    /**
+     * Evaluates the expression with the given values, this method will fail if 
+     * {@link Expression#validate()} returns a {@link ValidationResult} different that 
+     * {@link ValidationResult#SUCCESS}.<br><br>
+     * <i><b>Note:</b></i> future version will most likely fail on build, and not at this stage, 
+     * this method will only fail if variables aren't set.
+     * 
+     * @return result of the evaluation
+     * @throws IllegalArgumentException if the expression isn't valid
+     * @see Expression#validate() 
+     */
     public double evaluate() {
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
@@ -261,6 +317,12 @@ public class Expression {
         return sb.substring(0, sb.length() - 1);
     }
     
+    /**
+     * Retrieves the internal representation of the expression.<br>
+     * This method is mostly useless for most users.
+     * 
+     * @return RPN of the expression
+     */
     public String toTokenString() {
         StringBuilder sb = new StringBuilder(tokens.length * 35);
         
