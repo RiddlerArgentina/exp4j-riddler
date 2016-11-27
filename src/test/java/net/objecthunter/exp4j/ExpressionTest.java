@@ -63,31 +63,6 @@ public class ExpressionTest {
     }
 
     @Test
-    @Ignore
-    // If Expression should be threads safe this test must pass
-    public void evaluateFamily() throws Exception {
-        final Expression e = new ExpressionBuilder("sin(x)")
-                .variable("x")
-                .build();
-        Executor executor = Executors.newFixedThreadPool(100);
-        for (int i = 0 ; i < 100000; i++) {
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    double x = Math.random();
-                    e.setVariable("x", x);
-                    try {
-                        Thread.sleep(100);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
-                    }
-                    assertEquals(Math.sin(x), e.evaluate(), 0f);
-                }
-            });
-        }
-    }
-    
-    @Test
     public void testToString() {
         Expression exp = new ExpressionBuilder("1 + 1").build();
         assertEquals("1.0 1.0 +", exp.toString());
