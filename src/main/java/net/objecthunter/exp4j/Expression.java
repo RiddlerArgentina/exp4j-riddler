@@ -45,17 +45,31 @@ public class Expression {
     private final Set<String> userFunctionNames;
     
     private final HashMap<String, VariableToken> variables = new HashMap<>(4);
+
     /**
      * Creates a new expression that is a copy of the existing one.
      * 
-     * @param existing the expression to copy
+     * @return copy of this {@code Expression}
      */
-    public Expression(final Expression existing) {
-    	this.tokens = Arrays.copyOf(existing.tokens, existing.tokens.length);
-    	this.userFunctionNames = new HashSet<>(existing.userFunctionNames);
-        populateVariablesMap();
+    public Expression copy() {
+        Expression exp = new Expression(
+            Arrays.copyOf(tokens, tokens.length),
+            new HashSet<>(userFunctionNames)
+        );
+        
+        //Since I don't honor the immutable token philosophy I need to copy
+        //variable tokens... Still... I regret nothing!
+        for (int i = 0; i < tokens.length; i++) {
+            if (exp.tokens[i].getType() == VARIABLE) {
+                exp.tokens[i] = ((VariableToken)tokens[i]).copy();
+            }
+        }
+        
+        exp.populateVariablesMap();
+        
+        return exp;
     }
-
+    
     Expression(final Token[] tokens) {
         this.tokens = tokens;
         this.userFunctionNames = Collections.<String>emptySet();

@@ -65,6 +65,19 @@ public class VariableToken extends Token {
         return valueSet;
     }
     
+    /**
+     * Retrieves a copy of this token
+     * 
+     * @return {@code VariableToken}
+     */
+    public VariableToken copy() {
+        final VariableToken vt = new VariableToken(name);
+        if (isValueSet()) {
+            vt.setValue(getValue());
+        }
+        return vt;
+    }
+    
     @Override
     public String toString() {
         if (!valueSet) {

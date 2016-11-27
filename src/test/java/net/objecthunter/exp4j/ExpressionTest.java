@@ -15,18 +15,14 @@
 */
 package net.objecthunter.exp4j;
 
-import static org.junit.Assert.assertEquals;
-
+import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operators;
 import net.objecthunter.exp4j.tokenizer.*;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
-
+import static org.junit.Assert.*;
 
 public class ExpressionTest {
     @Test
@@ -88,5 +84,43 @@ public class ExpressionTest {
         assertEquals("NUMBER[1.0]", exp.toTokenString());
         exp = new ExpressionBuilder("2 ^ sin(pi())").build(false);
         assertEquals("NUMBER[2.0] FUNCTION[pi] FUNCTION[sin] OPERATOR[^]", exp.toTokenString());
+    }
+    
+    @Test
+    public void testCopy() {
+        Expression exp1 = new ExpressionBuilder("1 + 3").build();
+        Expression exp2 = exp1.copy();
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+    }
+    
+    @Test
+    public void testCopy1() {
+        Expression exp1 = new ExpressionBuilder("1 + x").variable("x").build();
+        Expression exp2 = exp1.copy();
+        exp1.setVariable("x", 0);
+        exp2.setVariable("x", 0);
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+        exp1.setVariable("x", 1);
+        exp2.setVariable("x", 2);
+        assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+    }
+    
+    @Test
+    public void testCopy2() {
+        Function myFunc = new Function("myFunc") {
+            @Override
+            public double apply(double... args) {
+                return Math.sin(args[0]);
+            }
+        };
+        Expression exp1 = new ExpressionBuilder("1 + myFunc(x)")
+                             .function(myFunc).variable("x").build();
+        Expression exp2 = exp1.copy();
+        exp1.setVariable("x", 0);
+        exp2.setVariable("x", 0);
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+        exp1.setVariable("x", 1);
+        exp2.setVariable("x", 2);
+        assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
     }
 }
