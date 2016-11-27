@@ -16,6 +16,8 @@
 
 package net.objecthunter.exp4j;
 
+import java.util.Collections;
+
 import static java.lang.Math.*;
 import static org.junit.Assert.*;
 
@@ -1721,7 +1723,7 @@ public class ExpressionBuilderTest {
 
         ValidationResult res = e.validate(false);
         assertTrue(res.isValid());
-        assertNull(res.getErrors());
+        assertEquals(Collections.EMPTY_LIST, res.getErrors());
     }
 
     // Thanks go out to Johan Björk for reporting the division by zero problem EXP-22

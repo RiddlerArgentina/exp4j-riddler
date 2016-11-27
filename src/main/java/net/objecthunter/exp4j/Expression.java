@@ -160,7 +160,7 @@ public class Expression {
      * @return {@link ValidationResult}
      */
     public ValidationResult validate(boolean checkVariablesSet) {
-        final List<String> errors = new ArrayList<>(0);
+        final List<String> errors = new ArrayList<>(10);
         if (checkVariablesSet) {
             /* check that all vars have a value set */
             for (VariableToken vt : variables.values()) {
@@ -205,13 +205,13 @@ public class Expression {
             }
             if (count < 1) {
                 errors.add("Too many operators");
-                return new ValidationResult(false, errors);
+                return new ValidationResult(errors);
             }
         }
         if (count > 1) {
             errors.add("Too many operands");
         }
-        return errors.isEmpty() ? ValidationResult.SUCCESS : new ValidationResult(false, errors);
+        return errors.isEmpty() ? ValidationResult.SUCCESS : new ValidationResult(errors);
 
     }
 
