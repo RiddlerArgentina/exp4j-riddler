@@ -25,7 +25,7 @@ import static net.objecthunter.exp4j.tokenizer.TokenType.NUMBER;
 
 /**
  *
- * @author Federico Vera <dktcoding [at] gmail.com>
+ * @author Federico Vera {@literal dktcoding [at] gmail}
  */
 class Simplifier {
     public static Token[] simplify (Token[] tokens) {        

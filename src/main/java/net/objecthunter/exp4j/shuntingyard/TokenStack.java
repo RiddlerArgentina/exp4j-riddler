@@ -21,7 +21,7 @@ import net.objecthunter.exp4j.tokenizer.Token;
 /**
  * Simple Token stack using a Token array as data storage
  *
- * @author Federico Vera (dktcoding [at] gmail)
+ * @author Federico Vera {@literal dktcoding [at] gmail}
  */
 final class TokenStack {
 
