@@ -242,6 +242,15 @@ public class ExpressionValidateTest {
 	}
 
 	@Test
+	public void testValidateInvalidFunctionWithNoArguments() throws Exception {
+		Expression exp = new ExpressionBuilder("sin()")
+			.functions(beta)
+			.build();
+		ValidationResult result = exp.validate(false);
+		Assert.assertFalse(result.isValid());
+	}
+
+	@Test
 	public void testValidateInvalidFunctionWithTooFewArguments() throws Exception {
 		Expression exp = new ExpressionBuilder("beta(1)")
 			.functions(beta)
@@ -287,6 +296,11 @@ public class ExpressionValidateTest {
 			}
 		};
 		Expression e = new ExpressionBuilder("14*now()")
+				.function(now)
+				.build();
+		assertTrue(e.validate().isValid());
+
+		e = new ExpressionBuilder("now")
 				.function(now)
 				.build();
 		assertTrue(e.validate().isValid());
