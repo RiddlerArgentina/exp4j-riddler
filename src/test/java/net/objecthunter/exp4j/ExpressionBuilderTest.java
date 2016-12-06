@@ -2731,6 +2731,12 @@ public class ExpressionBuilderTest {
         exp = new ExpressionBuilder("2 * 3!").build();
         assertEquals(12, exp.evaluate(), 0);
         assertTrue(exp.validate().isValid());
+        exp = new ExpressionBuilder("4 + (3!)").build();
+        assertEquals(10, exp.evaluate(), 0);
+        assertTrue(exp.validate().isValid());
+        exp = new ExpressionBuilder("4 + 3! + 2 * 6").build();
+        assertEquals(22, exp.evaluate(), 0);
+        assertTrue(exp.validate().isValid());
     }
 
     @Test(expected = IllegalArgumentException.class)
