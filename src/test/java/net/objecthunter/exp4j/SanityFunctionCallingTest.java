@@ -62,9 +62,15 @@ public class SanityFunctionCallingTest {
     public void testOperatorsBuiltin() {
         Operator[] operators = Operators.getOperators();
         for (Operator operator : operators) {
-            assertNotNull(operator);
-            assertEquals(operator, Operators.getBuiltinOperator(operator.getSymbol().charAt(0), 
-                                                                operator.getNumOperands()));
+            if (operator.getSymbol().equals("!")) {
+                assertNotNull(operator);
+                assertEquals(operator, Operators.getBuiltinOperator(operator.getSymbol().charAt(0), 
+                                                                    operator.getNumOperands() + 1));
+            } else {
+                assertNotNull(operator);
+                assertEquals(operator, Operators.getBuiltinOperator(operator.getSymbol().charAt(0), 
+                                                                    operator.getNumOperands()));
+            }
         }
     }
     
