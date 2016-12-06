@@ -1,4 +1,4 @@
-This `exp4j`
+This `exp4j` [![Build Status](https://travis-ci.org/dktcoding/exp4j.svg?branch=master)](https://travis-ci.org/dktcoding/exp4j)
 ----------
 This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 
 contains changes that will most likely create problems for regular 
