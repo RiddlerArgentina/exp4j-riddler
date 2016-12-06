@@ -49,7 +49,9 @@ public abstract class Operators {
     private static final int INDEX_OP_OR  = 9;
     private static final int INDEX_OP_NOT = 10;
     
-    private static final Operator[] BUILTIN = new Operator[11];
+    private static final int INDEX_FACTORIAL = 11;
+    
+    private static final Operator[] BUILTIN = new Operator[12];
 
     static {
         BUILTIN[INDEX_ADDITION]= new Operator("+", 2, true, PRECEDENCE_ADDITION) {
@@ -128,6 +130,25 @@ public abstract class Operators {
                 return (Math.abs(args[0]) < BOOLEAN_THRESHOLD) ? 1 : 0;
             }
         };
+        BUILTIN[INDEX_FACTORIAL]= new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
+            @Override
+            public double apply(double... args) {
+                final int arg = (int) args[0];
+                if ((double) arg != args[0]) {
+                    String msg = "Operand for factorial has to be an integer";
+                    throw new IllegalArgumentException(msg);
+                }
+                if (arg < 0) {
+                    String msg = "The operand of the factorial can not be less than zero";
+                    throw new IllegalArgumentException(msg);
+                }
+                double result = 1;
+                for (int i = 1; i <= arg; i++) {
+                    result *= i;
+                }
+                return result;
+            }
+        };
     }
     
     public static Operator[] getOperators() {
@@ -155,6 +176,10 @@ public abstract class Operators {
             case '&': return BUILTIN[INDEX_OP_AND];
             case '|': return BUILTIN[INDEX_OP_OR];
             case '¬': return BUILTIN[INDEX_OP_NOT];
+            case '!':
+                if (numArguments != 1) {
+                    return BUILTIN[INDEX_FACTORIAL];
+                }
             default:
                 return null;
         }
