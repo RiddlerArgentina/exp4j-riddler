@@ -2762,6 +2762,42 @@ public class ExpressionBuilderTest {
     }
 
     @Test
+    public void testOperatorFactorial6() {
+        Expression exp = new ExpressionBuilder("sin(3!)").build();
+        assertEquals(Math.sin(6), exp.evaluate(), 1e-12);
+    }
+
+    @Test
+    public void testOperatorFactorial7() {
+        Expression exp = new ExpressionBuilder("sin(3!-2!)").build();
+        assertEquals(Math.sin(4), exp.evaluate(), 1e-12);
+    }
+
+    @Test
+    public void testOperatorFactorial8() {
+        Expression exp = new ExpressionBuilder("sin(3!-2!) * 4 + 1").build();
+        assertEquals(Math.sin(4) * 4 + 1, exp.evaluate(), 1e-12);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testOperatorFactorial9() throws Exception {
+        Expression exp = new ExpressionBuilder("3 + !(-1)").build();
+        exp.evaluate();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testOperatorFactorial10() throws Exception {
+        Expression exp = new ExpressionBuilder("sin(!3)").build();
+        exp.evaluate();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testOperatorFactorial11() throws Exception {
+        Expression exp = new ExpressionBuilder("3 + !sin(3!)").build();
+        exp.evaluate();
+    }
+
+    @Test
     public void testFactorialIssue75() {
         Expression exp = new ExpressionBuilder("3!-2!").build();
         assertEquals(4, exp.evaluate(), 1e-12);
