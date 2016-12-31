@@ -63,7 +63,9 @@ public class Expression {
         for (int i = 0; i < exp.tokens.length; i++) {
             if (exp.tokens[i].getType() == VARIABLE) {
                 final VariableToken v = ((VariableToken)exp.tokens[i]);
-                exp.variables.putIfAbsent(v.getName(), v.copy());
+                if (!exp.variables.containsKey(v.getName())) {
+                    exp.variables.put(v.getName(), v.copy());
+                }
                 exp.tokens[i] = exp.variables.get(v.getName());
             }
         }
