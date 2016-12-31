@@ -51,5 +51,6 @@ public final class ValidationResult {
     /**
      * A static class representing a successful validation result
      */
+    @SuppressWarnings("unchecked")
     public static final ValidationResult SUCCESS = new ValidationResult(Collections.EMPTY_LIST);
 }
