@@ -57,15 +57,16 @@ public class Expression {
             new HashSet<>(userFunctionNames)
         );
         
+        exp.variables.clear();
         //Since I don't honor the immutable token philosophy I need to copy
         //variable tokens... Still... I regret nothing!
-        for (int i = 0; i < tokens.length; i++) {
+        for (int i = 0; i < exp.tokens.length; i++) {
             if (exp.tokens[i].getType() == VARIABLE) {
-                exp.tokens[i] = ((VariableToken)tokens[i]).copy();
+                final VariableToken v = ((VariableToken)exp.tokens[i]);
+                exp.variables.putIfAbsent(v.getName(), v.copy());
+                exp.tokens[i] = exp.variables.get(v.getName());
             }
         }
-        
-        exp.populateVariablesMap();
         
         return exp;
     }
