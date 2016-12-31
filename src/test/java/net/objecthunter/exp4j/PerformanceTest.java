@@ -17,6 +17,7 @@ package net.objecthunter.exp4j;
 
 import java.util.Formatter;
 import java.util.Random;
+import javax.script.Invocable;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -30,7 +31,6 @@ public class PerformanceTest {
     private static final String EXPRESSION = "log(x) - (2 + 1) * y * (sqrt(x^cos(y)))";
 
     @Test
-    @Ignore("Ignore for now lot's of other things to test")
     public void testBenches() throws Exception {
         StringBuffer sb = new StringBuffer();
         Formatter fmt = new Formatter(sb);
@@ -69,7 +69,7 @@ public class PerformanceTest {
         final Expression expression = new ExpressionBuilder(EXPRESSION)
                 .variables("x", "y")
                 .build(true);
-        double val;
+        double val = 0;
         Random rnd = new Random();
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
@@ -77,7 +77,7 @@ public class PerformanceTest {
         while (time > System.currentTimeMillis()) {
             expression.setVariable("x", rnd.nextDouble());
             expression.setVariable("y", rnd.nextDouble());
-            val = expression.evaluate();
+            val += expression.evaluate();
             count++;
         }
         double rate = count / timeout;
@@ -88,7 +88,7 @@ public class PerformanceTest {
         final Expression expression = new ExpressionBuilder(EXPRESSION)
                 .variables("x", "y")
                 .build();
-        double val;
+        double val = 0;
         Random rnd = new Random();
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
@@ -96,7 +96,7 @@ public class PerformanceTest {
         while (time > System.currentTimeMillis()) {
             expression.setVariable("x", rnd.nextDouble());
             expression.setVariable("y", rnd.nextDouble());
-            val = expression.evaluate();
+            val += expression.evaluate();
             count++;
         }
         double rate = count / timeout;
@@ -106,13 +106,13 @@ public class PerformanceTest {
     private int benchJavaMath() {
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, val, rate;
+        double x, y, val = 0, rate;
         int count = 0;
         Random rnd = new Random();
         while (time > System.currentTimeMillis()) {
             x = rnd.nextDouble();
             y = rnd.nextDouble();
-            val = Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
+            val += Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
             count++;
         }
         rate = count / timeout;
@@ -124,7 +124,8 @@ public class PerformanceTest {
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, val, rate;
+        double x, y, rate;
+        double val = 0;
         int count = 0;
         Random rnd = new Random();
         if (engine == null) {
@@ -133,10 +134,12 @@ public class PerformanceTest {
         } else {
             time = System.currentTimeMillis() + (1000 * timeout);
             count = 0;
+            engine.eval("function f(x, y) {return Math.log(x) - (2 + 1) * y * (Math.sqrt(x^Math.cos(y)))}");
+            Invocable inv = (Invocable) engine;
             while (time > System.currentTimeMillis()) {
                 x = rnd.nextDouble();
                 y = rnd.nextDouble();
-                engine.eval("Math.log(" + x + ") - (2 + 1) * " + y + "* (Math.sqrt(" + x + "^Math.cos(" + y + ")))");
+                val += (Double)inv.invokeFunction("f", x, y);
                 count++;
             }
             rate = count / timeout;
