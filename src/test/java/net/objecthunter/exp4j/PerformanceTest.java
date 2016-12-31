@@ -80,8 +80,8 @@ public class PerformanceTest {
             val += expression.evaluate();
             count++;
         }
-        double rate = count / timeout;
-        return count;
+        
+        return count + (int)(val / val);
     }
 
     private int benchDouble() {
@@ -100,7 +100,7 @@ public class PerformanceTest {
             count++;
         }
         double rate = count / timeout;
-        return count;
+        return count + (int)(val / val);
     }
 
     private int benchJavaMath() {
@@ -116,7 +116,7 @@ public class PerformanceTest {
             count++;
         }
         rate = count / timeout;
-        return count;
+        return count + (int)(val / val);
     }
 
     private int benchJavaScript() throws Exception {
@@ -144,7 +144,7 @@ public class PerformanceTest {
             }
             rate = count / timeout;
         }
-        return count;
+        return count + (int)(val / val);
     }
 
 }
