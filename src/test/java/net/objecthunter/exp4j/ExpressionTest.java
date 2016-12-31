@@ -123,4 +123,24 @@ public class ExpressionTest {
         exp2.setVariable("x", 2);
         assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
     }
+    
+    @Test
+    public void testCopy3() {
+        //There's an issue with multiple variables not being set after copy()
+        Function myFunc = new Function("myFunc") {
+            @Override
+            public double apply(double... args) {
+                return Math.sin(args[0]);
+            }
+        };
+        Expression exp1 = new ExpressionBuilder("1 + myFunc(x) * x")
+                             .function(myFunc).variable("x").build();
+        Expression exp2 = exp1.copy();
+        exp1.setVariable("x", 0);
+        exp2.setVariable("x", 0);
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+        exp1.setVariable("x", 1);
+        exp2.setVariable("x", 2);
+        assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+    }
 }
