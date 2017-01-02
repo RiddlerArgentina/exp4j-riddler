@@ -152,4 +152,17 @@ public class ExpressionTest {
         Expression exp = new ExpressionBuilder("sin()").variable("foo").build();
         exp.evaluate();
     }
+
+    @Test
+    public void testToStringNoValues() {
+        Expression exp = new ExpressionBuilder("sin(1 * foo)").variable("foo").build();
+        assertEquals("1.0 foo * sin", exp.toString());
+    }
+
+    @Test
+    public void testToStringWithValues() {
+        Expression exp = new ExpressionBuilder("sin(1 * foo)").variable("foo").build();
+        exp.setVariable("foo", 0);
+        assertEquals("1.0 foo(0.0) * sin", exp.toString());
+    }
 }
