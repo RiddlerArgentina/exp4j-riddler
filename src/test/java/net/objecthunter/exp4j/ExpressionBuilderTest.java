@@ -11,11 +11,12 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 package net.objecthunter.exp4j;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static java.lang.Math.*;
@@ -2707,7 +2708,7 @@ public class ExpressionBuilderTest {
                 .build();
         assertEquals(-1, e.evaluate(), 0d);
     }
-    
+
     @Test
     public void testToString() {
         assertEquals("-12", new ExpressionBuilder("-12").toString());
@@ -2801,5 +2802,106 @@ public class ExpressionBuilderTest {
     public void testFactorialIssue75() {
         Expression exp = new ExpressionBuilder("3!-2!").build();
         assertEquals(4, exp.evaluate(), 1e-12);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyExpression() {
+        Expression exp = new ExpressionBuilder("").build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyExpression2() {
+        Expression exp = new ExpressionBuilder(null).build();
+    }
+
+    @Test
+    public void testFunctionsList() {
+        ExpressionBuilder builder = new ExpressionBuilder("foo(bar(1))");
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function bar = new Function("bar") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function[] funcs = new Function[]{foo, bar};
+        Expression exp = builder.functions(Arrays.asList(funcs)).build();
+        assertEquals(1, exp.evaluate(), 0);
+    }
+
+    @Test
+    public void testFunctionsArray() {
+        ExpressionBuilder builder = new ExpressionBuilder("foo(bar(1))");
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function bar = new Function("bar") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Expression exp = builder.functions(foo, bar).build();
+        assertEquals(1, exp.evaluate(), 0);
+    }
+
+    @Test
+    public void testFunctionsArrayEmpty() {
+        ExpressionBuilder builder = new ExpressionBuilder("1");
+        Expression exp = builder.functions().build();
+    }
+
+    @Test
+    public void testOperatorsList() {
+        ExpressionBuilder builder = new ExpressionBuilder("(1|1)&0");
+        Operator foo = new Operator("&", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] * args[1];
+            }
+        };
+        Operator bar = new Operator("|", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] + args[1];
+            }
+        };
+        Operator[] ops = new Operator[]{foo, bar};
+        Expression exp = builder.operators(Arrays.asList(ops)).build();
+        assertEquals(0, exp.evaluate(), 0);
+    }
+
+    @Test
+    public void testOperatorsArray() {
+        ExpressionBuilder builder = new ExpressionBuilder("(1|1)&0");
+        Operator foo = new Operator("&", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] * args[1];
+            }
+        };
+        Operator bar = new Operator("|", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] + args[1];
+            }
+        };
+
+        Expression exp = builder.operators(foo, bar).build();
+        assertEquals(0, exp.evaluate(), 0);
+    }
+
+    @Test
+    public void testOperatorsArrayEmpty() {
+        ExpressionBuilder builder = new ExpressionBuilder("1");
+        Expression exp = builder.operators().build();
     }
 }
