@@ -2813,4 +2813,49 @@ public class ExpressionBuilderTest {
     public void testEmptyExpression2() {
         Expression exp = new ExpressionBuilder(null).build();
     }
+    
+    @Test
+    public void testFunctionsList() {
+        ExpressionBuilder builder = new ExpressionBuilder("foo(bar(1))");
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function bar = new Function("bar") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function[] funcs = new Function[]{foo, bar};
+        Expression exp = builder.functions(Arrays.asList(funcs)).build();
+        assertEquals(1, exp.evaluate(), 0);
+    }
+    
+    @Test
+    public void testFunctionsArray() {
+        ExpressionBuilder builder = new ExpressionBuilder("foo(bar(1))");
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Function bar = new Function("bar") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Expression exp = builder.functions(foo, bar).build();
+        assertEquals(1, exp.evaluate(), 0);
+    }
+    
+    @Test
+    public void testFunctionsArrayEmpty() {
+        ExpressionBuilder builder = new ExpressionBuilder("1");
+        Expression exp = builder.functions().build();
+    }
 }
