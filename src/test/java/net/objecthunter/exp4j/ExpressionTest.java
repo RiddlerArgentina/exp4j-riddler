@@ -123,7 +123,7 @@ public class ExpressionTest {
         exp2.setVariable("x", 2);
         assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
     }
-    
+
     @Test
     public void testCopy3() {
         //There's an issue with multiple variables not being set after copy()
@@ -133,14 +133,71 @@ public class ExpressionTest {
                 return Math.sin(args[0]);
             }
         };
-        Expression exp1 = new ExpressionBuilder("1 + myFunc(x) * x")
-                             .function(myFunc).variable("x").build();
+        Expression exp1 = new ExpressionBuilder("1 + myFunc(x) + y")
+                             .function(myFunc).variables("x", "y").build();
+        exp1.setVariable("x", 3);
+        exp1.setVariable("y", 1);
         Expression exp2 = exp1.copy();
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
         exp1.setVariable("x", 0);
         exp2.setVariable("x", 0);
         assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
         exp1.setVariable("x", 1);
         exp2.setVariable("x", 2);
         assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCheckVariable() {
+        Expression exp = new ExpressionBuilder("sin(sin)").build().setVariable("sin", 0);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCheckVariable2() {
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Expression exp = new ExpressionBuilder("sin(foo)").function(foo).build().setVariable("foo", 0);
+    }
+
+    @Test
+    public void testContainsVariable() {
+        Expression exp = new ExpressionBuilder("sin(foo)").variable("foo").build();
+        assertTrue(exp.containsVariable("foo"));
+        assertFalse(exp.containsVariable("bar"));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongNumberOfArguments() {
+        Expression exp = new ExpressionBuilder("sin()").variable("foo").build();
+        exp.evaluate();
+    }
+
+    @Test
+    public void testToStringNoValues() {
+        Expression exp = new ExpressionBuilder("sin(1 * foo)").variable("foo").build();
+        assertEquals("1.0 foo * sin", exp.toString());
+    }
+
+    @Test
+    public void testToStringWithValues() {
+        Expression exp = new ExpressionBuilder("sin(1 * foo)").variable("foo").build();
+        exp.setVariable("foo", 0);
+        assertEquals("1.0 foo(0.0) * sin", exp.toString());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongArgsForOperator() {
+        Expression exp = new ExpressionBuilder("3 * ").variable("foo").build();
+        exp.evaluate();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongArgsForOperatorSimplify() {
+        Expression exp = new ExpressionBuilder("3 * ").variable("foo").build(true);
+        exp.evaluate();
     }
 }
