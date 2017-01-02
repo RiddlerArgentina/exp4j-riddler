@@ -124,6 +124,25 @@ public class ExpressionTest {
         assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
     }
 
+    @Test
+    public void testCopy3() {
+        Function myFunc = new Function("myFunc") {
+            @Override
+            public double apply(double... args) {
+                return Math.sin(args[0]);
+            }
+        };
+        Expression exp1 = new ExpressionBuilder("1 + myFunc(x) + y")
+                             .function(myFunc).variables("x", "y").build();
+        exp1.setVariable("x", 0);
+        exp1.setVariable("y", 1);
+        Expression exp2 = exp1.copy();
+        assertEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+        exp1.setVariable("x", 1);
+        exp2.setVariable("x", 2);
+        assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void testCheckVariable() {
         Expression exp = new ExpressionBuilder("sin(sin)").build().setVariable("sin", 0);
