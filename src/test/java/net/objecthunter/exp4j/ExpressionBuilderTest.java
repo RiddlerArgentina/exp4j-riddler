@@ -2858,4 +2858,50 @@ public class ExpressionBuilderTest {
         ExpressionBuilder builder = new ExpressionBuilder("1");
         Expression exp = builder.functions().build();
     }
+    
+    @Test
+    public void testOperatorsList() {
+        ExpressionBuilder builder = new ExpressionBuilder("(1|1)&0");
+        Operator foo = new Operator("&", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] * args[1];
+            }
+        };
+        Operator bar = new Operator("|", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] + args[1];
+            }
+        };
+        Operator[] ops = new Operator[]{foo, bar};
+        Expression exp = builder.operators(Arrays.asList(ops)).build();
+        assertEquals(0, exp.evaluate(), 0);
+    }
+    
+    @Test
+    public void testOperatorsArray() {
+        ExpressionBuilder builder = new ExpressionBuilder("(1|1)&0");
+        Operator foo = new Operator("&", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] * args[1];
+            }
+        };
+        Operator bar = new Operator("|", 2, true, 0) {
+            @Override
+            public double apply(double... args) {
+                return args[0] + args[1];
+            }
+        };
+        
+        Expression exp = builder.operators(foo, bar).build();
+        assertEquals(0, exp.evaluate(), 0);
+    }
+    
+    @Test
+    public void testOperatorsArrayEmpty() {
+        ExpressionBuilder builder = new ExpressionBuilder("1");
+        Expression exp = builder.operators().build();
+    }
 }
