@@ -123,4 +123,33 @@ public class ExpressionTest {
         exp2.setVariable("x", 2);
         assertNotEquals(exp1.evaluate(), exp2.evaluate(), 1e-12);
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testCheckVariable() {
+        Expression exp = new ExpressionBuilder("sin(sin)").build().setVariable("sin", 0);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testCheckVariable2() {
+        Function foo = new Function("foo") {
+            @Override
+            public double apply(double... args) {
+                return args[0];
+            }
+        };
+        Expression exp = new ExpressionBuilder("sin(foo)").function(foo).build().setVariable("foo", 0);
+    }
+    
+    @Test
+    public void testContainsVariable() {
+        Expression exp = new ExpressionBuilder("sin(foo)").variable("foo").build();
+        assertTrue(exp.containsVariable("foo"));
+        assertFalse(exp.containsVariable("bar"));
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongNumberOfArguments() {
+        Expression exp = new ExpressionBuilder("sin()").variable("foo").build();
+        exp.evaluate();
+    }
 }
