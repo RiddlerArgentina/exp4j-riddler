@@ -184,4 +184,16 @@ public class ExpressionTest {
         exp.setVariable("foo", 0);
         assertEquals("1.0 foo(0.0) * sin", exp.toString());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongArgsForOperator() {
+        Expression exp = new ExpressionBuilder("3 * ").variable("foo").build();
+        exp.evaluate();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testEvaluateWrongArgsForOperatorSimplify() {
+        Expression exp = new ExpressionBuilder("3 * ").variable("foo").build(true);
+        exp.evaluate();
+    }
 }
