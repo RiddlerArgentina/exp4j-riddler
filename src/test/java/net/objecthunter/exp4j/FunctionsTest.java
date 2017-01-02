@@ -93,7 +93,14 @@ public class FunctionsTest {
             }
         };
     }
-    
+
+    @Test
+    public void testSignum() {
+        assertEquals( 1, new ExpressionBuilder("signum(1e4)").build().evaluate(), 0);
+        assertEquals(-1, new ExpressionBuilder("signum(-1E4)").build().evaluate(), 0);
+        assertEquals( 0, new ExpressionBuilder("signum(0)").build().evaluate(), 0);
+    }
+
     @Test
     public void testCheckFunctionNames() {
         assertTrue(Function.isValidFunctionName("log"));
