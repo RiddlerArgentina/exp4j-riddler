@@ -16,6 +16,7 @@
 
 package net.objecthunter.exp4j;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import static java.lang.Math.*;
@@ -2801,5 +2802,15 @@ public class ExpressionBuilderTest {
     public void testFactorialIssue75() {
         Expression exp = new ExpressionBuilder("3!-2!").build();
         assertEquals(4, exp.evaluate(), 1e-12);
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyExpression() {
+        Expression exp = new ExpressionBuilder("").build();
+    }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyExpression2() {
+        Expression exp = new ExpressionBuilder(null).build();
     }
 }
