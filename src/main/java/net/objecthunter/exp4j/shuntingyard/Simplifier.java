@@ -81,16 +81,6 @@ class Simplifier {
                     final FunctionToken func = (FunctionToken) t;
                     final int numArgs = func.getFunction().getNumArguments();
                     
-                    if (output.size() < numArgs) {
-                        //@FIXME Remove or fix?
-                        //This will fail often since all non-simplifiable 
-                        //token will remain in the stack increasing output.size.
-                        //If this were to work correctly there's a chance of
-                        //IllegalArgumentException when build() is called, and
-                        //that might break currently existing applications.
-                        throw new IllegalArgumentException("Invalid number of arguments available");
-                    }
-                    
                     //collect the arguments from the stack
                     final Token[] args = new Token[numArgs];
                     boolean areNumbers = true;

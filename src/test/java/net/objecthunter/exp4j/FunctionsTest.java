@@ -16,10 +16,12 @@
 package net.objecthunter.exp4j;
 
 import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.function.Functions;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class FunctionsTest {
@@ -127,5 +129,15 @@ public class FunctionsTest {
         assertFalse(Function.isValidFunctionName("log+"));
         assertFalse(Function.isValidFunctionName("perc%"));
         assertFalse(Function.isValidFunctionName("del$a"));
+    }
+
+    @Test
+    public void testGetFunctionNonExistent() {
+        assertNull(Functions.getBuiltinFunction("foo"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGetFunctionNull() {
+        assertNull(Functions.getBuiltinFunction(null));
     }
 }
