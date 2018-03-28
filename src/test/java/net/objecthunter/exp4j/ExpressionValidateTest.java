@@ -30,7 +30,7 @@ public class ExpressionValidateTest {
 	/**
 	 * Dummy function with 2 arguments.
 	 */
-	Function beta = new Function("beta", 2) {
+	private final Function beta = new Function("beta", 2) {
 
 		@Override
 		public double apply(double... args) {
@@ -41,7 +41,7 @@ public class ExpressionValidateTest {
 	/**
 	 * Dummy function with 3 arguments.
 	 */
-	Function gamma = new Function("gamma", 3) {
+	private final Function gamma = new Function("gamma", 3) {
 
 		@Override
 		public double apply(double... args) {
@@ -52,7 +52,7 @@ public class ExpressionValidateTest {
 	/**
 	 * Dummy function with 7 arguments.
 	 */
-	Function eta = new Function("eta", 7) {
+	private final Function eta = new Function("eta", 7) {
 
 		@Override
 		public double apply(double... args) {
