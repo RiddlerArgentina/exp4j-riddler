@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b8530d3e14e1421b8dd3571f1964543f)](https://app.codacy.com/app/dktcoding/exp4j?utm_source=github.com&utm_medium=referral&utm_content=dktcoding/exp4j&utm_campaign=badger)
 This `exp4j` [![Build Status](https://travis-ci.org/dktcoding/exp4j.svg?branch=master)](https://travis-ci.org/dktcoding/exp4j)
 ----------
 This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 
