@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
 public class TokenStackTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConstructor() {
-        TokenStack stack = new TokenStack(-1);
+        new TokenStack(-1);
     }
 
     @Test

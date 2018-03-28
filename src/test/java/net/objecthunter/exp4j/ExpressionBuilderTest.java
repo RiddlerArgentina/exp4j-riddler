@@ -53,7 +53,7 @@ public class ExpressionBuilderTest {
                 .setVariable("x", Math.PI)
                 .evaluate();
         double expected = cos(Math.PI);
-        assertEquals(-1d, result, 0d);
+        assertEquals(expected, result, 0d);
     }
 
     @Test
@@ -841,8 +841,7 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidFunction1() throws Exception {
-        Function func = new Function("1gd") {
-
+        new Function("1gd") {
             @Override
             public double apply(double... args) {
                 return 0;
@@ -852,8 +851,7 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidFunction2() throws Exception {
-        Function func = new Function("+1gd") {
-
+        new Function("+1gd") {
             @Override
             public double apply(double... args) {
                 return 0;
@@ -1293,7 +1291,7 @@ public class ExpressionBuilderTest {
     @Test
     public void testVarMap() throws Exception {
         String expr = "12.23 * foo - bar";
-        Map<String, Double> variables = new HashMap<String, Double>();
+        Map<String, Double> variables = new HashMap<>();
         variables.put("foo", 2d);
         variables.put("bar", 3.3d);
         Expression e = new ExpressionBuilder(expr)
@@ -1313,8 +1311,7 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testInvalidNumberofArguments2() throws Exception {
-        Function avg = new Function("avg", 4) {
-
+        new Function("avg", 4) {
             @Override
             public double apply(double... args) {
                 double sum = 0;

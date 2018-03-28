@@ -167,7 +167,7 @@ public class SimplifierTest {
         };
         
         final double varBar = 1.3d;
-        Expression e = new ExpressionBuilder("bar(bar)")
+        new ExpressionBuilder("bar(bar)")
                 .variables("bar")
                 .function(custom)
                 .build(true)

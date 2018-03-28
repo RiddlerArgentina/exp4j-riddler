@@ -100,7 +100,6 @@ public class PerformanceTest {
             val += expression.evaluate();
             count++;
         }
-        double rate = count / timeout;
         return count + (int)(val / val);
     }
 
@@ -110,7 +109,6 @@ public class PerformanceTest {
         double x;
         double y;
         double val = 0;
-        double rate;
         int count = 0;
         Random rnd = new Random();
         while (time > System.currentTimeMillis()) {
@@ -119,7 +117,6 @@ public class PerformanceTest {
             val += Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
             count++;
         }
-        rate = count / timeout;
         return count + (int)(val / val);
     }
 
@@ -130,7 +127,6 @@ public class PerformanceTest {
         long time = System.currentTimeMillis() + (1000 * timeout);
         double x;
         double y;
-        double rate;
         double val = 0;
         int count = 0;
         Random rnd = new Random();
@@ -148,7 +144,6 @@ public class PerformanceTest {
                 val += (Double)inv.invokeFunction("f", x, y);
                 count++;
             }
-            rate = count / timeout;
         }
         return count + (int)(val / val);
     }

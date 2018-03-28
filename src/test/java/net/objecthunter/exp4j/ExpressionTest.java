@@ -149,7 +149,7 @@ public class ExpressionTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testCheckVariable() {
-        Expression exp = new ExpressionBuilder("sin(sin)").build().setVariable("sin", 0);
+        new ExpressionBuilder("sin(sin)").build().setVariable("sin", 0);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -160,7 +160,7 @@ public class ExpressionTest {
                 return args[0];
             }
         };
-        Expression exp = new ExpressionBuilder("sin(foo)").function(foo).build().setVariable("foo", 0);
+        new ExpressionBuilder("sin(foo)").function(foo).build().setVariable("foo", 0);
     }
 
     @Test
