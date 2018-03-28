@@ -1,5 +1,5 @@
 /* 
-* Copyright 2016 Federico Vera
+* Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * </ol>
  * @see Operator#BOOLEAN_THRESHOLD
  * @see OperatorsComparison
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class FunctionsBoolean {
     private static final int INDEX_NOT   = 0;

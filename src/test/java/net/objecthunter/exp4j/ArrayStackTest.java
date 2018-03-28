@@ -1,5 +1,5 @@
 /* 
- * Copyright 2015 Federico Vera
+ * Copyright 2015-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ import org.junit.Test;
 
 /**
  *
- * @author Federico Vera (dktcoding [at] gmail)
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class ArrayStackTest {
 
