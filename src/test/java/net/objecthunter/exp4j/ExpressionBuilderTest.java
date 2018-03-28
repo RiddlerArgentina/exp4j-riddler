@@ -225,19 +225,20 @@ public class ExpressionBuilderTest {
 
     @Test(expected = ArithmeticException.class)
     public void testExpressionBuilder15() throws Exception {
-        double result = new ExpressionBuilder("-3/0")
+        new ExpressionBuilder("-3/0")
                 .build()
                 .evaluate();
     }
 
     @Test
     public void testExpressionBuilder16() throws Exception {
-        double result = new ExpressionBuilder("log(x) - y * (sqrt(x^cos(y)))")
+        double res = new ExpressionBuilder("log(x) - y * (sqrt(x^cos(y)))")
                 .variables("x", "y")
                 .build()
                 .setVariable("x", 1d)
                 .setVariable("y", 2d)
                 .evaluate();
+        assertEquals(-2, res, 1e-9);
     }
 
     @Test

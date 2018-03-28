@@ -95,10 +95,16 @@ public class ArrayStackTest {
         for (int i = 0; i < 5; i++) {
             stack.push(i);
         }
+        
+        assertEquals(5, stack.size());
+        assertFalse(stack.isEmpty());
 
         while (!stack.isEmpty()) {
             stack.pop();
         }
+        
+        assertEquals(0, stack.size());
+        assertTrue(stack.isEmpty());
     }
 
     @Test(expected = EmptyStackException.class)

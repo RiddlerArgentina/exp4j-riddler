@@ -397,9 +397,10 @@ public class SimplifierTest {
         new ExpressionBuilder("1/0").build(true);
     }
 
-    @Test
+    @Test(expected = ArithmeticException.class)
     public void testOptimization10() throws Exception {
-        new ExpressionBuilder("1/0").build();
+        Expression exp = new ExpressionBuilder("1/0").build();
+        exp.evaluate();
     }
 
     @Test
@@ -445,9 +446,10 @@ public class SimplifierTest {
         new ExpressionBuilder("pow(3,2,5)").build().evaluate();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOptimization14() throws Exception {
-        new ExpressionBuilder("pow(3,2,5)").build();
+        Expression exp = new ExpressionBuilder("pow(3,2,5)").build();
+        exp.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -455,9 +457,10 @@ public class SimplifierTest {
         new ExpressionBuilder("pow(3,2,5)").build(true).evaluate();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOptimization16() throws Exception {
-        new ExpressionBuilder("pow(3,2,5)").build(true);
+        Expression exp = new ExpressionBuilder("pow(3,2,5)").build(true);
+        exp.evaluate();
     }
 
     @Test
