@@ -1,5 +1,5 @@
 /* 
- * Copyright 2015 Federico Vera
+ * Copyright 2015-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class SimplifierTest {
 
@@ -167,7 +167,7 @@ public class SimplifierTest {
         };
         
         final double varBar = 1.3d;
-        Expression e = new ExpressionBuilder("bar(bar)")
+        new ExpressionBuilder("bar(bar)")
                 .variables("bar")
                 .function(custom)
                 .build(true)
@@ -397,9 +397,10 @@ public class SimplifierTest {
         new ExpressionBuilder("1/0").build(true);
     }
 
-    @Test
+    @Test(expected = ArithmeticException.class)
     public void testOptimization10() throws Exception {
-        new ExpressionBuilder("1/0").build();
+        Expression exp = new ExpressionBuilder("1/0").build();
+        exp.evaluate();
     }
 
     @Test
@@ -445,9 +446,10 @@ public class SimplifierTest {
         new ExpressionBuilder("pow(3,2,5)").build().evaluate();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOptimization14() throws Exception {
-        new ExpressionBuilder("pow(3,2,5)").build();
+        Expression exp = new ExpressionBuilder("pow(3,2,5)").build();
+        exp.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -455,9 +457,10 @@ public class SimplifierTest {
         new ExpressionBuilder("pow(3,2,5)").build(true).evaluate();
     }
 
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testOptimization16() throws Exception {
-        new ExpressionBuilder("pow(3,2,5)").build(true);
+        Expression exp = new ExpressionBuilder("pow(3,2,5)").build(true);
+        exp.evaluate();
     }
 
     @Test

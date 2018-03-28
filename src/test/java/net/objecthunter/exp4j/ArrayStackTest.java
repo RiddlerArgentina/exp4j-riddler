@@ -1,5 +1,5 @@
 /* 
- * Copyright 2015 Federico Vera
+ * Copyright 2015-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,16 +25,13 @@ import org.junit.Test;
 
 /**
  *
- * @author Federico Vera (dktcoding [at] gmail)
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class ArrayStackTest {
 
-    public ArrayStackTest() {
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testConstructor() {
-        ArrayStack stack = new ArrayStack(-1);
+        new ArrayStack(-1);
     }
 
     @Test
@@ -98,10 +95,16 @@ public class ArrayStackTest {
         for (int i = 0; i < 5; i++) {
             stack.push(i);
         }
+        
+        assertEquals(5, stack.size());
+        assertFalse(stack.isEmpty());
 
         while (!stack.isEmpty()) {
             stack.pop();
         }
+        
+        assertEquals(0, stack.size());
+        assertTrue(stack.isEmpty());
     }
 
     @Test(expected = EmptyStackException.class)

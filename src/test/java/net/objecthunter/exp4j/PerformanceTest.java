@@ -21,8 +21,8 @@ import javax.script.Invocable;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import org.junit.Assert;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PerformanceTest {
@@ -58,10 +58,11 @@ public class PerformanceTest {
         System.out.print(sb.toString());
         sb.setLength(0);
 
-         int js = benchJavaScript();
+        int js = benchJavaScript();
         double jsRate = (double) js / (double) BENCH_TIME;
         fmt.format("| %-22s | %25.2f | %22.2f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
+        Assert.assertNotNull(sb.toString()); //Silence warning
         System.out.print(sb.toString());
     }
 
@@ -99,14 +100,15 @@ public class PerformanceTest {
             val += expression.evaluate();
             count++;
         }
-        double rate = count / timeout;
         return count + (int)(val / val);
     }
 
     private int benchJavaMath() {
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, val = 0, rate;
+        double x;
+        double y;
+        double val = 0;
         int count = 0;
         Random rnd = new Random();
         while (time > System.currentTimeMillis()) {
@@ -115,7 +117,6 @@ public class PerformanceTest {
             val += Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
             count++;
         }
-        rate = count / timeout;
         return count + (int)(val / val);
     }
 
@@ -124,7 +125,8 @@ public class PerformanceTest {
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, rate;
+        double x;
+        double y;
         double val = 0;
         int count = 0;
         Random rnd = new Random();
@@ -142,7 +144,6 @@ public class PerformanceTest {
                 val += (Double)inv.invokeFunction("f", x, y);
                 count++;
             }
-            rate = count / timeout;
         }
         return count + (int)(val / val);
     }

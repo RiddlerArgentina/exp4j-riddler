@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Federico Vera
+ * Copyright 2016-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,12 +27,12 @@ import static org.junit.Assert.assertTrue;
 
 /**
  *
- * @author Federico Vera {@literal dktcoding [at] gmail}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class TokenStackTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConstructor() {
-        TokenStack stack = new TokenStack(-1);
+        new TokenStack(-1);
     }
 
     @Test
@@ -98,9 +98,15 @@ public class TokenStackTest {
             stack.push(new NumberToken(i));
         }
 
+        assertEquals(5, stack.size());
+        assertFalse(stack.isEmpty());
+        
         while (!stack.isEmpty()) {
             stack.pop();
         }
+        
+        assertEquals(0, stack.size());
+        assertTrue(stack.isEmpty());
     }
 
     @Test(expected = EmptyStackException.class)

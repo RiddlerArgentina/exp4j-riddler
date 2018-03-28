@@ -20,13 +20,11 @@ import static org.junit.Assert.assertEquals;
 
 import net.objecthunter.exp4j.tokenizer.*;
 
-import org.junit.Assert;
-
 public abstract class TestUtil {
 
     public static void assertVariableToken(Token token, String name) {
         assertEquals(TokenType.VARIABLE, token.getType());
-        Assert.assertEquals(name, ((VariableToken) token).getName());
+        assertEquals(name, ((VariableToken) token).getName());
     }
 
     public static void assertOpenParenthesesToken(Token token) {
@@ -46,14 +44,14 @@ public abstract class TestUtil {
 
     public static void assertOperatorToken(Token tok, String symbol, int numArgs, int precedence) {
         assertEquals(tok.getType(), TokenType.OPERATOR);
-        Assert.assertEquals(numArgs, ((OperatorToken) tok).getOperator().getNumOperands());
+        assertEquals(numArgs, ((OperatorToken) tok).getOperator().getNumOperands());
         assertEquals(symbol, ((OperatorToken) tok).getOperator().getSymbol());
         assertEquals(precedence, ((OperatorToken) tok).getOperator().getPrecedence());
     }
 
     public static void assertNumberToken(Token tok, double v) {
         assertEquals(tok.getType(), TokenType.NUMBER);
-        Assert.assertEquals(v, ((NumberToken) tok).getValue(), 0d);
+        assertEquals(v, ((NumberToken) tok).getValue(), 0d);
     }
 
     public static void assertFunctionSeparatorToken(Token t) {

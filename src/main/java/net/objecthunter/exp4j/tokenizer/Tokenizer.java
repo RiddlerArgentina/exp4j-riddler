@@ -85,7 +85,7 @@ public class Tokenizer {
             }
             return parseNumberToken(ch);
         } else if (isArgumentSeparator(ch)) {
-            return parseArgumentSeparatorToken(ch);
+            return parseArgumentSeparatorToken();
         } else if (isOpenParentheses(ch)) {
             if (lastToken != null &&
                     (lastToken.getType() != OPERATOR
@@ -120,7 +120,7 @@ public class Tokenizer {
         ));
     }
 
-    private Token parseArgumentSeparatorToken(char ch) {
+    private Token parseArgumentSeparatorToken() {
         this.pos++;
         this.lastToken = new ArgumentSeparatorToken();
         return lastToken;

@@ -1,5 +1,5 @@
 /* 
- * Copyright 2016 Federico Vera
+ * Copyright 2016-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@ package net.objecthunter.exp4j.tokenizer;
 
 /**
  *
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public enum TokenType {
     NUMBER,

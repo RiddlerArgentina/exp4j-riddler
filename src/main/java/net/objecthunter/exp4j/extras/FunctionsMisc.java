@@ -1,5 +1,5 @@
 /* 
-* Copyright 2016 Federico Vera
+* Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -23,7 +23,7 @@ import net.objecthunter.exp4j.operator.Operator;
  * This class contains a small set of useful functions that don't really fit in the 
  * other categories.
  * 
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class FunctionsMisc {
     private static final int INDEX_EQUAL = 0;

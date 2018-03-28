@@ -22,6 +22,12 @@ import java.util.List;
  * Contains the validation result for a given {@link Expression}
  */
 public final class ValidationResult {
+    /**
+     * A static class representing a successful validation result
+     */
+    @SuppressWarnings("unchecked")
+    public static final ValidationResult SUCCESS = new ValidationResult(Collections.EMPTY_LIST);
+    
     private final List<String> errors;
 
     /**
@@ -47,10 +53,4 @@ public final class ValidationResult {
     public List<String> getErrors() {
         return errors;
     }
-
-    /**
-     * A static class representing a successful validation result
-     */
-    @SuppressWarnings("unchecked")
-    public static final ValidationResult SUCCESS = new ValidationResult(Collections.EMPTY_LIST);
 }

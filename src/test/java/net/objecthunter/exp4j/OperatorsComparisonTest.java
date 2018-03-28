@@ -1,5 +1,5 @@
 /* 
-* Copyright 2016 Federico Vera
+* Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -24,9 +24,10 @@ import static org.junit.Assert.assertEquals;
 
 /**
  *
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class OperatorsComparisonTest {
+    private static final int[] VALUES = {0, 1};
     
     @Test
     public void testPrecedence1() {
@@ -375,6 +376,4 @@ public class OperatorsComparisonTest {
         assertEquals(e1.evaluate(), e2.evaluate(), 0d);
         assertEquals(e2.evaluate(), e3.evaluate(), 0d);
     }
-
-    private static final int[] VALUES = {0, 1};
 }

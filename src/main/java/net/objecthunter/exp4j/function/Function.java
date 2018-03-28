@@ -118,6 +118,7 @@ public abstract class Function {
             return false;
         }
 
+        boolean status = true;
         for (int i = 0; i < size; i++) {
             final char c = name.charAt(i);
             if (Character.isLetter(c) || c == '_') {
@@ -125,8 +126,8 @@ public abstract class Function {
             } else if (Character.isDigit(c) && i > 0) {
                 continue;
             }
-            return false;
+            status &= false;
         }
-        return true;
+        return status;
     }
 }
