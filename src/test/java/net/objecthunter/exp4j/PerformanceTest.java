@@ -22,7 +22,6 @@ import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class PerformanceTest {
