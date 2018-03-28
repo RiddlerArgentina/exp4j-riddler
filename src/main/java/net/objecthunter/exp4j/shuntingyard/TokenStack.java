@@ -29,11 +29,11 @@ final class TokenStack {
 
     private int idx;
 
-    TokenStack() {
+    protected TokenStack() {
         this(32);
     }
 
-    TokenStack(int initialCapacity) {
+    protected TokenStack(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException(
                     "Stack's capacity must be positive");
@@ -43,7 +43,7 @@ final class TokenStack {
         idx = -1;
     }
 
-    void push(Token value) {
+    protected void push(Token value) {
         if (idx + 1 == data.length) {
             Token[] temp = new Token[(int) (data.length * 2) + 1];
             System.arraycopy(data, 0, temp, 0, data.length);
@@ -53,29 +53,29 @@ final class TokenStack {
         data[++idx] = value;
     }
 
-    Token peek() {
+    protected Token peek() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx];
     }
 
-    Token pop() {
+    protected Token pop() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx--];
     }
 
-    boolean isEmpty() {
+    protected boolean isEmpty() {
         return idx == -1;
     }
 
-    int size() {
+    protected int size() {
         return idx + 1;
     }
     
-    Token[] toArray() {
+    protected Token[] toArray() {
         Token[] ret = new Token[idx + 1];
         System.arraycopy(data, 0, ret, 0, ret.length);
         return ret;

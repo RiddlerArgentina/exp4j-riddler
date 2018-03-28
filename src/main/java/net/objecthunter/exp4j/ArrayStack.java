@@ -29,11 +29,11 @@ final class ArrayStack {
 
     private int idx;
 
-    ArrayStack() {
+    protected ArrayStack() {
         this(5);
     }
 
-    ArrayStack(int initialCapacity) {
+    protected ArrayStack(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException(
                     "Stack's capacity must be positive");
@@ -43,7 +43,7 @@ final class ArrayStack {
         idx = -1;
     }
 
-    void push(double value) {
+    protected void push(double value) {
         if (idx + 1 == data.length) {
             double[] temp = new double[(int) (data.length * 1.2) + 1];
             System.arraycopy(data, 0, temp, 0, data.length);
@@ -53,25 +53,25 @@ final class ArrayStack {
         data[++idx] = value;
     }
 
-    double peek() {
+    protected double peek() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx];
     }
 
-    double pop() {
+    protected double pop() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx--];
     }
 
-    boolean isEmpty() {
+    protected boolean isEmpty() {
         return idx == -1;
     }
 
-    int size() {
+    protected int size() {
         return idx + 1;
     }
 }
