@@ -1,5 +1,5 @@
 /*
-* Copyright 2016 Federico Vera
+* Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -22,9 +22,10 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author Federico Vera {@literal <dktcoding [at] gmail>}
+ * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class FunctionBooleanTest {
+    private static final int[] VALUES = {0, 1};
 
     @Test
     public void testNot1() {
@@ -596,6 +597,4 @@ public class FunctionBooleanTest {
     public void testGetFunctionNull() {
         assertNull(FunctionsBoolean.getFunction(null));
     }
-
-    private static final int[] VALUES = {0, 1};
 }
