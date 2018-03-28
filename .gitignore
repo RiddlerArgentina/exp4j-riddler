@@ -26,5 +26,6 @@ nbbuild/
 doc/
 dist/
 nbdist/
+target/
 nbactions.xml
 nb-configuration.xml
