@@ -105,7 +105,10 @@ public class PerformanceTest {
     private int benchJavaMath() {
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, val = 0, rate;
+        double x;
+        double y;
+        double val = 0;
+        double rate;
         int count = 0;
         Random rnd = new Random();
         while (time > System.currentTimeMillis()) {
@@ -123,7 +126,9 @@ public class PerformanceTest {
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
         long timeout = BENCH_TIME;
         long time = System.currentTimeMillis() + (1000 * timeout);
-        double x, y, rate;
+        double x;
+        double y;
+        double rate;
         double val = 0;
         int count = 0;
         Random rnd = new Random();
