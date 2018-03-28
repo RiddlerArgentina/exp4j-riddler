@@ -1463,7 +1463,7 @@ public class ExpressionBuilderTest {
         String expr = "(1*2";
         Expression e = new ExpressionBuilder(expr)
                 .build();
-        double result = e.evaluate();
+        e.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1471,7 +1471,7 @@ public class ExpressionBuilderTest {
         String expr = "{1*2";
         Expression e = new ExpressionBuilder(expr)
                 .build();
-        double result = e.evaluate();
+        e.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1479,7 +1479,7 @@ public class ExpressionBuilderTest {
         String expr = "[1*2";
         Expression e = new ExpressionBuilder(expr)
                 .build();
-        double result = e.evaluate();
+        e.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1487,7 +1487,7 @@ public class ExpressionBuilderTest {
         String expr = "(1*{2+[3}";
         Expression e = new ExpressionBuilder(expr)
                 .build();
-        double result = e.evaluate();
+        e.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -1495,7 +1495,7 @@ public class ExpressionBuilderTest {
         String expr = "(1*(2+(3";
         Expression e = new ExpressionBuilder(expr)
                 .build();
-        double result = e.evaluate();
+        e.evaluate();
     }
 
     @Test
@@ -2468,7 +2468,6 @@ public class ExpressionBuilderTest {
     public void testPostfixFunction8() throws Exception {
         String expr;
         double expected;
-        double varE = E;
         expr = "2^3.4223232 + tan(e())";
         expected = pow(2, 3.4223232d) + tan(E);
         Expression e = new ExpressionBuilder(expr).build();
@@ -2662,14 +2661,14 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSameVariableAndBuiltinFunctionName() {
-        Expression e = new ExpressionBuilder("log10(log10)")
+        new ExpressionBuilder("log10(log10)")
                 .variables("log10")
                 .build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testSameVariableAndUserFunctionName() {
-        Expression e = new ExpressionBuilder("2*tr+tr(2)")
+        new ExpressionBuilder("2*tr+tr(2)")
                 .variables("tr")
                 .function(new Function("tr") {
                     @Override
@@ -2740,12 +2739,12 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testOperatorFactorial2() throws Exception {
-        Expression exp = new ExpressionBuilder("!3").build();
+        new ExpressionBuilder("!3").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testOperatorFactorial3() throws Exception {
-        Expression exp = new ExpressionBuilder("!!3").build();
+        new ExpressionBuilder("!!3").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -2854,7 +2853,7 @@ public class ExpressionBuilderTest {
     @Test
     public void testFunctionsArrayEmpty() {
         ExpressionBuilder builder = new ExpressionBuilder("1");
-        Expression exp = builder.functions().build();
+        builder.functions().build();
     }
 
     @Test
@@ -2900,6 +2899,6 @@ public class ExpressionBuilderTest {
     @Test
     public void testOperatorsArrayEmpty() {
         ExpressionBuilder builder = new ExpressionBuilder("1");
-        Expression exp = builder.operators().build();
+        builder.operators().build();
     }
 }
