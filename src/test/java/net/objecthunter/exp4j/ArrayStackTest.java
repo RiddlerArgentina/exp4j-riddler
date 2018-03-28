@@ -29,12 +29,9 @@ import org.junit.Test;
  */
 public class ArrayStackTest {
 
-    public ArrayStackTest() {
-    }
-
     @Test(expected = IllegalArgumentException.class)
     public void testConstructor() {
-        ArrayStack stack = new ArrayStack(-1);
+        new ArrayStack(-1);
     }
 
     @Test
