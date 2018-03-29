@@ -1747,7 +1747,7 @@ public class ExpressionBuilderTest {
     // expression is passed as in new ExpressionBuilder("")
     @Test(expected = IllegalArgumentException.class)
     public void testExpression59() throws Exception {
-        Expression e = new ExpressionBuilder("")
+        new ExpressionBuilder("")
                 .build();
     }
 
@@ -1979,7 +1979,7 @@ public class ExpressionBuilderTest {
     // thanks got out to David Sills
     @Test(expected=IllegalArgumentException.class)
     public void testSpaceBetweenNumbers() throws Exception {
-        Expression e = new ExpressionBuilder("1 1")
+        new ExpressionBuilder("1 1")
                 .build();
     }
 
@@ -2803,12 +2803,12 @@ public class ExpressionBuilderTest {
 
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyExpression() {
-        Expression exp = new ExpressionBuilder("").build();
+        new ExpressionBuilder("").build();
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testEmptyExpression2() {
-        Expression exp = new ExpressionBuilder(null).build();
+        new ExpressionBuilder(null).build();
     }
 
     @Test
@@ -2853,7 +2853,8 @@ public class ExpressionBuilderTest {
     @Test
     public void testFunctionsArrayEmpty() {
         ExpressionBuilder builder = new ExpressionBuilder("1");
-        builder.functions().build();
+        Expression e = builder.functions().build();
+        assertEquals(1, e.evaluate(), 1e-9);
     }
 
     @Test
@@ -2899,6 +2900,7 @@ public class ExpressionBuilderTest {
     @Test
     public void testOperatorsArrayEmpty() {
         ExpressionBuilder builder = new ExpressionBuilder("1");
-        builder.operators().build();
+        Expression e = builder.functions().build();
+        assertEquals(1, e.evaluate(), 1e-9);
     }
 }
