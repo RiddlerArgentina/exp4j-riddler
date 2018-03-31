@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2014 Frank Asseg
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.function;
 
@@ -20,7 +20,11 @@ import java.util.Arrays;
 /**
  * Class representing the builtin functions available for use in expressions
  */
-public abstract class Functions {
+public final class Functions {
+    private Functions() {
+        // Don't let anyone initialize this class
+    }
+
     private static final int INDEX_SIN = 0;
     private static final int INDEX_COS = 1;
     private static final int INDEX_TAN = 2;
@@ -200,10 +204,10 @@ public abstract class Functions {
             }
         };
     }
-    
+
     /**
      * Retrieves all the functions in this class
-     * 
+     *
      * @return function list
      */
     public static Function[] getFunctions() {
