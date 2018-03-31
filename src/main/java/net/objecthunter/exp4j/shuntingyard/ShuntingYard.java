@@ -62,7 +62,7 @@ public final class ShuntingYard {
                 stack.push(token);
                 break;
             case SEPARATOR:
-                separator(stack, output, token);
+                separator(stack, output);
                 break;
             case OPERATOR:
                 operator(stack, output, token);
@@ -119,7 +119,7 @@ public final class ShuntingYard {
         }
     }
 
-    private static void separator(TokenStack stack, TokenStack output, Token token) {
+    private static void separator(TokenStack stack, TokenStack output) {
         while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
             output.push(stack.pop());
         }
