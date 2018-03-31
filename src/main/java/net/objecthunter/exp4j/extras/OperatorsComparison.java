@@ -41,7 +41,7 @@ import net.objecthunter.exp4j.operator.Operator;
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class OperatorsComparison {
+public final class OperatorsComparison {
     public static final int PRECEDENCE_COMPARISON = Operator.PRECEDENCE_ADDITION - 50;
     public static final int PRECEDENCE_EQUAL = Operator.PRECEDENCE_OR - 50;
 

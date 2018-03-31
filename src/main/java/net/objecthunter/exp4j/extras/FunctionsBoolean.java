@@ -37,7 +37,7 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * @see OperatorsComparison
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class FunctionsBoolean {
+public final class FunctionsBoolean {
     private static final int INDEX_NOT   = 0;
     private static final int INDEX_AND   = 1;
     private static final int INDEX_OR    = 2;

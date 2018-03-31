@@ -25,7 +25,7 @@ import net.objecthunter.exp4j.operator.Operator;
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class FunctionsMisc {
+public final class FunctionsMisc {
     private static final int INDEX_EQUAL = 0;
     private static final int INDEX_IF    = 1;
     private static final int INDEX_SINC  = 2;
