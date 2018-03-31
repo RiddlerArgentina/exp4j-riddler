@@ -28,7 +28,10 @@ import static net.objecthunter.exp4j.tokenizer.TokenType.*;
 /**
  * Shunting yard implementation to convert infix to reverse polish notation
  */
-public class ShuntingYard {
+public final class ShuntingYard {
+    private ShuntingYard() {
+        // Don't let anyone initialize this class
+    }
 
     /**
      * Convert a Set of tokens from infix to reverse polish notation
@@ -39,10 +42,10 @@ public class ShuntingYard {
      * @param variableNames the variable names used in the expression
      * @return a {@link net.objecthunter.exp4j.tokenizer.Token} array containing the result
      */
-    public static Token[] convertToRPN(final boolean simplify, 
-                                       final String expression, 
+    public static Token[] convertToRPN(final boolean simplify,
+                                       final String expression,
                                        final Map<String, Function> userFunctions,
-                                       final Map<String, Operator> userOperators, 
+                                       final Map<String, Operator> userOperators,
                                        final Set<String> variableNames){
         final TokenStack stack  = new TokenStack();
         final TokenStack output = new TokenStack();
@@ -59,28 +62,10 @@ public class ShuntingYard {
                 stack.push(token);
                 break;
             case SEPARATOR:
-                while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
-                    output.push(stack.pop());
-                }
-                if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
-                    throw new IllegalArgumentException(
-                        "Misplaced function separator ',' or mismatched parentheses"
-                    );
-                }
+                separator(stack, output, token);
                 break;
             case OPERATOR:
-                while (!stack.isEmpty() && stack.peek().getType() == OPERATOR) {
-                    final Operator o1 = ((OperatorToken) token).getOperator();
-                    final Operator o2 = ((OperatorToken) stack.peek()).getOperator();
-                    if (o1.getNumOperands() == 1 && o2.getNumOperands() == 2) {
-                        break;
-                    } else if ((o1.isLeftAssociative() && o1.getPrecedence() <= o2.getPrecedence())
-                            || (o1.getPrecedence() < o2.getPrecedence())) {
-                        output.push(stack.pop());
-                    } else {
-                        break;
-                    }
-                }
+                operator(stack, output, token);
                 stack.push(token);
                 break;
             case PARENTHESES_OPEN:
@@ -95,12 +80,13 @@ public class ShuntingYard {
                     output.push(stack.pop());
                 }
                 break;
+            default: assert false : "All items are accounted for";
             }
         }
-        
+
         while (!stack.isEmpty()) {
             Token t = stack.pop();
-            if (t.getType() == PARENTHESES_CLOSE || 
+            if (t.getType() == PARENTHESES_CLOSE ||
                 t.getType() == PARENTHESES_OPEN) {
                 throw new IllegalArgumentException(
                     "Mismatched parentheses detected. Please check the expression"
@@ -109,10 +95,38 @@ public class ShuntingYard {
                 output.push(t);
             }
         }
-        
+
         if (simplify) {
             return Simplifier.simplify(output.toArray());
-        } 
+        }
         return output.toArray();
+    }
+
+    private static void operator(TokenStack stack, TokenStack output, Token token) {
+        while (!stack.isEmpty() && stack.peek().getType() == OPERATOR) {
+            final Operator o1 = ((OperatorToken) token).getOperator();
+            final Operator o2 = ((OperatorToken) stack.peek()).getOperator();
+
+            if (o1.getNumOperands() == 1 && o2.getNumOperands() == 2) {
+                break;
+            } else if ((o1.isLeftAssociative()
+                        && (o1.getPrecedence() <= o2.getPrecedence()))
+                    || (o1.getPrecedence() < o2.getPrecedence())) {
+                output.push(stack.pop());
+            } else {
+                break;
+            }
+        }
+    }
+
+    private static void separator(TokenStack stack, TokenStack output, Token token) {
+        while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
+            output.push(stack.pop());
+        }
+        if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
+            throw new IllegalArgumentException(
+                "Misplaced function separator ',' or mismatched parentheses"
+            );
+        }
     }
 }
