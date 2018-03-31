@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Frank Asseg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 package net.objecthunter.exp4j;
@@ -43,7 +43,7 @@ public class ExpressionBuilder {
     private final Set<String> variableNames;
 
     /**
-     * Create a new ExpressionBuilder instance and initialize it with a given expression 
+     * Create a new ExpressionBuilder instance and initialize it with a given expression
      * string.
      * @param expression the expression to be parsed
      */
@@ -51,7 +51,7 @@ public class ExpressionBuilder {
         if (expression == null || expression.trim().length() == 0) {
             throw new IllegalArgumentException("Expression can not be empty");
         }
-        
+
         this.expression = expression;
         this.userOperators = new HashMap<>(4);
         this.userFunctions = new HashMap<>(4);
@@ -60,7 +60,7 @@ public class ExpressionBuilder {
 
     /**
      * Add a {@link Function} implementation available for use in the expression.
-     * @param function the custom {@link Function} implementation that should be available for 
+     * @param function the custom {@link Function} implementation that should be available for
      * use in the expression.
      * @return the ExpressionBuilder instance
      */
@@ -70,7 +70,7 @@ public class ExpressionBuilder {
     }
 
     /**
-     * Add multiple {@link Function} implementations 
+     * Add multiple {@link Function} implementations
      * available for use in the expression.
      * @param functions the custom {@link Function} implementations
      * @return the ExpressionBuilder instance
@@ -83,7 +83,7 @@ public class ExpressionBuilder {
     }
 
     /**
-     * Add multiple {@link net.objecthunter.exp4j.function.Function} implementations 
+     * Add multiple {@link net.objecthunter.exp4j.function.Function} implementations
      * available for use in the expression
      * @param functions A {@link java.util.List} of custom {@link Function} implementations
      * @return the ExpressionBuilder instance
@@ -98,7 +98,7 @@ public class ExpressionBuilder {
     /**
      * Add multiple {@code variables} that <b>must</b> be used in the expression.<br><br>
      * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
-     * 
+     *
      * @param variableNames variables to use
      * @return the ExpressionBuilder instance
      */
@@ -110,7 +110,7 @@ public class ExpressionBuilder {
     /**
      * Add multiple {@code variables} that <b>must</b> be used in the expression.<br><br>
      * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
-     * 
+     *
      * @param variableNames variables to use
      * @return the ExpressionBuilder instance
      */
@@ -122,7 +122,7 @@ public class ExpressionBuilder {
     /**
      * Add a {@code variable} that <b>must</b> be used in the expression.<br><br>
      * <i><b>Note:</b></i> the "must" part of that statement will change on future versions.
-     * 
+     *
      * @param variableName variable to use
      * @return the ExpressionBuilder instance
      */
@@ -167,7 +167,7 @@ public class ExpressionBuilder {
     }
 
     /**
-     * Add multiple {@link Operator} implementations which should be available for use 
+     * Add multiple {@link Operator} implementations which should be available for use
      * in the expression
      * @param operators the {@link List} of custom {@link Operator} implementations to add
      * @return the ExpressionBuilder instance
@@ -196,10 +196,6 @@ public class ExpressionBuilder {
      * expression
      */
     public Expression build(boolean simplify) {
-        if (expression.length() == 0) {
-            throw new IllegalArgumentException("The expression can not be empty");
-        }
-        
         /* Check if there are duplicate vars/functions */
         for (String var : variableNames) {
             if (Functions.getBuiltinFunction(var) != null || userFunctions.containsKey(var)) {
@@ -208,18 +204,18 @@ public class ExpressionBuilder {
                 ));
             }
         }
-        
+
         Token[] tokens = ShuntingYard.convertToRPN(
                 simplify,
-                this.expression, 
+                this.expression,
                 this.userFunctions,
                 this.userOperators,
                 this.variableNames
-        ); 
-        
+        );
+
         return new Expression(tokens, this.userFunctions.keySet());
     }
-    
+
     @Override
     public String toString() {
         return expression;

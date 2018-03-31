@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,13 +11,14 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j;
 
 import java.util.HashMap;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -28,7 +29,7 @@ import static org.junit.Assert.assertEquals;
  */
 public class OperatorsComparisonTest {
     private static final int[] VALUES = {0, 1};
-    
+
     @Test
     public void testPrecedence1() {
         String expr1 = "1 + 2 < 3 + 1 & 8 > 4";
@@ -43,11 +44,11 @@ public class OperatorsComparisonTest {
                 .functions(FunctionsBoolean.getFunctions())
                 .operators(OperatorsComparison.getOperators())
                 .build();
-        
+
         assertEquals(1, e1.evaluate(), 0D);
         assertEquals(e2.evaluate(), e1.evaluate(), 0D);
     }
-    
+
     @Test
     public void testPrecedence2() {
         String expr1 = "1 + 2 < 3 + 1 & 8 > 4 == (((1 + 2) < (3 + 1)) & (8 > 4))";
@@ -56,10 +57,23 @@ public class OperatorsComparisonTest {
                 .functions(FunctionsBoolean.getFunctions())
                 .operators(OperatorsComparison.getOperators())
                 .build();
-        
+
         assertEquals(1, e1.evaluate(), 0D);
     }
-    
+
+    @Test
+    public void testOperatorList() {
+        Assert.assertNotNull(OperatorsComparison.getOperator(">" ));
+        Assert.assertNotNull(OperatorsComparison.getOperator(">="));
+        Assert.assertNotNull(OperatorsComparison.getOperator("<" ));
+        Assert.assertNotNull(OperatorsComparison.getOperator("<="));
+        Assert.assertNotNull(OperatorsComparison.getOperator("=="));
+        Assert.assertNotNull(OperatorsComparison.getOperator("!="));
+        Assert.assertNull(OperatorsComparison.getOperator("==="));
+        Assert.assertNull(OperatorsComparison.getOperator("+"));
+        Assert.assertNull(OperatorsComparison.getOperator(""));
+    }
+
     @Test
     public void testPrecedence3() {
         String expr1 = "true() & false() == and(1, 0)";
@@ -68,10 +82,10 @@ public class OperatorsComparisonTest {
                 .functions(FunctionsBoolean.getFunctions())
                 .operators(OperatorsComparison.getOperators())
                 .build();
-        
+
         assertEquals(1, e1.evaluate(), 0D);
     }
-    
+
     @Test
     public void testPrecedence4() {
         String expr1 = "true() & false() == and(1, 0)";
@@ -80,7 +94,7 @@ public class OperatorsComparisonTest {
                 .functions(FunctionsBoolean.getFunctions())
                 .operators(OperatorsComparison.getOperators())
                 .build();
-        
+
         assertEquals(1, e1.evaluate(), 0D);
     }
 
@@ -156,7 +170,7 @@ public class OperatorsComparisonTest {
             }
         }
     }
-    
+
     @Test
     public void testOpGreaterThan1() {
         String expr1 = "1 < 2";
@@ -289,7 +303,7 @@ public class OperatorsComparisonTest {
 
         assertEquals(1, e1.setVariable("a", 1).evaluate(), 0d);
     }
-    
+
     @Test
     public void testOpNotEqual1() {
         String expr1 = "1 != 2";

@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.extras;
 
@@ -24,20 +24,20 @@ import static net.objecthunter.exp4j.operator.Operator.*;
 /**
  * This class contains a set of commonly used boolean functions and constants.
  * The boolean value rules are the same the we use in the operators:<ol>
- * <li>if the absolute value is less than {@link Operator#BOOLEAN_THRESHOLD} it will be considered 
+ * <li>if the absolute value is less than {@link Operator#BOOLEAN_THRESHOLD} it will be considered
  * {@code false}.</li>
  * <li>if the absolute value is bigger or equal than {@link Operator#BOOLEAN_THRESHOLD} it will be
  * considered {@code true}</li>
  * <li>the recommended approach is to use functions or operators that return boolean values, like
  * the comparison operators or the {@code true()} and {@code flase} constants</li>
- * <li>the {@code true()} constant will always return 1.0 and {@code false()} will always return 
+ * <li>the {@code true()} constant will always return 1.0 and {@code false()} will always return
  * 0.0
  * </ol>
  * @see Operator#BOOLEAN_THRESHOLD
  * @see OperatorsComparison
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class FunctionsBoolean {
+public final class FunctionsBoolean {
     private static final int INDEX_NOT   = 0;
     private static final int INDEX_AND   = 1;
     private static final int INDEX_OR    = 2;
@@ -49,7 +49,7 @@ public class FunctionsBoolean {
     private static final int INDEX_TRUE  = 8;
 
     private static final Function[] FUNCTIONS = new Function[9];
-    
+
     static {
         FUNCTIONS[INDEX_NOT] = new Function("not") {
             @Override
@@ -118,7 +118,7 @@ public class FunctionsBoolean {
             }
         };
     }
-    
+
     public static Function[] getFunctions() {
         return Arrays.copyOf(FUNCTIONS, FUNCTIONS.length);
     }
@@ -141,5 +141,9 @@ public class FunctionsBoolean {
             case "true" : return FUNCTIONS[INDEX_TRUE ];
             default:      return null;
         }
+    }
+
+    private FunctionsBoolean() {
+        // Don't let anyone initialize this class
     }
 }

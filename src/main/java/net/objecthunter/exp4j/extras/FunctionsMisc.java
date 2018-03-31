@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.extras;
 
@@ -20,25 +20,25 @@ import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
- * This class contains a small set of useful functions that don't really fit in the 
+ * This class contains a small set of useful functions that don't really fit in the
  * other categories.
- * 
+ *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class FunctionsMisc {
+public final class FunctionsMisc {
     private static final int INDEX_EQUAL = 0;
     private static final int INDEX_IF    = 1;
     private static final int INDEX_SINC  = 2;
 
     /**
-     * This is the threshold used to consider values equal, that is, if two values {@code a} and 
-     * {@code b} are separated by less than this threshold they will be considered to be equal, it 
+     * This is the threshold used to consider values equal, that is, if two values {@code a} and
+     * {@code b} are separated by less than this threshold they will be considered to be equal, it
      * has a default value of {@value}
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
-    
+
     private static final Function[] FUNCTIONS = new Function[3];
-    
+
     static {
         FUNCTIONS[INDEX_EQUAL] = new Function("equal", 2) {
             @Override
@@ -65,7 +65,7 @@ public class FunctionsMisc {
             }
         };
     }
-    
+
     public static Function[] getFunctions() {
         return Arrays.copyOf(FUNCTIONS, FUNCTIONS.length);
     }
@@ -82,5 +82,9 @@ public class FunctionsMisc {
             case "sinc" : return FUNCTIONS[INDEX_SINC ];
             default:      return null;
         }
+    }
+
+    private FunctionsMisc() {
+        // Don't let anyone initialize this class
     }
 }

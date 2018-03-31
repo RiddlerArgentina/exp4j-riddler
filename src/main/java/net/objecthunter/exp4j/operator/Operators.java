@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2014 Frank Asseg
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.operator;
 
@@ -23,7 +23,7 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * This class implements all of the built-in operators both arithmetic and boolean.
  * Boolean values will be treated as follows:<ol>
  * <li>if the absolute value is less than 1e-12 it will be considered {@code false}. About this...
- * I know is not the ideal approach, but we have a LOT of arithmetic "hacks" all around some 
+ * I know is not the ideal approach, but we have a LOT of arithmetic "hacks" all around some
  * projects and this behavior is actually expected.</li>
  * <li>if the absolute value is bigger or equal than 1e-12 it will be considered {@code true}</li>
  * <li>the boolean results will <b>always</b> be {@code 1.0} for {@code true} and {@code 0.0} for
@@ -35,7 +35,7 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  *             a &amp; b| b &amp; ¬c -&gt; ((a &amp; b) | (b &amp; (¬c)))</pre></li>
  * </ol>
  */
-public abstract class Operators {
+public final class Operators {
     private static final int INDEX_ADDITION = 0;
     private static final int INDEX_SUBTRACTION = 1;
     private static final int INDEX_MUTLIPLICATION = 2;
@@ -44,13 +44,13 @@ public abstract class Operators {
     private static final int INDEX_MODULO = 5;
     private static final int INDEX_UNARYMINUS = 6;
     private static final int INDEX_UNARYPLUS = 7;
-            
+
     private static final int INDEX_OP_AND = 8;
     private static final int INDEX_OP_OR  = 9;
     private static final int INDEX_OP_NOT = 10;
-    
+
     private static final int INDEX_FACTORIAL = 11;
-    
+
     private static final Operator[] BUILTIN = new Operator[12];
 
     static {
@@ -150,7 +150,7 @@ public abstract class Operators {
             }
         };
     }
-    
+
     public static Operator[] getOperators() {
         return Arrays.copyOf(BUILTIN, BUILTIN.length);
     }
@@ -183,6 +183,10 @@ public abstract class Operators {
             default:
                 return null;
         }
+    }
+
+    private Operators() {
+        // Don't let anyone initialize this class
     }
 
 }

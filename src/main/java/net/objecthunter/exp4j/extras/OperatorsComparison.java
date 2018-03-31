@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2016-2018 Federico Vera
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.extras;
 
@@ -27,24 +27,24 @@ import net.objecthunter.exp4j.operator.Operator;
  * <li>Comparison operators have lower precedence than arithmetic operators</li>
  * <li>Equality operators have the lowest precedence (they should always be the last ones to be
  * evaluated)</li>
- * <li>Equality operators will consider numbers closer than {@link 
+ * <li>Equality operators will consider numbers closer than {@link
  * OperatorsComparison#EQUALITY_THRESHOLD} to be equal (and viceversa)</li>
  * </ul>
- * <pre> To clarify the full evaluation order is: 
+ * <pre> To clarify the full evaluation order is:
  *   FIRST-&gt;   * / %  - +  &gt; &gt;= &lt; &lt;=  ¬  &amp;  |  == !=   &lt;-LAST
- *             -----  ---  ---------  -  -  -  -----    
+ *             -----  ---  ---------  -  -  -  -----
  *             ^^^ The dashes indicate the ones with the same precedence
  * So:
  * a + b * c &gt; d / e &amp; f &lt; g == (((a + (b * c)) &gt; (d / e)) &amp; (f &lt; g))
- * 
+ *
  * </pre>
- * 
+ *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class OperatorsComparison {
+public final class OperatorsComparison {
     public static final int PRECEDENCE_COMPARISON = Operator.PRECEDENCE_ADDITION - 50;
     public static final int PRECEDENCE_EQUAL = Operator.PRECEDENCE_OR - 50;
-            
+
     private static final int INDEX_OP_GT  = 0;
     private static final int INDEX_OP_GOE = 1;
     private static final int INDEX_OP_LT  = 2;
@@ -53,12 +53,12 @@ public class OperatorsComparison {
     private static final int INDEX_OP_NEQ = 5;
 
     /**
-     * This is the threshold used to consider values equal, that is, if two values {@code a} and 
-     * {@code b} are separated by less than this threshold they will be considered to be equal, it 
+     * This is the threshold used to consider values equal, that is, if two values {@code a} and
+     * {@code b} are separated by less than this threshold they will be considered to be equal, it
      * has a default value of {@value}
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
-    
+
     private static final Operator[] OPERATORS = new Operator[6];
 
     static {
@@ -111,11 +111,11 @@ public class OperatorsComparison {
             }
         };
     }
-    
+
     public static Operator[] getOperators() {
         return Arrays.copyOf(OPERATORS, OPERATORS.length);
     }
-    
+
     public static Operator getOperator(final String symbol) {
         switch(symbol) {
             case ">":  return OPERATORS[INDEX_OP_GT];
@@ -127,6 +127,10 @@ public class OperatorsComparison {
             default:
                 return null;
         }
+    }
+
+    private OperatorsComparison() {
+        // Don't let anyone initialize this class
     }
 
 }

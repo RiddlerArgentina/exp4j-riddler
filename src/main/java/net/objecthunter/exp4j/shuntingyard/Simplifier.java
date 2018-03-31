@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package net.objecthunter.exp4j.shuntingyard;
 
@@ -27,8 +27,12 @@ import static net.objecthunter.exp4j.tokenizer.TokenType.NUMBER;
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-class Simplifier {
-    public static Token[] simplify (Token[] tokens) {        
+final class Simplifier {
+    private Simplifier() {
+        // Don't let anyone initialize this class
+    }
+
+    public static Token[] simplify (Token[] tokens) {
         final TokenStack output = new TokenStack(tokens.length);
         for (Token t : tokens) {
             switch(t.getType()) {
@@ -41,7 +45,7 @@ class Simplifier {
                 case OPERATOR:
                     final OperatorToken op  = (OperatorToken) t;
                     final Operator operator = op.getOperator();
-                    
+
                     if (output.size()  < operator.getNumOperands()) {
                         throw new IllegalArgumentException("Invalid number of operands available");
                     }
@@ -49,10 +53,10 @@ class Simplifier {
                     if (operator.getNumOperands() == 2) {
                         final Token rightArg = output.pop();
                         final Token leftArg  = output.pop();
-                        
+
                         if (rightArg.getType() == NUMBER &&
                             leftArg .getType() == NUMBER) {
-                            
+
                             output.push(new NumberToken(operator.apply(
                                     ((NumberToken)leftArg ).getValue(),
                                     ((NumberToken)rightArg).getValue()
@@ -65,7 +69,7 @@ class Simplifier {
                         }
                     } else if (operator.getNumOperands() == 1) {
                         final Token arg = output.pop();
-                        
+
                         if (arg.getType() == NUMBER) {
                             output.push(new NumberToken(operator.apply(
                                     ((NumberToken)arg).getValue()
@@ -80,16 +84,16 @@ class Simplifier {
                 case FUNCTION:
                     final FunctionToken func = (FunctionToken) t;
                     final int numArgs = func.getFunction().getNumArguments();
-                    
+
                     //collect the arguments from the stack
                     final Token[] args = new Token[numArgs];
                     boolean areNumbers = true;
-                    
+
                     for (int j = 0; j < numArgs; j++) {
                         args[j] = output.pop();
                         areNumbers &= args[j].getType() == NUMBER;
                     }
-                    
+
                     if (areNumbers && func.getFunction().isDeterministic()) {
                         output.push(new NumberToken(
                                 func.getFunction().apply(reverseInPlace(args)))
@@ -102,17 +106,17 @@ class Simplifier {
                     }
             }
         }
-        
+
         return output.toArray();
     }
-    
+
     private static double[] reverseInPlace(Token[] args) {
         final double[] nargs = new double[args.length];
-        
+
         for (int i = args.length - 1, j = 0; i >= 0; i--, j++) {
             nargs[j] = ((NumberToken)args[i]).getValue();
         }
-        
+
         return nargs;
     }
 }
