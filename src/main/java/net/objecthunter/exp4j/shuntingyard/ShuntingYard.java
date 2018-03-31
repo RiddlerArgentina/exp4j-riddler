@@ -80,7 +80,6 @@ public final class ShuntingYard {
                     output.push(stack.pop());
                 }
                 break;
-            default: assert false : "All items are accounted for";
             }
         }
 
