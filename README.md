@@ -8,6 +8,7 @@ This `exp4j` [![Build Status](https://travis-ci.org/dktcoding/exp4j.svg?branch=m
 > I will change this fork to fit my specific needs, consider using the original
 > [`exp4j`](https://github.com/fasseg/exp4j) which will always have the latest features 
 > and it will be more stable, updated, backwards compatible and small.
+> ### 👉🏼[List of core changes](https://github.com/dktcoding/exp4j/wiki/Differences-with-the-original-exp4j)👈🏼 
 
 [`exp4j`](https://github.com/fasseg/exp4j)
 -----
