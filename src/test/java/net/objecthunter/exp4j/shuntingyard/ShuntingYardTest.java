@@ -145,4 +145,11 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[1], "$", 1, Operator.PRECEDENCE_DIVISION);
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testIssue88() throws Exception {
+        //https://github.com/fasseg/exp4j/issues/88
+        String expression = "sincos(x)";
+        HashSet<String> vars = new HashSet<>(Arrays.asList("x"));
+        ShuntingYard.convertToRPN(false, expression, null, null, vars);
+    }
 }
