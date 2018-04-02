@@ -33,6 +33,7 @@ import net.objecthunter.exp4j.tokenizer.Token;
  * Users should create new {@link Expression} instances using this factory class.
  */
 public class ExpressionBuilder {
+    private static final Pattern VAR_NAME_PATTERN = Pattern.compile("[\\s+\\-*/%^!#§$&:~<>|=¬]+");
 
     private final String expression;
 
@@ -232,7 +233,6 @@ public class ExpressionBuilder {
         return expression;
     }
 
-    private static final Pattern VAR_NAME_PATTERN = Pattern.compile("[\\s+\\-*/%^!#§$&:~<>|=¬]+");
     private static void checkVariableName(String vname) throws IllegalArgumentException {
         if (VAR_NAME_PATTERN.matcher(vname).matches()) {
             throw new IllegalArgumentException("Variable names can't contain non ASCII letters");
