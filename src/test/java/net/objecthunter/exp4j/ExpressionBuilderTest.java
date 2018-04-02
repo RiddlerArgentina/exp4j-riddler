@@ -2899,4 +2899,30 @@ public class ExpressionBuilderTest {
         Expression e = builder.functions().build();
         assertEquals(1, e.evaluate(), 1e-9);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIssue79() {
+        //https://github.com/fasseg/exp4j/issues/79
+        new ExpressionBuilder("field-plus+field-minus" )
+                          .variables("field-plus","field-minus")
+                          .build();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testIssue79_2() {
+        //https://github.com/fasseg/exp4j/issues/79
+        new ExpressionBuilder("hello world * 3" )
+                      .variable("hello world")
+                      .build();
+    }
+
+    @Test
+    public void testIssue79_3() {
+        //https://github.com/fasseg/exp4j/issues/79
+        Expression e = new ExpressionBuilder("hello world * 3" )
+                      .variables("hello", "world")
+                      .build();
+        assertNotNull(e);
+    }
+
 }
