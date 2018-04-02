@@ -51,8 +51,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -62,8 +60,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -193,8 +189,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -224,8 +218,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -256,8 +248,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -286,8 +276,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -315,8 +303,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -346,8 +332,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -375,8 +359,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -406,8 +388,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -446,8 +426,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -469,8 +447,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -515,8 +491,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -556,8 +530,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -600,8 +572,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -647,8 +617,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -693,8 +661,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -736,8 +702,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -777,8 +741,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 
@@ -788,8 +750,6 @@ public class SimplifierTest {
                 userFunctions,
                 userOperators,
                 variableNames,
-                true,
-                true,
                 true
         );
 

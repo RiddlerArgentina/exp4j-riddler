@@ -41,6 +41,7 @@ public final class ShuntingYard {
      * @param userFunctions the custom functions used
      * @param userOperators the custom operators used
      * @param variableNames the variable names used in the expression
+     * @param useBuiltInFunctions
      * @return a {@link net.objecthunter.exp4j.tokenizer.Token} array containing the result
      */
     public static Token[] convertToRPN(final boolean simplify,
@@ -48,9 +49,7 @@ public final class ShuntingYard {
                                        final Map<String, Function> userFunctions,
                                        final Map<String, Operator> userOperators,
                                        final Set<String> variableNames,
-                                       final boolean useImplicitMultiplication,
-                                       final boolean useBuiltInFunctions,
-                                       final boolean useBuiltInOperators){
+                                       final boolean useBuiltInFunctions){
         final TokenStack stack  = new TokenStack();
         final TokenStack output = new TokenStack();
 
@@ -59,9 +58,7 @@ public final class ShuntingYard {
                 userFunctions,
                 userOperators,
                 variableNames,
-                useImplicitMultiplication,
-                useBuiltInFunctions,
-                useBuiltInOperators
+                useBuiltInFunctions
         );
         while (tokenizer.hasNext()) {
             Token token = tokenizer.nextToken();

@@ -44,24 +44,16 @@ public class Tokenizer {
 
     private boolean useBuiltInFunctions = true;
 
-    private boolean useBuiltInOperators = true;
-
-    private boolean useImplicitMultiplication = true;
-
     public Tokenizer(final String expression,
                     final Map<String, Function> userFunctions,
                     final Map<String, Operator> userOperators,
                     final Set<String> variableNames,
-                    final boolean useImplicitMultiplication,
-                    final boolean useBuiltInFunctions,
-                    final boolean useBuiltInOperators) {
+                    final boolean useBuiltInFunctions) {
         this.expression = expression.trim().toCharArray();
         this.expressionLength = this.expression.length;
         this.userFunctions = userFunctions;
         this.userOperators = userOperators;
         this.useBuiltInFunctions = useBuiltInFunctions;
-        this.useBuiltInOperators = useBuiltInOperators;
-        this.useImplicitMultiplication = useImplicitMultiplication;
 
         if (variableNames == null) {
             variableTokens = new HashMap<>(0);
@@ -88,11 +80,10 @@ public class Tokenizer {
                     throw new IllegalArgumentException(String.format(
                         "Unable to parse char '%s' (Code: %d) at [%d]", ch, (int) ch, pos
                     ));
-                } else if (useImplicitMultiplication
-                         && (lastToken.getType() != OPERATOR
-                         &&  lastToken.getType() != PARENTHESES_OPEN
-                         &&  lastToken.getType() != FUNCTION
-                         &&  lastToken.getType() != SEPARATOR)) {
+                } else if ((lastToken.getType() != OPERATOR
+                         && lastToken.getType() != PARENTHESES_OPEN
+                         && lastToken.getType() != FUNCTION
+                         && lastToken.getType() != SEPARATOR)) {
                     // insert an implicit multiplication token
                     lastToken = new OperatorToken(Operators.getBuiltinOperator('*', 2));
                     return lastToken;
@@ -102,7 +93,7 @@ public class Tokenizer {
         } else if (isArgumentSeparator(ch)) {
             return parseArgumentSeparatorToken();
         } else if (isOpenParentheses(ch)) {
-            if (lastToken != null && useImplicitMultiplication &&
+            if (lastToken != null &&
                     (lastToken.getType() != OPERATOR
                   && lastToken.getType() != PARENTHESES_OPEN
                   && lastToken.getType() != FUNCTION
@@ -118,7 +109,7 @@ public class Tokenizer {
             return parseOperatorToken(ch);
         } else if (isAlphabetic(ch) || ch == '_') {
             // parse the name which can be a setVariable or a function
-            if (lastToken != null && useImplicitMultiplication &&
+            if (lastToken != null &&
                     (lastToken.getType() != OPERATOR
                   && lastToken.getType() != PARENTHESES_OPEN
                   && lastToken.getType() != FUNCTION
@@ -239,7 +230,7 @@ public class Tokenizer {
         if (this.userOperators != null) {
             op = this.userOperators.get(symbol);
         }
-        if (useBuiltInOperators && op == null && symbol.length() == 1) {
+        if (op == null && symbol.length() == 1) {
             int argc = 2;
             if (lastToken == null) {
                 argc = 1;
