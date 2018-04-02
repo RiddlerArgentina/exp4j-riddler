@@ -232,7 +232,7 @@ public class ExpressionBuilder {
         return expression;
     }
 
-    private static final Pattern VAR_NAME_PATTERN = Pattern.compile("[ +\\-*/%^!#§$&:~<>|=¬]+");
+    private static final Pattern VAR_NAME_PATTERN = Pattern.compile("[\\s+\\-*/%^!#§$&:~<>|=¬]+");
     private static void checkVariableName(String vname) throws IllegalArgumentException {
         if (VAR_NAME_PATTERN.matcher(vname).matches()) {
             throw new IllegalArgumentException("Variable names can't contain non ASCII letters");
