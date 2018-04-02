@@ -21,10 +21,6 @@ import java.util.Arrays;
  * Class representing the builtin functions available for use in expressions
  */
 public final class Functions {
-    private Functions() {
-        // Don't let anyone initialize this class
-    }
-
     private static final int INDEX_SIN = 0;
     private static final int INDEX_COS = 1;
     private static final int INDEX_TAN = 2;
@@ -205,6 +201,10 @@ public final class Functions {
         };
     }
 
+    private Functions() {
+        // Don't let anyone initialize this class
+    }
+
     /**
      * Retrieves all the functions in this class
      *
@@ -249,5 +249,4 @@ public final class Functions {
                 return null;
         }
     }
-
 }
