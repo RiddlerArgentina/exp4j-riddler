@@ -16,12 +16,12 @@
 
 package net.objecthunter.exp4j;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Pattern;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
@@ -101,9 +101,13 @@ public class ExpressionBuilder {
      *
      * @param variableNames variables to use
      * @return the ExpressionBuilder instance
+     * @throws IllegalArgumentException if the variable name contains spaces or
+     * operator characters
      */
     public ExpressionBuilder variables(Set<String> variableNames) {
-        this.variableNames.addAll(variableNames);
+        for (String vname : variableNames) {
+            variable(vname);
+        }
         return this;
     }
 
@@ -113,9 +117,13 @@ public class ExpressionBuilder {
      *
      * @param variableNames variables to use
      * @return the ExpressionBuilder instance
+     * @throws IllegalArgumentException if the variable name contains spaces or
+     * operator characters
      */
     public ExpressionBuilder variables(String ... variableNames) {
-        Collections.addAll(this.variableNames, variableNames);
+        for (String vname : variableNames) {
+            variable(vname);
+        }
         return this;
     }
 
@@ -125,8 +133,11 @@ public class ExpressionBuilder {
      *
      * @param variableName variable to use
      * @return the ExpressionBuilder instance
+     * @throws IllegalArgumentException if the variable name contains spaces or
+     * operator characters
      */
     public ExpressionBuilder variable(String variableName) {
+        checkVariableName(variableName);
         this.variableNames.add(variableName);
         return this;
     }
@@ -219,6 +230,13 @@ public class ExpressionBuilder {
     @Override
     public String toString() {
         return expression;
+    }
+
+    private static final Pattern VAR_NAME_PATTERN = Pattern.compile("[ +\\-*/%^!#§$&:~<>|=¬]+");
+    private static void checkVariableName(String vname) throws IllegalArgumentException {
+        if (VAR_NAME_PATTERN.matcher(vname).matches()) {
+            throw new IllegalArgumentException("Variable names can't contain non ASCII letters");
+        }
     }
 
 }
