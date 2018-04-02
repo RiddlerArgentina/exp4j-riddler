@@ -2,13 +2,13 @@ This `exp4j` [![Build Status](https://travis-ci.org/dktcoding/exp4j.svg?branch=m
 ----------
 > # ⚠️ Disclaimer
 > This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 
-> contains changes that will most likely create problems for regular 
+> contains [changes](https://github.com/RiddlerArgentina/exp4j/wiki/Differences-with-the-original-exp4j) that will most likely create problems for regular 
 > [`exp4j`](https://github.com/fasseg/exp4j) users.
 > 
-> I will change this fork to fit my specific needs, consider using the original
+> We will change this fork to fit our specific needs, consider using the original
 > [`exp4j`](https://github.com/fasseg/exp4j) which will always have the latest features 
 > and it will be more stable, updated, backwards compatible and small.
-> ### 👉🏼[List of core changes](https://github.com/dktcoding/exp4j/wiki/Differences-with-the-original-exp4j)👈🏼 
+> ### 👉🏼[List of core changes](https://github.com/RiddlerArgentina/exp4j/wiki/Differences-with-the-original-exp4j)👈🏼 
 
 [`exp4j`](https://github.com/fasseg/exp4j)
 -----
@@ -16,10 +16,8 @@ This `exp4j` [![Build Status](https://travis-ci.org/dktcoding/exp4j.svg?branch=m
 the Java programming language. It is a simple-to-use and small library (~40kb) without 
 any external dependencies.
 
-Check out http://www.objecthunter.net/exp4j/ for documentation and examples
-
 Building
 --------
-- `git clone https://github.com/dktcoding/exp4j.git`
+- `git clone https://github.com/RiddlerArgentina/exp4j.git`
 - `cd exp4j`
 - `ant build-all` 
