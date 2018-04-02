@@ -43,6 +43,12 @@ public class ExpressionBuilder {
 
     private final Set<String> variableNames;
 
+    private boolean useBuiltInFunctions = true;
+
+    private boolean useBuiltInOperators = true;
+
+    private boolean useImplicitMultiplication = true;
+
     /**
      * Create a new ExpressionBuilder instance and initialize it with a given expression
      * string.
@@ -57,6 +63,35 @@ public class ExpressionBuilder {
         this.userOperators = new HashMap<>(4);
         this.userFunctions = new HashMap<>(4);
         this.variableNames = new HashSet<>(4);
+    }
+
+    /**
+     * Removes all of the built-in functions
+     * @return the ExpressionBuilder instance
+     */
+    public ExpressionBuilder disableBuiltInFunctions() {
+        useBuiltInFunctions = false;
+        return this;
+    }
+
+    /**
+     * Removes all of the built-in operators including implicit multiplication
+     * @return the ExpressionBuilder instance
+     * @see ExpressionBuilder#disableImplicitMultiplication()
+     */
+    public ExpressionBuilder disableBuiltInOperators() {
+        useBuiltInOperators = false;
+        useBuiltInFunctions = false;
+        return this;
+    }
+
+    /**
+     * Disables implicit multiplication
+     * @return the ExpressionBuilder instance
+     */
+    public ExpressionBuilder disableImplicitMultiplication() {
+        useImplicitMultiplication = false;
+        return this;
     }
 
     /**
@@ -219,10 +254,14 @@ public class ExpressionBuilder {
 
         Token[] tokens = ShuntingYard.convertToRPN(
                 simplify,
-                this.expression,
-                this.userFunctions,
-                this.userOperators,
-                this.variableNames
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames,
+                useImplicitMultiplication,
+                useBuiltInFunctions,
+                useBuiltInOperators
+
         );
 
         return new Expression(tokens, this.userFunctions.keySet());

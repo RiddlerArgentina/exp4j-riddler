@@ -47,11 +47,22 @@ public final class ShuntingYard {
                                        final String expression,
                                        final Map<String, Function> userFunctions,
                                        final Map<String, Operator> userOperators,
-                                       final Set<String> variableNames){
+                                       final Set<String> variableNames,
+                                       final boolean useImplicitMultiplication,
+                                       final boolean useBuiltInFunctions,
+                                       final boolean useBuiltInOperators){
         final TokenStack stack  = new TokenStack();
         final TokenStack output = new TokenStack();
 
-        final Tokenizer tokenizer = new Tokenizer(expression, userFunctions, userOperators, variableNames);
+        final Tokenizer tokenizer = new Tokenizer(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames,
+                useImplicitMultiplication,
+                useBuiltInFunctions,
+                useBuiltInOperators
+        );
         while (tokenizer.hasNext()) {
             Token token = tokenizer.nextToken();
             switch (token.getType()) {
@@ -123,7 +134,7 @@ public final class ShuntingYard {
         while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
             output.push(stack.pop());
         }
-        
+
         if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
             throw new IllegalArgumentException(
                 "Misplaced function separator ',' or mismatched parentheses"

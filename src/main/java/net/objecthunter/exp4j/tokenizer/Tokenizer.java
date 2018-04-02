@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Frank Asseg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package net.objecthunter.exp4j.tokenizer;
 
@@ -42,13 +42,27 @@ public class Tokenizer {
 
     private Token lastToken;
 
-    public Tokenizer(String expression, final Map<String, Function> userFunctions,
-            final Map<String, Operator> userOperators, final Set<String> variableNames) {
+    private boolean useBuiltInFunctions = true;
+
+    private boolean useBuiltInOperators = true;
+
+    private boolean useImplicitMultiplication = true;
+
+    public Tokenizer(final String expression,
+                    final Map<String, Function> userFunctions,
+                    final Map<String, Operator> userOperators,
+                    final Set<String> variableNames,
+                    final boolean useImplicitMultiplication,
+                    final boolean useBuiltInFunctions,
+                    final boolean useBuiltInOperators) {
         this.expression = expression.trim().toCharArray();
         this.expressionLength = this.expression.length;
         this.userFunctions = userFunctions;
         this.userOperators = userOperators;
-        
+        this.useBuiltInFunctions = useBuiltInFunctions;
+        this.useBuiltInOperators = useBuiltInOperators;
+        this.useImplicitMultiplication = useImplicitMultiplication;
+
         if (variableNames == null) {
             variableTokens = new HashMap<>(0);
         } else {
@@ -74,10 +88,11 @@ public class Tokenizer {
                     throw new IllegalArgumentException(String.format(
                         "Unable to parse char '%s' (Code: %d) at [%d]", ch, (int) ch, pos
                     ));
-                } else if ((lastToken.getType() != OPERATOR
-                         && lastToken.getType() != PARENTHESES_OPEN
-                         && lastToken.getType() != FUNCTION
-                         && lastToken.getType() != SEPARATOR)) {
+                } else if (useImplicitMultiplication
+                         && (lastToken.getType() != OPERATOR
+                         &&  lastToken.getType() != PARENTHESES_OPEN
+                         &&  lastToken.getType() != FUNCTION
+                         &&  lastToken.getType() != SEPARATOR)) {
                     // insert an implicit multiplication token
                     lastToken = new OperatorToken(Operators.getBuiltinOperator('*', 2));
                     return lastToken;
@@ -87,7 +102,7 @@ public class Tokenizer {
         } else if (isArgumentSeparator(ch)) {
             return parseArgumentSeparatorToken();
         } else if (isOpenParentheses(ch)) {
-            if (lastToken != null &&
+            if (lastToken != null && useImplicitMultiplication &&
                     (lastToken.getType() != OPERATOR
                   && lastToken.getType() != PARENTHESES_OPEN
                   && lastToken.getType() != FUNCTION
@@ -103,7 +118,7 @@ public class Tokenizer {
             return parseOperatorToken(ch);
         } else if (isAlphabetic(ch) || ch == '_') {
             // parse the name which can be a setVariable or a function
-            if (lastToken != null &&
+            if (lastToken != null && useImplicitMultiplication &&
                     (lastToken.getType() != OPERATOR
                   && lastToken.getType() != PARENTHESES_OPEN
                   && lastToken.getType() != FUNCTION
@@ -187,7 +202,7 @@ public class Tokenizer {
         if (this.userFunctions != null) {
             f = this.userFunctions.get(name);
         }
-        if (f == null) {
+        if (f == null && useBuiltInFunctions) {
             f = Functions.getBuiltinFunction(name);
         }
         return f;
@@ -224,7 +239,7 @@ public class Tokenizer {
         if (this.userOperators != null) {
             op = this.userOperators.get(symbol);
         }
-        if (op == null && symbol.length() == 1) {
+        if (useBuiltInOperators && op == null && symbol.length() == 1) {
             int argc = 2;
             if (lastToken == null) {
                 argc = 1;
