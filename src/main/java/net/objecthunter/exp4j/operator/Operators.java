@@ -142,6 +142,10 @@ public final class Operators {
                     String msg = "The operand of the factorial can not be less than zero";
                     throw new IllegalArgumentException(msg);
                 }
+                if (arg > 171) {
+                    String msg = "The operand of the factorial can not be more than 171";
+                    throw new IllegalArgumentException(msg);
+                }
                 double result = 1;
                 for (int i = 1; i <= arg; i++) {
                     result *= i;

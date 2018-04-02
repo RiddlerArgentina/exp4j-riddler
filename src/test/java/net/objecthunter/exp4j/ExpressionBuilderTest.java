@@ -2795,6 +2795,12 @@ public class ExpressionBuilderTest {
         exp.evaluate();
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void testOperatorFactorial12() throws Exception {
+        Expression exp = new ExpressionBuilder("172!").build();
+        exp.evaluate();
+    }
+
     @Test
     public void testFactorialIssue75() {
         Expression exp = new ExpressionBuilder("3!-2!").build();
