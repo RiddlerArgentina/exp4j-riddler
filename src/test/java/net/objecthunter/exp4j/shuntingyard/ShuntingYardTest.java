@@ -152,4 +152,15 @@ public class ShuntingYardTest {
         HashSet<String> vars = new HashSet<>(Arrays.asList("x"));
         ShuntingYard.convertToRPN(false, expression, null, null, vars);
     }
+
+    @Test
+    public void testIssue88_2() throws Exception {
+        //https://github.com/fasseg/exp4j/issues/88
+        String expression = "sin(cos(x))";
+        HashSet<String> vars = new HashSet<>(Arrays.asList("x"));
+        Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, vars);
+        assertVariableToken(tokens[0], "x");
+        assertFunctionToken(tokens[1], "cos", 1);
+        assertFunctionToken(tokens[2], "sin", 1);
+    }
 }
