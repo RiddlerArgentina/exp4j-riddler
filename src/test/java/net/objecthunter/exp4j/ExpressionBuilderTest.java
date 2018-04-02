@@ -32,7 +32,6 @@ import java.util.concurrent.Future;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 public class ExpressionBuilderTest {
@@ -1573,15 +1572,6 @@ public class ExpressionBuilderTest {
                 .setVariable("y", 0.25d)
                 .evaluate();
         assertEquals(2d * cos(0.5d * 0.25d), result, 0d);
-    }
-
-    @Test
-    @Ignore("No longer valid")
-    public void testDocumentationExample4() throws Exception {
-        String expr = "pi+π+e+φ";
-        double expected = 2*PI + E + 1.61803398874d;
-        Expression e = new ExpressionBuilder(expr).build();
-        assertEquals(expected, e.evaluate(),0d);
     }
 
     @Test
