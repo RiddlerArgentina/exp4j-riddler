@@ -26,9 +26,9 @@ import net.objecthunter.exp4j.operator.Operator;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsMisc {
-    private static final int INDEX_EQUAL = 0;
-    private static final int INDEX_IF    = 1;
-    private static final int INDEX_SINC  = 2;
+    public static final Function EQUAL;
+    public static final Function IF;
+    public static final Function SINC;
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -40,7 +40,8 @@ public final class FunctionsMisc {
     private static final Function[] FUNCTIONS = new Function[3];
 
     static {
-        FUNCTIONS[INDEX_EQUAL] = new Function("equal", 2) {
+        int i = 0;
+        EQUAL = new Function("equal", 2) {
             @Override
             public double apply(double... args) {
                 final double  a = args[0];
@@ -48,7 +49,8 @@ public final class FunctionsMisc {
                 return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
             }
         };
-        FUNCTIONS[INDEX_IF] = new Function("if", 3) {
+        FUNCTIONS[i++] = EQUAL;
+        IF = new Function("if", 3) {
             @Override
             public double apply(double... args) {
                 final boolean a = args[0] >= EQUALITY_THRESHOLD;
@@ -57,13 +59,15 @@ public final class FunctionsMisc {
                 return a ? t : f;
             }
         };
-        FUNCTIONS[INDEX_SINC] = new Function("sinc", 1) {
+        FUNCTIONS[i++] = IF;
+        SINC = new Function("sinc", 1) {
             @Override
             public double apply(double... args) {
                 final double a = args[0];
                 return a == 0.0 ? 1 : Math.sin(a) / a;
             }
         };
+        FUNCTIONS[i++] = SINC;
     }
 
     public static Function[] getFunctions() {
@@ -77,9 +81,9 @@ public final class FunctionsMisc {
      */
     public static Function getFunction(final String name) {
         switch (name) {
-            case "equal": return FUNCTIONS[INDEX_EQUAL];
-            case "if"   : return FUNCTIONS[INDEX_IF   ];
-            case "sinc" : return FUNCTIONS[INDEX_SINC ];
+            case "equal": return EQUAL;
+            case "if"   : return IF;
+            case "sinc" : return SINC;
             default:      return null;
         }
     }

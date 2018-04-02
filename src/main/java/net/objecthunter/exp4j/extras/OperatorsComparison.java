@@ -45,12 +45,12 @@ public final class OperatorsComparison {
     public static final int PRECEDENCE_COMPARISON = Operator.PRECEDENCE_ADDITION - 50;
     public static final int PRECEDENCE_EQUAL = Operator.PRECEDENCE_OR - 50;
 
-    private static final int INDEX_OP_GT  = 0;
-    private static final int INDEX_OP_GOE = 1;
-    private static final int INDEX_OP_LT  = 2;
-    private static final int INDEX_OP_LOE = 3;
-    private static final int INDEX_OP_EQU = 4;
-    private static final int INDEX_OP_NEQ = 5;
+    public static final Operator OP_GT;
+    public static final Operator OP_GOE;
+    public static final Operator OP_LT;
+    public static final Operator OP_LOE;
+    public static final Operator OP_EQU;
+    public static final Operator OP_NEQ;
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -62,7 +62,8 @@ public final class OperatorsComparison {
     private static final Operator[] OPERATORS = new Operator[6];
 
     static {
-        OPERATORS[INDEX_OP_GT]= new Operator(">", 2, true, PRECEDENCE_COMPARISON) {
+        int i = 0;
+        OP_GT = new Operator(">", 2, true, PRECEDENCE_COMPARISON) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -70,7 +71,8 @@ public final class OperatorsComparison {
                 return (a > b) ? 1 : 0;
             }
         };
-        OPERATORS[INDEX_OP_GOE]= new Operator(">=", 2, true, PRECEDENCE_COMPARISON) {
+        OPERATORS[i++] = OP_GT;
+        OP_GOE = new Operator(">=", 2, true, PRECEDENCE_COMPARISON) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -78,7 +80,8 @@ public final class OperatorsComparison {
                 return (a >= b) ? 1 : 0;
             }
         };
-        OPERATORS[INDEX_OP_LT]= new Operator("<", 2, false, PRECEDENCE_COMPARISON) {
+        OPERATORS[i++] = OP_GOE;
+        OP_LT = new Operator("<", 2, false, PRECEDENCE_COMPARISON) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -86,7 +89,8 @@ public final class OperatorsComparison {
                 return (a < b) ? 1 : 0;
             }
         };
-        OPERATORS[INDEX_OP_LOE]= new Operator("<=", 2, false, PRECEDENCE_COMPARISON) {
+        OPERATORS[i++] = OP_LT;
+        OP_LOE = new Operator("<=", 2, false, PRECEDENCE_COMPARISON) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -94,7 +98,8 @@ public final class OperatorsComparison {
                 return (a <= b) ? 1 : 0;
             }
         };
-        OPERATORS[INDEX_OP_EQU]= new Operator("==", 2, true, PRECEDENCE_EQUAL) {
+        OPERATORS[i++] = OP_LOE;
+        OP_EQU = new Operator("==", 2, true, PRECEDENCE_EQUAL) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -102,7 +107,8 @@ public final class OperatorsComparison {
                 return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
             }
         };
-        OPERATORS[INDEX_OP_NEQ]= new Operator("!=", 2, true, PRECEDENCE_EQUAL) {
+        OPERATORS[i++] = OP_EQU;
+        OP_NEQ = new Operator("!=", 2, true, PRECEDENCE_EQUAL) {
             @Override
             public double apply(final double... args) {
                 final double a = args[0];
@@ -110,6 +116,7 @@ public final class OperatorsComparison {
                 return Math.abs(a - b) >= EQUALITY_THRESHOLD ? 1 : 0;
             }
         };
+        OPERATORS[i++] = OP_NEQ;
     }
 
     public static Operator[] getOperators() {
@@ -118,12 +125,12 @@ public final class OperatorsComparison {
 
     public static Operator getOperator(final String symbol) {
         switch(symbol) {
-            case ">":  return OPERATORS[INDEX_OP_GT];
-            case ">=": return OPERATORS[INDEX_OP_GOE];
-            case "<":  return OPERATORS[INDEX_OP_LT];
-            case "<=": return OPERATORS[INDEX_OP_LOE];
-            case "==": return OPERATORS[INDEX_OP_EQU];
-            case "!=": return OPERATORS[INDEX_OP_NEQ];
+            case ">":  return OP_GT;
+            case ">=": return OP_GOE;
+            case "<":  return OP_LT;
+            case "<=": return OP_LOE;
+            case "==": return OP_EQU;
+            case "!=": return OP_NEQ;
             default:
                 return null;
         }
