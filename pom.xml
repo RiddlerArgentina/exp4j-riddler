@@ -2,21 +2,21 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.objecthunter</groupId>
     <artifactId>exp4j</artifactId>
-    <version>0.5-fido</version>
+    <version>0.6-riddler</version>
     <name>exp4j</name>
-    <description>A fork of the original exp4j. A simple mathematical expression 
+    <description>A fork of the original exp4j. A simple mathematical expression
                  evaluator for java.</description>
-    
-    
+
+
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-    
-    <url>https://github.com/dktcoding/exp4j/</url>
+
+    <url>https://github.com/RiddlerArgentina/exp4j/</url>
     <issueManagement>
-        <url>https://github.com/dktcoding/exp4j/issues</url>
+        <url>https://github.com/RiddlerArgentina/exp4j/issues</url>
         <system>Github</system>
     </issueManagement>
     <mailingLists>
@@ -53,7 +53,7 @@
             <email>leogutierrezramirez@gmail.com</email>
             <roles>
                 <role>developer</role>
-            </roles>         
+            </roles>
         </contributor>
         <contributor>
             <name>Bartosz Firyn</name>

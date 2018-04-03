@@ -14,7 +14,7 @@ public class TokenizerUnknownTokenOrVariableTest {
 
     @Test(expected = UnknownFunctionOrVariableException.class)
     public void testTokenizationOfUnknownVariable() throws Exception {
-        final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
         while (tokenizer.hasNext()) {
             tokenizer.nextToken();
         }
@@ -23,7 +23,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     @Test
     public void testTokenizationOfUnknownVariable2() throws Exception {
         try {
-            final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null);
+            final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
             while (tokenizer.hasNext()) {
                 tokenizer.nextToken();
             }
@@ -36,7 +36,7 @@ public class TokenizerUnknownTokenOrVariableTest {
 
     @Test
     public void testTokenizationOfUnknownVariable1Details() throws Exception {
-        final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
         tokenizer.nextToken(); // 3
         tokenizer.nextToken(); // +
 
@@ -52,7 +52,7 @@ public class TokenizerUnknownTokenOrVariableTest {
 
     @Test
     public void testTokenizationOfUnknownVariable2Details() throws Exception {
-        final Tokenizer tokenizer = new Tokenizer("x + 3", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("x + 3", null, null, null, true);
 
         try {
             tokenizer.nextToken(); // x
@@ -66,7 +66,7 @@ public class TokenizerUnknownTokenOrVariableTest {
 
     @Test(expected = UnknownFunctionOrVariableException.class)
     public void testTokenizationOfUnknownFunction() throws Exception {
-        final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null, true);
         while (tokenizer.hasNext()) {
             tokenizer.nextToken();
         }
@@ -75,7 +75,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     @Test
     public void testTokenizationOfUnknownFunction1Details() throws Exception {
 
-        final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null, true);
         tokenizer.nextToken(); // 3
         tokenizer.nextToken(); // +
 
@@ -92,7 +92,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     @Test
     public void testTokenizationOfUnknownFunction2Details() throws Exception {
 
-        final Tokenizer tokenizer = new Tokenizer("p(1) + 3", null, null, null);
+        final Tokenizer tokenizer = new Tokenizer("p(1) + 3", null, null, null, true);
 
         try {
             tokenizer.nextToken(); // p

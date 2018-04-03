@@ -38,26 +38,28 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsBoolean {
-    private static final int INDEX_NOT   = 0;
-    private static final int INDEX_AND   = 1;
-    private static final int INDEX_OR    = 2;
-    private static final int INDEX_XOR   = 3;
-    private static final int INDEX_NAND  = 4;
-    private static final int INDEX_NOR   = 5;
-    private static final int INDEX_XNOR  = 6;
-    private static final int INDEX_FALSE = 7;
-    private static final int INDEX_TRUE  = 8;
+    public static final Function NOT;
+    public static final Function AND;
+    public static final Function OR;
+    public static final Function XOR;
+    public static final Function NAND;
+    public static final Function NOR;
+    public static final Function XNOR;
+    public static final Function FALSE;
+    public static final Function TRUE;
 
     private static final Function[] FUNCTIONS = new Function[9];
 
     static {
-        FUNCTIONS[INDEX_NOT] = new Function("not") {
+        int i = 0;
+        NOT = new Function("not") {
             @Override
             public double apply(double... args) {
                 return (Math.abs(args[0]) >= BOOLEAN_THRESHOLD) ? 0 : 1;
             }
         };
-        FUNCTIONS[INDEX_AND] = new Function("and", 2) {
+        FUNCTIONS[i++] = NOT;
+        AND = new Function("and", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -65,7 +67,8 @@ public final class FunctionsBoolean {
                 return (a & b) ? 1 : 0;
             }
         };
-        FUNCTIONS[INDEX_OR] = new Function("or", 2) {
+        FUNCTIONS[i++] = AND;
+        OR = new Function("or", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -73,7 +76,8 @@ public final class FunctionsBoolean {
                 return (a | b) ? 1 : 0;
             }
         };
-        FUNCTIONS[INDEX_XOR] = new Function("xor", 2) {
+        FUNCTIONS[i++] = OR;
+        XOR = new Function("xor", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -81,7 +85,8 @@ public final class FunctionsBoolean {
                 return (a ^ b) ? 1 : 0;
             }
         };
-        FUNCTIONS[INDEX_NAND] = new Function("nand", 2) {
+        FUNCTIONS[i++] = XOR;
+        NAND = new Function("nand", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -89,7 +94,8 @@ public final class FunctionsBoolean {
                 return (a & b) ? 0 : 1;
             }
         };
-        FUNCTIONS[INDEX_NOR] = new Function("nor", 2) {
+        FUNCTIONS[i++] = NAND;
+        NOR = new Function("nor", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -97,7 +103,8 @@ public final class FunctionsBoolean {
                 return (a | b) ? 0 : 1;
             }
         };
-        FUNCTIONS[INDEX_XNOR] = new Function("xnor", 2) {
+        FUNCTIONS[i++] = NOR;
+        XNOR = new Function("xnor", 2) {
             @Override
             public double apply(double... args) {
                 final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
@@ -105,18 +112,21 @@ public final class FunctionsBoolean {
                 return (a ^ b) ? 0 : 1;
             }
         };
-        FUNCTIONS[INDEX_FALSE] = new Function("false", 0) {
+        FUNCTIONS[i++] = XNOR;
+        FALSE = new Function("false", 0) {
             @Override
             public double apply(double... args) {
                 return 0;
             }
         };
-        FUNCTIONS[INDEX_TRUE] = new Function("true", 0) {
+        FUNCTIONS[i++] = FALSE;
+        TRUE = new Function("true", 0) {
             @Override
             public double apply(double... args) {
                 return 1;
             }
         };
+        FUNCTIONS[i++] = TRUE;
     }
 
     public static Function[] getFunctions() {
@@ -130,15 +140,15 @@ public final class FunctionsBoolean {
      */
     public static Function getFunction(final String name) {
         switch (name) {
-            case "not"  : return FUNCTIONS[INDEX_NOT  ];
-            case "and"  : return FUNCTIONS[INDEX_AND  ];
-            case "or"   : return FUNCTIONS[INDEX_OR   ];
-            case "xor"  : return FUNCTIONS[INDEX_XOR  ];
-            case "nand" : return FUNCTIONS[INDEX_NAND ];
-            case "nor"  : return FUNCTIONS[INDEX_NOR  ];
-            case "xnor" : return FUNCTIONS[INDEX_XNOR ];
-            case "false": return FUNCTIONS[INDEX_FALSE];
-            case "true" : return FUNCTIONS[INDEX_TRUE ];
+            case "not"  : return NOT;
+            case "and"  : return AND;
+            case "or"   : return OR;
+            case "xor"  : return XOR;
+            case "nand" : return NAND;
+            case "nor"  : return NOR;
+            case "xnor" : return XNOR;
+            case "false": return FALSE;
+            case "true" : return TRUE;
             default:      return null;
         }
     }

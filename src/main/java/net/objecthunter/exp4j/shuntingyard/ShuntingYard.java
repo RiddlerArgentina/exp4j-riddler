@@ -41,17 +41,25 @@ public final class ShuntingYard {
      * @param userFunctions the custom functions used
      * @param userOperators the custom operators used
      * @param variableNames the variable names used in the expression
+     * @param useBuiltInFunctions
      * @return a {@link net.objecthunter.exp4j.tokenizer.Token} array containing the result
      */
     public static Token[] convertToRPN(final boolean simplify,
                                        final String expression,
                                        final Map<String, Function> userFunctions,
                                        final Map<String, Operator> userOperators,
-                                       final Set<String> variableNames){
+                                       final Set<String> variableNames,
+                                       final boolean useBuiltInFunctions){
         final TokenStack stack  = new TokenStack();
         final TokenStack output = new TokenStack();
 
-        final Tokenizer tokenizer = new Tokenizer(expression, userFunctions, userOperators, variableNames);
+        final Tokenizer tokenizer = new Tokenizer(
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames,
+                useBuiltInFunctions
+        );
         while (tokenizer.hasNext()) {
             Token token = tokenizer.nextToken();
             switch (token.getType()) {
@@ -123,7 +131,7 @@ public final class ShuntingYard {
         while (!stack.isEmpty() && stack.peek().getType() != PARENTHESES_OPEN) {
             output.push(stack.pop());
         }
-        
+
         if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
             throw new IllegalArgumentException(
                 "Misplaced function separator ',' or mismatched parentheses"

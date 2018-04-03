@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2015-2018 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package net.objecthunter.exp4j.shuntingyard;
 
@@ -50,7 +50,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = ShuntingYard.convertToRPN(
@@ -58,14 +59,15 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         assertEquals(1, stokens.length);
         assertTrue(tokens.length > stokens.length);
         assertEquals(Simplifier.simplify(tokens).length, stokens.length);
     }
-    
+
     @Test
     public void testResult1() {
         Expression e = new ExpressionBuilder("2^3 + 4 / 2").build();
@@ -145,18 +147,18 @@ public class SimplifierTest {
                 return values[0] / 2;
             }
         };
-        
+
         Expression e = new ExpressionBuilder("bar(a)")
                 .variables("a")
                 .function(custom)
                 .build(true);
-        
+
         ValidationResult res = e.validate();
         assertFalse(res.isValid());
         assertEquals(1, res.getErrors().size());
         assertEquals("The setVariable 'a' has not been set", res.getErrors().get(0));
     }
-    
+
     @Test(expected = IllegalArgumentException.class)
     public void testValidation2() {
         Function custom = new Function("bar") {
@@ -165,7 +167,7 @@ public class SimplifierTest {
                 return values[0] / 2;
             }
         };
-        
+
         final double varBar = 1.3d;
         new ExpressionBuilder("bar(bar)")
                 .variables("bar")
@@ -186,7 +188,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -214,7 +217,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -243,7 +247,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -270,7 +275,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -290,13 +296,14 @@ public class SimplifierTest {
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
         final Set<String> variableNames = new HashSet<>(4);
-        
+
         final Token[] tokens = ShuntingYard.convertToRPN(
                 false,
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -316,7 +323,7 @@ public class SimplifierTest {
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
         final Set<String> variableNames = new HashSet<>(4);
-        
+
         variableNames.add("x");
 
         final Token[] tokens = ShuntingYard.convertToRPN(
@@ -324,7 +331,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -344,13 +352,14 @@ public class SimplifierTest {
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
         final Set<String> variableNames = new HashSet<>(4);
-        
+
         final Token[] tokens = ShuntingYard.convertToRPN(
                 false,
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -372,13 +381,14 @@ public class SimplifierTest {
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
         final Set<String> variableNames = new HashSet<>(4);
-        
+
         final Token[] tokens = ShuntingYard.convertToRPN(
                 false,
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -391,7 +401,7 @@ public class SimplifierTest {
 
         assertEquals(expected, actual, 0d);
     }
-    
+
     @Test(expected = ArithmeticException.class)
     public void testOptimization9() throws Exception {
         new ExpressionBuilder("1/0").build(true);
@@ -415,14 +425,15 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
         assertEquals(1, stokens.length);
         assertEquals(((NumberToken)stokens[0]).getValue(), Double.NEGATIVE_INFINITY, 0d);
     }
-    
+
     @Test(expected = ArithmeticException.class)
     public void testOptimization12() throws Exception {
         final String expression = "1/0";
@@ -435,7 +446,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         Simplifier.simplify(tokens);
@@ -470,7 +482,7 @@ public class SimplifierTest {
         final Map<String, Operator> userOperators = new HashMap<>(4);
         userOperators.put(">", OperatorsComparison.getOperator(">"));
         userOperators.put("<", OperatorsComparison.getOperator("<"));
-        
+
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
@@ -478,9 +490,10 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
+
         final Token[] stokens = Simplifier.simplify(tokens);
 
         //Since the expression is constant only the result should be in here
@@ -516,9 +529,10 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
+
         final Token[] stokens = Simplifier.simplify(tokens);
 
         //Since the expression is constant only the result should be in here
@@ -557,9 +571,10 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
+
         final Token[] stokens = Simplifier.simplify(tokens);
 
         //Since the expression is constant only the result should be in here
@@ -601,12 +616,13 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
+
         final Token[] stokens = Simplifier.simplify(tokens);
 
-        //This should be simplified to if(1, a * pi(), e()) 
+        //This should be simplified to if(1, a * pi(), e())
         assertEquals(12, tokens.length);
         assertEquals(6, stokens.length);
         assertNotEquals(tokens.length, stokens.length);
@@ -634,9 +650,9 @@ public class SimplifierTest {
         final String expression = "randnd()";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
-        
+
         userFunctions.put(RAND_ND.getName(), RAND_ND);
-        
+
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
@@ -644,7 +660,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -658,9 +675,9 @@ public class SimplifierTest {
         final double actual   = exp2.evaluate();
         final double actual2  = exp2.evaluate();
         final double actual3  = exp2.evaluate();
-        
-        //Since the function is marked as 'non-deterministic' the simplifier 
-        //will treat it as a variable, so the value should be different every 
+
+        //Since the function is marked as 'non-deterministic' the simplifier
+        //will treat it as a variable, so the value should be different every
         //time
         assertNotEquals(expected, actual, 0d);
         assertNotEquals(actual, actual2, 0d);
@@ -674,9 +691,9 @@ public class SimplifierTest {
         final String expression = "randd()";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
-        
+
         userFunctions.put(RAND_D.getName(), RAND_D);
-        
+
         final Set<String> variableNames = new HashSet<>(4);
 
         final Token[] tokens = ShuntingYard.convertToRPN(
@@ -684,7 +701,8 @@ public class SimplifierTest {
                 expression,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
 
         final Token[] stokens = Simplifier.simplify(tokens);
@@ -700,18 +718,18 @@ public class SimplifierTest {
         final double actual3  = exp2.evaluate();
 
         //Since the function is marked as 'deterministic' the optimization will
-        //replace it with it's value, so every time it's evaluated it should 
+        //replace it with it's value, so every time it's evaluated it should
         //return the same numeric value (This will not apply for different calls
         //in the same expression)
         assertNotEquals(expected, actual, 0d);
         assertEquals(actual, actual2, 0d);
         assertEquals(actual, actual3, 0d);
     }
-    
+
     @Test
     public void testPerformanceTestExpression() {
         String exp = "log(x) - (2 + 1) * y * (sqrt(x^cos(y)))";
-        
+
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
         final Set<String> variableNames = new HashSet<>(4);
@@ -722,22 +740,24 @@ public class SimplifierTest {
                 exp,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
+
         final Token[] stokens  = ShuntingYard.convertToRPN(
                 true,
                 exp,
                 userFunctions,
                 userOperators,
-                variableNames
+                variableNames,
+                true
         );
-        
-        assertTrue(tokens.length > stokens.length);    
-        
+
+        assertTrue(tokens.length > stokens.length);
+
         Expression exp1 = new ExpressionBuilder(exp).variables("x", "y").build();
         Expression exp2 = new ExpressionBuilder(exp).variables("x", "y").build(true);
-        
+
         Map<String, Double> vals = new HashMap<>(2);
         for (int i = 0; i < 10; i++) {
             vals.put("x", Math.random());
@@ -753,16 +773,16 @@ public class SimplifierTest {
             if ((double) arg != args[0]) {
                 throw new IllegalArgumentException("Operand for factorial has to be an integer");
             }
-            
+
             if (arg < 0) {
                 throw new IllegalArgumentException("The operand of the factorial can not be less than zero");
             }
-            
+
             double result = 1;
             for (int i = 1; i <= arg; i++) {
                 result *= i;
             }
-            
+
             return result;
         }
     };
@@ -781,7 +801,7 @@ public class SimplifierTest {
         }
     };
 
-    private static final Function RAND_D = new Function("randd", 0) {        
+    private static final Function RAND_D = new Function("randd", 0) {
         @Override
         public double apply(double... args) {
             return Math.random();

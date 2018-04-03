@@ -43,6 +43,8 @@ public class ExpressionBuilder {
 
     private final Set<String> variableNames;
 
+    private boolean useBuiltInFunctions = true;
+
     /**
      * Create a new ExpressionBuilder instance and initialize it with a given expression
      * string.
@@ -57,6 +59,15 @@ public class ExpressionBuilder {
         this.userOperators = new HashMap<>(4);
         this.userFunctions = new HashMap<>(4);
         this.variableNames = new HashSet<>(4);
+    }
+
+    /**
+     * Removes all of the built-in functions
+     * @return the ExpressionBuilder instance
+     */
+    public ExpressionBuilder disableBuiltInFunctions() {
+        useBuiltInFunctions = false;
+        return this;
     }
 
     /**
@@ -219,10 +230,12 @@ public class ExpressionBuilder {
 
         Token[] tokens = ShuntingYard.convertToRPN(
                 simplify,
-                this.expression,
-                this.userFunctions,
-                this.userOperators,
-                this.variableNames
+                expression,
+                userFunctions,
+                userOperators,
+                variableNames,
+                useBuiltInFunctions
+
         );
 
         return new Expression(tokens, this.userFunctions.keySet());

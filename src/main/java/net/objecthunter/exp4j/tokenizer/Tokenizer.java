@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Frank Asseg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package net.objecthunter.exp4j.tokenizer;
 
@@ -42,13 +42,19 @@ public class Tokenizer {
 
     private Token lastToken;
 
-    public Tokenizer(String expression, final Map<String, Function> userFunctions,
-            final Map<String, Operator> userOperators, final Set<String> variableNames) {
+    private boolean useBuiltInFunctions = true;
+
+    public Tokenizer(final String expression,
+                    final Map<String, Function> userFunctions,
+                    final Map<String, Operator> userOperators,
+                    final Set<String> variableNames,
+                    final boolean useBuiltInFunctions) {
         this.expression = expression.trim().toCharArray();
         this.expressionLength = this.expression.length;
         this.userFunctions = userFunctions;
         this.userOperators = userOperators;
-        
+        this.useBuiltInFunctions = useBuiltInFunctions;
+
         if (variableNames == null) {
             variableTokens = new HashMap<>(0);
         } else {
@@ -187,7 +193,7 @@ public class Tokenizer {
         if (this.userFunctions != null) {
             f = this.userFunctions.get(name);
         }
-        if (f == null) {
+        if (f == null && useBuiltInFunctions) {
             f = Functions.getBuiltinFunction(name);
         }
         return f;
