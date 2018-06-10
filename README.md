@@ -2,13 +2,13 @@ This `exp4j` [![Build Status](https://travis-ci.org/RiddlerArgentina/exp4j.svg?b
 ----------
 > # ⚠️ Disclaimer
 > This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 
-> contains [changes](https://github.com/RiddlerArgentina/exp4j/wiki/Differences-with-the-original-exp4j) that will most likely create problems for regular 
+> contains [changes](https://gitlab.com/riddler_arg/exp4j/wikis/Differences-with-the-original-exp4j) that will most likely create problems for regular 
 > [`exp4j`](https://github.com/fasseg/exp4j) users.
 > 
 > We will change this fork to fit our specific needs, consider using the original
 > [`exp4j`](https://github.com/fasseg/exp4j) which will always have the latest features 
 > and it will be more stable, updated, backwards compatible and small.
-> ### 👉🏼[List of core changes](https://github.com/RiddlerArgentina/exp4j/wiki/Differences-with-the-original-exp4j)👈🏼 
+> ### 👉🏼[List of core changeshttps://gitlab.com/riddler_arg/exp4j/wikis/Differences-with-the-original-exp4j4j)👈🏼 
 
 [`exp4j`](https://github.com/fasseg/exp4j)
 -----
@@ -18,6 +18,6 @@ any external dependencies.
 
 Building
 --------
-- `git clone https://github.com/RiddlerArgentina/exp4j.git`
+- `git clone https://gitlab.com/riddler_arg/exp4j.git`
 - `cd exp4j`
 - `ant build-all` 
