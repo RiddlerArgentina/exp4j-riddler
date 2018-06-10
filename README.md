@@ -8,7 +8,7 @@ This `exp4j` [![Build Status](https://travis-ci.org/RiddlerArgentina/exp4j.svg?b
 > We will change this fork to fit our specific needs, consider using the original
 > [`exp4j`](https://github.com/fasseg/exp4j) which will always have the latest features 
 > and it will be more stable, updated, backwards compatible and small.
-> ### 👉🏼[List of core changeshttps://gitlab.com/riddler_arg/exp4j/wikis/Differences-with-the-original-exp4j4j)👈🏼 
+> ### 👉🏼[List of core changes](https://gitlab.com/riddler_arg/exp4j/wikis/Differences-with-the-original-exp4j)👈🏼 
 
 [`exp4j`](https://github.com/fasseg/exp4j)
 -----
