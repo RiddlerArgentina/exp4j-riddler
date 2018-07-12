@@ -84,6 +84,15 @@ public final class Operators {
     private Operators() {
         // Don't let anyone initialize this class
     }
+    
+    public static Operator[] getOperators() {
+        return new Operator[]{
+            ADDITION, ADDITION_UN, SUBTRACTION, SUBTRACTION_UN,
+            MUTLIPLICATION, DIVISION, MODULO, POWER,
+            AND, OR, NOT,
+            FACTORIAL
+        };
+    }
 
     private static final class OpAdd extends Operator implements Serializable {
         OpAdd() { super("+", 2, true, PRECEDENCE_ADDITION); }
