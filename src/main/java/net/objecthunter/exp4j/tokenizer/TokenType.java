@@ -15,11 +15,13 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public enum TokenType {
+public enum TokenType implements Serializable {
     NUMBER,
     OPERATOR,
     FUNCTION,

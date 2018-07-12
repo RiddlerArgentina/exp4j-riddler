@@ -15,10 +15,12 @@
 */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  * Abstract class for tokens used by exp4j to tokenize expressions
  */
-public abstract class Token {
+public abstract class Token implements Serializable {
     protected final TokenType type;
 
     Token(TokenType type) {

@@ -16,6 +16,7 @@
 
 package net.objecthunter.exp4j;
 
+import java.io.Serializable;
 import java.util.EmptyStackException;
 
 /**
@@ -23,7 +24,7 @@ import java.util.EmptyStackException;
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-final class ArrayStack {
+final class ArrayStack implements Serializable {
 
     private double[] data;
 

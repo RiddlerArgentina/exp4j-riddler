@@ -15,10 +15,12 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  * Represents an argument separator in functions i.e: ','
  */
-class ArgumentSeparatorToken extends Token{
+class ArgumentSeparatorToken extends Token implements Serializable {
     /**
      * Create a new instance
      */

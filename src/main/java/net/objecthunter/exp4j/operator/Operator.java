@@ -15,10 +15,12 @@
 */
 package net.objecthunter.exp4j.operator;
 
+import java.io.Serializable;
+
 /**
  * Class representing operators that can be used in an expression
  */
-public abstract class Operator {
+public abstract class Operator implements Serializable {
     /**
      * The precedence value for the addition operation (default: {@value})
      */

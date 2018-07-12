@@ -15,7 +15,7 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,10 +55,8 @@ public class Tokenizer {
         this.userOperators = userOperators;
         this.useBuiltInFunctions = useBuiltInFunctions;
 
-        if (variableNames == null) {
-            variableTokens = new HashMap<>(0);
-        } else {
-            this.variableTokens = new HashMap<>(variableNames.size());
+        variableTokens = new TreeMap<>();
+        if (variableNames != null) {
             for (String vn : variableNames) {
                 variableTokens.put(vn, new VariableToken(vn));
             }

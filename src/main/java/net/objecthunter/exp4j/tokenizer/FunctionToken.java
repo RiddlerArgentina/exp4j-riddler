@@ -15,9 +15,10 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 
-public class FunctionToken extends Token{
+public class FunctionToken extends Token implements Serializable {
     private final Function function;
     public FunctionToken(final Function function) {
         super(TokenType.FUNCTION);

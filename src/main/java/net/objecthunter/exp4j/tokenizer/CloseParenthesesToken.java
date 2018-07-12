@@ -15,10 +15,12 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  * represents closed parentheses
  */
-class CloseParenthesesToken extends Token {
+class CloseParenthesesToken extends Token implements Serializable {
 
     /**
      * Creare a new instance

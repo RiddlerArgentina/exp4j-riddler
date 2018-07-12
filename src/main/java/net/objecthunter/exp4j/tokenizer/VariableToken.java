@@ -15,10 +15,12 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  * represents a setVariable used in an expression
  */
-public class VariableToken extends Token {
+public class VariableToken extends Token implements Serializable {
     private final String name;
     private boolean valueSet;
     private double value;

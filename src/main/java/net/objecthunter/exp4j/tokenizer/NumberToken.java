@@ -15,10 +15,12 @@
 */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serializable;
+
 /**
  * Represents a number in the expression
  */
-public final class NumberToken extends Token {
+public final class NumberToken extends Token implements Serializable {
     private final double value;
 
     /**

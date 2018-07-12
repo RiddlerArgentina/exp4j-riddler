@@ -15,7 +15,9 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
-class OpenParenthesesToken extends Token{
+import java.io.Serializable;
+
+class OpenParenthesesToken extends Token implements Serializable {
 
     OpenParenthesesToken() {
         super(TokenType.PARENTHESES_OPEN);
