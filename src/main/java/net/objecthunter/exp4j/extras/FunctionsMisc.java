@@ -61,7 +61,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Equals extends Function implements Serializable {
-        Equals() { super("equals", 2); }
+        Equals() { super("equal", 2); }
         @Override
         public double apply(double... args) {
             final double  a = args[0];
