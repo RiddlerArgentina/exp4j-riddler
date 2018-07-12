@@ -18,6 +18,7 @@ package net.objecthunter.exp4j.shuntingyard;
 import java.io.Serializable;
 import java.util.EmptyStackException;
 import net.objecthunter.exp4j.tokenizer.Token;
+import net.objecthunter.exp4j.utils.Text;
 
 /**
  * Simple Token stack using a Token array as data storage
@@ -37,8 +38,9 @@ final class TokenStack implements Serializable {
 
     protected TokenStack(int initialCapacity) {
         if (initialCapacity <= 0) {
-            throw new IllegalArgumentException(
-                    "Stack's capacity must be positive");
+            throw new IllegalArgumentException(Text.l10n(
+                    "Stack's capacity must be positive"
+            ));
         }
 
         data = new Token[initialCapacity];

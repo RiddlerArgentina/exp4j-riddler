@@ -19,6 +19,11 @@
 
     <target name="jar" depends="compile">
         <mkdir dir="${jar.dir}"/>
+        <copy todir="${main.build.dir}">
+            <fileset dir="${main.src.dir}">
+               <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
         <jar destfile="${jar.dir}/${ant.project.name}-${proj.ver}.jar" basedir="${main.build.dir}"></jar>
     </target>
 

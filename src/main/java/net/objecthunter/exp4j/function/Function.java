@@ -18,6 +18,8 @@ package net.objecthunter.exp4j.function;
 
 import java.io.Serializable;
 
+import static net.objecthunter.exp4j.utils.Text.l10n;
+
 /**
  * A class representing a Function which can be used in an expression
  */
@@ -40,12 +42,12 @@ public abstract class Function implements Serializable {
      */
     public Function(String name, int numArguments, boolean deterministic) {
         if (numArguments < 0) {
-            throw new IllegalArgumentException(String.format(
+            throw new IllegalArgumentException(l10n(
                 "The number of function arguments can not be less than 0 for '%s'", name
             ));
         }
         if (!isValidFunctionName(name)) {
-            throw new IllegalArgumentException(String.format(
+            throw new IllegalArgumentException(l10n(
                 "Function name '%s' is invalid", name
             ));
         }

@@ -38,6 +38,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
+import static net.objecthunter.exp4j.utils.Text.l10n;
 
 public class Expression implements Serializable {
 
@@ -126,13 +127,13 @@ public class Expression implements Serializable {
 
     private void checkVariableName(String name) {
         if (hasUserFunction(name) || Functions.getBuiltinFunction(name) != null) {
-            throw new IllegalArgumentException(String.format(
+            throw new IllegalArgumentException(l10n(
                     "The variable name '%s' is invalid. Since "
                   + "there exists a function with the same name", name
             ));
         }
         if (!variables.containsKey(name)) {
-            throw new IllegalArgumentException(String.format("Variable '%s' doesn't exist.", name));
+            throw new IllegalArgumentException(l10n("Variable '%s' doesn't exist.", name));
         }
     }
 
@@ -208,7 +209,7 @@ public class Expression implements Serializable {
                     final Function func = ((FunctionToken) tok).getFunction();
                     final int argsNum = func.getNumArguments();
                     if (argsNum > count) {
-                        errors.add(String.format("Not enough arguments for '%s'", func.getName()));
+                        errors.add(l10n("Not enough arguments for '%s'", func.getName()));
                     }
                     if (argsNum > 1) {
                         count -= argsNum - 1;
@@ -225,13 +226,13 @@ public class Expression implements Serializable {
                     break;
             }
             if (count < 1) {
-                errors.add("Too many operators");
+                errors.add(l10n("Too many operators"));
                 return new ValidationResult(errors);
             }
         }
 
         if (count > 1) {
-            errors.add("Too many operands");
+            errors.add(l10n("Too many operands"));
         }
         return errors.isEmpty() ? ValidationResult.SUCCESS : new ValidationResult(errors);
 
@@ -282,7 +283,7 @@ public class Expression implements Serializable {
             } else if (t.getType() == VARIABLE) {
                 final VariableToken vt = (VariableToken)t;
                 if (!vt.isValueSet()) {
-                    throw new IllegalArgumentException(String.format(
+                    throw new IllegalArgumentException(l10n(
                             "No value has been set for variable '%s'", vt.getName()
                     ));
                 }
@@ -290,7 +291,7 @@ public class Expression implements Serializable {
             } else if (t.getType() == OPERATOR) {
                 final Operator op = ((OperatorToken) t).getOperator();
                 if (output.size() < op.getNumOperands()) {
-                    throw new IllegalArgumentException(String.format(
+                    throw new IllegalArgumentException(l10n(
                         "Invalid number of operands available for '%s' operator", op.getSymbol()
                     ));
                 }
@@ -310,7 +311,7 @@ public class Expression implements Serializable {
                 final int numArguments = func.getNumArguments();
 
                 if (output.size() < numArguments) {
-                    throw new IllegalArgumentException(String.format(
+                    throw new IllegalArgumentException(l10n(
                         "Invalid number of arguments available for '%s' function", func.getName()
                     ));
                 }
@@ -326,10 +327,10 @@ public class Expression implements Serializable {
         }
 
         if (output.size() > 1) {
-            throw new IllegalArgumentException(
+            throw new IllegalArgumentException(l10n(
                     "Invalid number of items on the output queue. "
                   + "Might be caused by an invalid number of arguments for a function."
-            );
+            ));
         }
 
         return output.pop();
@@ -367,8 +368,8 @@ public class Expression implements Serializable {
             /* check that all vars have a value set */
             for (VariableToken vt : variables.values()) {
                 if (!vt.isValueSet()) {
-                    errors.add(String.format(
-                            "The setVariable '%s' has not been set",
+                    errors.add(l10n(
+                            "The variable '%s' has not been set",
                             vt.getName())
                     );
                 }
