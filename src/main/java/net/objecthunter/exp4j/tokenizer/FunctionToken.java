@@ -15,10 +15,9 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
-import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 
-public final class FunctionToken extends Token implements Serializable {
+public final class FunctionToken extends Token {
     private static final long serialVersionUID = 6070719888134223365L;
 
     private final Function function;

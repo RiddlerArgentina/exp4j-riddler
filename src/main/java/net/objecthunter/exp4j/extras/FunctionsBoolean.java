@@ -15,7 +15,6 @@
 */
 package net.objecthunter.exp4j.extras;
 
-import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
@@ -76,7 +75,7 @@ public final class FunctionsBoolean {
         // Don't let anyone initialize this class
     }
 
-    private static final class Not extends Function implements Serializable {
+    private static final class Not extends Function {
         private static final long serialVersionUID = 5548754689040328198L;
         Not() { super("not", 1); }
         @Override
@@ -85,7 +84,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class And extends Function implements Serializable {
+    private static final class And extends Function {
         private static final long serialVersionUID = 610825426695578129L;
         And() { super("and", 2); }
         @Override
@@ -96,7 +95,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class Or extends Function implements Serializable {
+    private static final class Or extends Function {
         private static final long serialVersionUID = -6688682627798315082L;
         Or() { super("or", 2); }
         @Override
@@ -107,7 +106,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class Xor extends Function implements Serializable {
+    private static final class Xor extends Function {
         private static final long serialVersionUID = 9162299011098408477L;
         Xor() { super("xor", 2); }
         @Override
@@ -118,7 +117,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class Nand extends Function implements Serializable {
+    private static final class Nand extends Function {
         private static final long serialVersionUID = -5696690796736889084L;
         Nand() { super("nand", 2); }
         @Override
@@ -129,7 +128,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class Nor extends Function implements Serializable {
+    private static final class Nor extends Function {
         private static final long serialVersionUID = 7443039549525626711L;
         Nor() { super("nor", 2); }
         @Override
@@ -140,7 +139,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class Xnor extends Function implements Serializable {
+    private static final class Xnor extends Function {
         private static final long serialVersionUID = -7602049045810375102L;
         Xnor() { super("xnor", 2); }
         @Override
@@ -151,7 +150,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class False extends Function implements Serializable {
+    private static final class False extends Function {
         private static final long serialVersionUID = 8888653636237556280L;
         False() { super("false", 0); }
         @Override
@@ -160,7 +159,7 @@ public final class FunctionsBoolean {
         }
     }
 
-    private static final class True extends Function implements Serializable {
+    private static final class True extends Function {
         private static final long serialVersionUID = -5934349523714582684L;
         True() { super("true", 0); }
         @Override

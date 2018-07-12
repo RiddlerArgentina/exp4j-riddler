@@ -15,13 +15,12 @@
 */
 package net.objecthunter.exp4j.tokenizer;
 
-import java.io.Serializable;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
  * Represents an operator used in expressions
  */
-public final class OperatorToken extends Token implements Serializable {
+public final class OperatorToken extends Token {
     private static final long serialVersionUID = -3066884319239647929L;
 
     private final Operator operator;

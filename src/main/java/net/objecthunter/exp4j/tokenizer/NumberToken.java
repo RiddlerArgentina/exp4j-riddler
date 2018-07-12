@@ -15,12 +15,10 @@
 */
 package net.objecthunter.exp4j.tokenizer;
 
-import java.io.Serializable;
-
 /**
  * Represents a number in the expression
  */
-public final class NumberToken extends Token implements Serializable {
+public final class NumberToken extends Token {
     private static final long serialVersionUID = 8088233934450699175L;
 
     private final double value;

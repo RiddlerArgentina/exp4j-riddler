@@ -15,7 +15,6 @@
 */
 package net.objecthunter.exp4j.extras;
 
-import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
@@ -60,7 +59,7 @@ public final class FunctionsMisc {
         // Don't let anyone initialize this class
     }
 
-    private static final class Equals extends Function implements Serializable {
+    private static final class Equals extends Function {
         private static final long serialVersionUID = 2388827649030518290L;
         Equals() { super("equal", 2); }
         @Override
@@ -71,7 +70,7 @@ public final class FunctionsMisc {
         }
     }
 
-    private static final class If extends Function implements Serializable {
+    private static final class If extends Function {
         private static final long serialVersionUID = 3865326455639650003L;
         If() { super("if", 3); }
         @Override
@@ -83,7 +82,7 @@ public final class FunctionsMisc {
         }
     }
 
-    private static final class Sinc extends Function implements Serializable {
+    private static final class Sinc extends Function {
         private static final long serialVersionUID = -3749047550580483555L;
         Sinc() { super("sinc", 1); }
         @Override

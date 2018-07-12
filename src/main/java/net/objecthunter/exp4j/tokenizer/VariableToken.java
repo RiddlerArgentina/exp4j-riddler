@@ -15,12 +15,10 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
-import java.io.Serializable;
-
 /**
  * represents a setVariable used in an expression
  */
-public final class VariableToken extends Token implements Serializable {
+public final class VariableToken extends Token {
     private static final long serialVersionUID = -2944291251393065262L;
 
     private final String name;

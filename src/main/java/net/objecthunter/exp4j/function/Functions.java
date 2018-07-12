@@ -15,8 +15,6 @@
 */
 package net.objecthunter.exp4j.function;
 
-import java.io.Serializable;
-
 /**
  * Class representing the builtin functions available for use in expressions
  */
@@ -98,7 +96,7 @@ public final class Functions {
         }
     }
 
-    private static final class Sin extends Function implements Serializable {
+    private static final class Sin extends Function {
         private static final long serialVersionUID = -2914815912624930172L;
         Sin() { super("sin"); }
         @Override
@@ -107,7 +105,7 @@ public final class Functions {
         }
     }
 
-    private static final class Cos extends Function implements Serializable {
+    private static final class Cos extends Function {
         private static final long serialVersionUID = -8597756339516016820L;
         Cos() { super("cos"); }
         @Override
@@ -116,7 +114,7 @@ public final class Functions {
         }
     }
 
-    private static final class Tan extends Function implements Serializable {
+    private static final class Tan extends Function {
         private static final long serialVersionUID = -8768547215015498527L;
         Tan() { super("tan"); }
         @Override
@@ -125,7 +123,7 @@ public final class Functions {
         }
     }
 
-    private static final class Log extends Function implements Serializable {
+    private static final class Log extends Function {
         private static final long serialVersionUID = 2780592577805165247L;
         Log() { super("log"); }
         @Override
@@ -134,7 +132,7 @@ public final class Functions {
         }
     }
 
-    private static final class Log2 extends Function implements Serializable {
+    private static final class Log2 extends Function {
         private static final long serialVersionUID = -440311464566044720L;
         Log2() { super("log2"); }
         @Override
@@ -143,7 +141,7 @@ public final class Functions {
         }
     }
 
-    private static final class Log10 extends Function implements Serializable {
+    private static final class Log10 extends Function {
         private static final long serialVersionUID = 4939208624837474082L;
         Log10() { super("log10"); }
         @Override
@@ -152,7 +150,7 @@ public final class Functions {
         }
     }
 
-    private static final class Log1p extends Function implements Serializable {
+    private static final class Log1p extends Function {
         private static final long serialVersionUID = 8955502126364713001L;
         Log1p() { super("log1p"); }
         @Override
@@ -161,7 +159,7 @@ public final class Functions {
         }
     }
 
-    private static final class Abs extends Function implements Serializable {
+    private static final class Abs extends Function {
         private static final long serialVersionUID = 3561065212490216039L;
         Abs() { super("abs"); }
         @Override
@@ -170,7 +168,7 @@ public final class Functions {
         }
     }
 
-    private static final class ACos extends Function implements Serializable {
+    private static final class ACos extends Function {
         private static final long serialVersionUID = 2254051679608503250L;
         ACos() { super("acos"); }
         @Override
@@ -179,7 +177,7 @@ public final class Functions {
         }
     }
 
-    private static final class ASin extends Function implements Serializable {
+    private static final class ASin extends Function {
         private static final long serialVersionUID = -326395111700221980L;
         ASin() { super("asin"); }
         @Override
@@ -188,7 +186,7 @@ public final class Functions {
         }
     }
 
-    private static final class ATan extends Function implements Serializable {
+    private static final class ATan extends Function {
         private static final long serialVersionUID = -7050692574354752375L;
         ATan() { super("atan"); }
         @Override
@@ -197,7 +195,7 @@ public final class Functions {
         }
     }
 
-    private static final class CBRT extends Function implements Serializable {
+    private static final class CBRT extends Function {
         private static final long serialVersionUID = 2299685413091396681L;
         CBRT() { super("cbrt"); }
         @Override
@@ -206,7 +204,7 @@ public final class Functions {
         }
     }
 
-    private static final class Floor extends Function implements Serializable {
+    private static final class Floor extends Function {
         private static final long serialVersionUID = 2356850441515448860L;
         Floor() { super("floor"); }
         @Override
@@ -215,7 +213,7 @@ public final class Functions {
         }
     }
 
-    private static final class Sinh extends Function implements Serializable {
+    private static final class Sinh extends Function {
         private static final long serialVersionUID = -8338824383285606826L;
         Sinh() { super("sinh"); }
         @Override
@@ -224,7 +222,7 @@ public final class Functions {
         }
     }
 
-    private static final class Tanh extends Function implements Serializable {
+    private static final class Tanh extends Function {
         private static final long serialVersionUID = -1652041817305063164L;
         Tanh() { super("tanh"); }
         @Override
@@ -233,7 +231,7 @@ public final class Functions {
         }
     }
 
-    private static final class Cosh extends Function implements Serializable {
+    private static final class Cosh extends Function {
         private static final long serialVersionUID = 1997312144944632975L;
         Cosh() { super("cosh"); }
         @Override
@@ -242,7 +240,7 @@ public final class Functions {
         }
     }
 
-    private static final class Ceil extends Function implements Serializable {
+    private static final class Ceil extends Function {
         private static final long serialVersionUID = -7245919541022618316L;
         Ceil() { super("ceil"); }
         @Override
@@ -251,7 +249,7 @@ public final class Functions {
         }
     }
 
-    private static final class Sqrt extends Function implements Serializable {
+    private static final class Sqrt extends Function {
         private static final long serialVersionUID = 398483995880506177L;
         Sqrt() { super("sqrt"); }
         @Override
@@ -260,7 +258,7 @@ public final class Functions {
         }
     }
 
-    private static final class Pow extends Function implements Serializable {
+    private static final class Pow extends Function {
         private static final long serialVersionUID = -3555626505791838799L;
         Pow() { super("pow", 2); }
         @Override
@@ -269,7 +267,7 @@ public final class Functions {
         }
     }
 
-    private static final class Exp extends Function implements Serializable {
+    private static final class Exp extends Function {
         private static final long serialVersionUID = 2154874773418461840L;
         Exp() { super("exp"); }
         @Override
@@ -278,7 +276,7 @@ public final class Functions {
         }
     }
 
-    private static final class Expm1 extends Function implements Serializable {
+    private static final class Expm1 extends Function {
         private static final long serialVersionUID = -7746496058083268582L;
         Expm1() { super("expm1"); }
         @Override
@@ -287,7 +285,7 @@ public final class Functions {
         }
     }
 
-    private static final class Signum extends Function implements Serializable {
+    private static final class Signum extends Function {
         private static final long serialVersionUID = -5814745953179606422L;
         Signum() { super("signum"); }
         @Override
@@ -302,7 +300,7 @@ public final class Functions {
         }
     }
 
-    private static final class Pi extends Function implements Serializable {
+    private static final class Pi extends Function {
         private static final long serialVersionUID = -3698084286493723333L;
         Pi () { super("pi", 0); }
         @Override
@@ -311,7 +309,7 @@ public final class Functions {
         }
     }
 
-    private static final class E extends Function implements Serializable {
+    private static final class E extends Function {
         private static final long serialVersionUID = 8712470987230587412L;
         E() { super("e", 0); }
         @Override
