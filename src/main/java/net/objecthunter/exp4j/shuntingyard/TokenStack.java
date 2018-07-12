@@ -15,6 +15,7 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
+import java.io.Serializable;
 import java.util.EmptyStackException;
 import net.objecthunter.exp4j.tokenizer.Token;
 
@@ -23,7 +24,8 @@ import net.objecthunter.exp4j.tokenizer.Token;
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-final class TokenStack {
+final class TokenStack implements Serializable {
+    private static final long serialVersionUID = -511763000103618441L;
 
     private Token[] data;
 
@@ -74,7 +76,7 @@ final class TokenStack {
     protected int size() {
         return idx + 1;
     }
-    
+
     protected Token[] toArray() {
         Token[] ret = new Token[idx + 1];
         System.arraycopy(data, 0, ret, 0, ret.length);

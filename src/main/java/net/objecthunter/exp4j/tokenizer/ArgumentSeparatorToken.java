@@ -18,7 +18,9 @@ package net.objecthunter.exp4j.tokenizer;
 /**
  * Represents an argument separator in functions i.e: ','
  */
-class ArgumentSeparatorToken extends Token{
+public final class ArgumentSeparatorToken extends Token {
+    private static final long serialVersionUID = -8983498158734385824L;
+
     /**
      * Create a new instance
      */

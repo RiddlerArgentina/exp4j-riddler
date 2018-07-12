@@ -17,7 +17,9 @@ package net.objecthunter.exp4j.tokenizer;
 
 import net.objecthunter.exp4j.function.Function;
 
-public class FunctionToken extends Token{
+public final class FunctionToken extends Token {
+    private static final long serialVersionUID = 6070719888134223365L;
+
     private final Function function;
     public FunctionToken(final Function function) {
         super(TokenType.FUNCTION);
@@ -27,7 +29,7 @@ public class FunctionToken extends Token{
     public Function getFunction() {
         return function;
     }
-    
+
     @Override
     public String toString() {
         return function.getName();

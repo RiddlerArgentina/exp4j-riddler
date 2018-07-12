@@ -15,7 +15,6 @@
 */
 package net.objecthunter.exp4j.extras;
 
-import java.util.Arrays;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
@@ -45,12 +44,12 @@ public final class OperatorsComparison {
     public static final int PRECEDENCE_COMPARISON = Operator.PRECEDENCE_ADDITION - 50;
     public static final int PRECEDENCE_EQUAL = Operator.PRECEDENCE_OR - 50;
 
-    public static final Operator OP_GT;
-    public static final Operator OP_GOE;
-    public static final Operator OP_LT;
-    public static final Operator OP_LOE;
-    public static final Operator OP_EQU;
-    public static final Operator OP_NEQ;
+    public static final Operator OP_GT  = new OpGT();
+    public static final Operator OP_GOE = new OpGOE();
+    public static final Operator OP_LT  = new OpLT();
+    public static final Operator OP_LOE = new OpLOE();
+    public static final Operator OP_EQU = new OpEqu();
+    public static final Operator OP_NEQ = new OpNeq();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -59,68 +58,8 @@ public final class OperatorsComparison {
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
 
-    private static final Operator[] OPERATORS = new Operator[6];
-
-    static {
-        int i = 0;
-        OP_GT = new Operator(">", 2, true, PRECEDENCE_COMPARISON) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return (a > b) ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_GT;
-        OP_GOE = new Operator(">=", 2, true, PRECEDENCE_COMPARISON) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return (a >= b) ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_GOE;
-        OP_LT = new Operator("<", 2, false, PRECEDENCE_COMPARISON) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return (a < b) ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_LT;
-        OP_LOE = new Operator("<=", 2, false, PRECEDENCE_COMPARISON) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return (a <= b) ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_LOE;
-        OP_EQU = new Operator("==", 2, true, PRECEDENCE_EQUAL) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_EQU;
-        OP_NEQ = new Operator("!=", 2, true, PRECEDENCE_EQUAL) {
-            @Override
-            public double apply(final double... args) {
-                final double a = args[0];
-                final double b = args[1];
-                return Math.abs(a - b) >= EQUALITY_THRESHOLD ? 1 : 0;
-            }
-        };
-        OPERATORS[i++] = OP_NEQ;
-    }
-
     public static Operator[] getOperators() {
-        return Arrays.copyOf(OPERATORS, OPERATORS.length);
+        return new Operator[]{OP_GT, OP_GOE, OP_LT, OP_LOE, OP_EQU, OP_NEQ};
     }
 
     public static Operator getOperator(final String symbol) {
@@ -140,4 +79,69 @@ public final class OperatorsComparison {
         // Don't let anyone initialize this class
     }
 
+    private static final class OpGT extends Operator {
+        private static final long serialVersionUID = -3577940809939988953L;
+        OpGT() { super(">", 2, true, PRECEDENCE_COMPARISON); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return (a > b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpGOE extends Operator {
+        private static final long serialVersionUID = 4458035942461875803L;
+        OpGOE() { super(">=", 2, true, PRECEDENCE_COMPARISON); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return (a >= b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpLT extends Operator {
+        private static final long serialVersionUID = -1309870683874217267L;
+        OpLT() { super("<", 2, false, PRECEDENCE_COMPARISON); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return (a < b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpLOE extends Operator {
+        private static final long serialVersionUID = 7679772268080021230L;
+        OpLOE() { super("<=", 2, false, PRECEDENCE_COMPARISON); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return (a <= b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpEqu extends Operator {
+        private static final long serialVersionUID = 7987791934260015206L;
+        OpEqu() { super("==", 2, true, PRECEDENCE_EQUAL); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
+        }
+    }
+
+    private static final class OpNeq extends Operator {
+        private static final long serialVersionUID = -6219775221131013725L;
+        OpNeq() { super("!=", 2, true, PRECEDENCE_EQUAL); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            final double b = args[1];
+            return Math.abs(a - b) >= EQUALITY_THRESHOLD ? 1 : 0;
+        }
+    }
 }

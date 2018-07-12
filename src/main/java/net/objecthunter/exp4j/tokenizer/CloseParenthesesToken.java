@@ -18,7 +18,8 @@ package net.objecthunter.exp4j.tokenizer;
 /**
  * represents closed parentheses
  */
-class CloseParenthesesToken extends Token {
+public final class CloseParenthesesToken extends Token {
+    private static final long serialVersionUID = -3053467429836059238L;
 
     /**
      * Creare a new instance

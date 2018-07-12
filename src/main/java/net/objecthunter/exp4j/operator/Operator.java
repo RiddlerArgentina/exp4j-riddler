@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2014 Frank Asseg
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,14 +11,18 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j.operator;
+
+import java.io.Serializable;
 
 /**
  * Class representing operators that can be used in an expression
  */
-public abstract class Operator {
+public abstract class Operator implements Serializable {
+    private static final long serialVersionUID = -2212179357073818713L;
+
     /**
      * The precedence value for the addition operation (default: {@value})
      */
@@ -72,10 +76,10 @@ public abstract class Operator {
     /**
      * The set of allowed operator chars
      */
-    public static final char[] ALLOWED_OPERATOR_CHARS = {
-        '+', '-', '*', '/', '%', 
+    private static final char[] ALLOWED_OPERATOR_CHARS = {
+        '+', '-', '*', '/', '%',
         '^', '!', '#', '§', '$',
-        '&', ';', ':', '~', '<', 
+        '&', ';', ':', '~', '<',
         '>', '|', '=', '¬'
     };
 
@@ -88,7 +92,7 @@ public abstract class Operator {
      * Create a new operator for use in expressions
      * @param symbol the symbol of the operator
      * @param numberOfOperands the number of operands the operator takes (1 or 2)
-     * @param leftAssociative set to true if the operator is left associative, false if it is right 
+     * @param leftAssociative set to true if the operator is left associative, false if it is right
      * associative
      * @param precedence the precedence value of the operator
      */

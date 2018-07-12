@@ -37,8 +37,6 @@ final class Simplifier {
         for (Token t : tokens) {
             switch(t.getType()) {
                 case NUMBER:
-                    output.push(t);
-                    break;
                 case VARIABLE:
                     output.push(t);
                     break;

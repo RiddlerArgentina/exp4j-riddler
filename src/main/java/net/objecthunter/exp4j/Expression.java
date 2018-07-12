@@ -15,6 +15,8 @@
  */
 package net.objecthunter.exp4j;
 
+import java.io.Serializable;
+
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
@@ -26,25 +28,26 @@ import net.objecthunter.exp4j.tokenizer.VariableToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
 
-public class Expression {
+public class Expression implements Serializable {
+
+    private static final long serialVersionUID = -2510794384846712749L;
 
     private final Token[] tokens;
 
-    private final Set<String> userFunctionNames;
+    private final String[] userFunctionNames;
 
-    private final HashMap<String, VariableToken> variables = new HashMap<>(4);
+    private final Map<String, VariableToken> variables = new TreeMap<>();
 
     /**
      * Creates a new expression that is a copy of the existing one.
@@ -54,7 +57,7 @@ public class Expression {
     public Expression copy() {
         Expression exp = new Expression(
             Arrays.copyOf(tokens, tokens.length),
-            new HashSet<>(userFunctionNames)
+            Arrays.copyOf(userFunctionNames, userFunctionNames.length)
         );
 
         exp.variables.clear();
@@ -75,11 +78,11 @@ public class Expression {
 
     Expression(final Token[] tokens) {
         this.tokens = tokens;
-        this.userFunctionNames = Collections.<String>emptySet();
+        this.userFunctionNames = new String[0];
         populateVariablesMap();
     }
 
-    Expression(final Token[] tokens, Set<String> userFunctionNames) {
+    Expression(final Token[] tokens, String[] userFunctionNames) {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
         populateVariablesMap();
@@ -113,8 +116,16 @@ public class Expression {
         return this;
     }
 
+    private boolean hasUserFunction(String name) {
+        boolean contains = false;
+        for (String s : userFunctionNames) {
+            contains |= Objects.equals(s, name);
+        }
+        return contains;
+    }
+
     private void checkVariableName(String name) {
-        if (this.userFunctionNames.contains(name) || Functions.getBuiltinFunction(name) != null) {
+        if (hasUserFunction(name) || Functions.getBuiltinFunction(name) != null) {
             throw new IllegalArgumentException(String.format(
                     "The variable name '%s' is invalid. Since "
                   + "there exists a function with the same name", name
