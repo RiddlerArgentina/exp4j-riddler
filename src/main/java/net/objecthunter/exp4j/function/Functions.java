@@ -16,7 +16,6 @@
 package net.objecthunter.exp4j.function;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * Class representing the builtin functions available for use in expressions
@@ -46,48 +45,9 @@ public final class Functions {
     public static final Function SGN   = new Signum();
     public static final Function PI    = new Pi();
     public static final Function E     = new E();
-
-    private static final Function[] BUILTIN = new Function[24];
-
-    static {
-        int i = 0;
-        BUILTIN[i++] = SIN;
-        BUILTIN[i++] = COS;
-        BUILTIN[i++] = TAN;
-        BUILTIN[i++] = LOG;
-        BUILTIN[i++] = LOG2;
-        BUILTIN[i++] = LOG10;
-        BUILTIN[i++] = LOG1P;
-        BUILTIN[i++] = ABS;
-        BUILTIN[i++] = ACOS;
-        BUILTIN[i++] = ASIN;
-        BUILTIN[i++] = ATAN;
-        BUILTIN[i++] = CBRT;
-        BUILTIN[i++] = FLOOR;
-        BUILTIN[i++] = CEIL;
-        BUILTIN[i++] = SINH;
-        BUILTIN[i++] = COSH;
-        BUILTIN[i++] = TANH;
-        BUILTIN[i++] = SQRT;
-        BUILTIN[i++] = POW;
-        BUILTIN[i++] = EXP;
-        BUILTIN[i++] = EXPM1;
-        BUILTIN[i++] = SGN;
-        BUILTIN[i++] = E;
-        BUILTIN[i++] = PI;
-    }
-
+    
     private Functions() {
         // Don't let anyone initialize this class
-    }
-
-    /**
-     * Retrieves all the functions in this class
-     *
-     * @return function list
-     */
-    public static Function[] getFunctions() {
-        return Arrays.copyOf(BUILTIN, BUILTIN.length);
     }
 
     /**
