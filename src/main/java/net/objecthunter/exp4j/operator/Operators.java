@@ -16,7 +16,6 @@
 package net.objecthunter.exp4j.operator;
 
 import java.io.Serializable;
-import java.util.Arrays;
 
 import static net.objecthunter.exp4j.operator.Operator.*;
 
@@ -37,66 +36,45 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * </ol>
  */
 public final class Operators {
-    private static final int INDEX_ADDITION = 0;
-    private static final int INDEX_SUBTRACTION = 1;
-    private static final int INDEX_MUTLIPLICATION = 2;
-    private static final int INDEX_DIVISION = 3;
-    private static final int INDEX_POWER = 4;
-    private static final int INDEX_MODULO = 5;
-    private static final int INDEX_UNARYMINUS = 6;
-    private static final int INDEX_UNARYPLUS = 7;
-
-    private static final int INDEX_OP_AND = 8;
-    private static final int INDEX_OP_OR  = 9;
-    private static final int INDEX_OP_NOT = 10;
-
-    private static final int INDEX_FACTORIAL = 11;
-
-    private static final Operator[] BUILTIN = new Operator[12];
-
-    static {
-        BUILTIN[INDEX_ADDITION]= new OpAdd();
-        BUILTIN[INDEX_SUBTRACTION] = new OpMinus();
-        BUILTIN[INDEX_UNARYMINUS]= new OpMinusUnary();
-        BUILTIN[INDEX_UNARYPLUS]= new OpAddUnary();
-        BUILTIN[INDEX_MUTLIPLICATION]= new OpMultiply();
-        BUILTIN[INDEX_DIVISION]= new OpDivide();
-        BUILTIN[INDEX_POWER]= new OpPower();
-        BUILTIN[INDEX_MODULO]= new OpModulo();
-        BUILTIN[INDEX_OP_AND]= new OpAnd();
-        BUILTIN[INDEX_OP_OR]= new OpOr();
-        BUILTIN[INDEX_OP_NOT]= new OpNot();
-        BUILTIN[INDEX_FACTORIAL]= new OpFactorial();
-    }
-
-    public static Operator[] getOperators() {
-        return Arrays.copyOf(BUILTIN, BUILTIN.length);
-    }
+    private static final Operator ADDITION        = new OpAdd();
+    private static final Operator ADDITION_UN     = new OpAddUnary();
+    private static final Operator SUBTRACTION     = new OpMinus();
+    private static final Operator SUBTRACTION_UN  = new OpMinusUnary();
+    private static final Operator MUTLIPLICATION  = new OpMultiply();
+    private static final Operator DIVISION        = new OpDivide();
+    private static final Operator MODULO          = new OpModulo();
+    private static final Operator POWER           = new OpPower();
+    
+    private static final Operator AND             = new OpAnd();
+    private static final Operator OR              = new OpOr();
+    private static final Operator NOT             = new OpNot();
+    
+    private static final Operator FACTORIAL       = new OpFactorial();
 
     public static Operator getBuiltinOperator(final char symbol, final int numArguments) {
         switch(symbol) {
             case '+':
                 if (numArguments != 1) {
-                    return BUILTIN[INDEX_ADDITION];
+                    return ADDITION;
                 } else{
-                    return BUILTIN[INDEX_UNARYPLUS];
+                    return ADDITION_UN;
                 }
             case '-':
                 if (numArguments != 1) {
-                    return BUILTIN[INDEX_SUBTRACTION];
+                    return SUBTRACTION;
                 } else{
-                    return BUILTIN[INDEX_UNARYMINUS];
+                    return SUBTRACTION_UN;
                 }
-            case '*': return BUILTIN[INDEX_MUTLIPLICATION];
-            case '/': return BUILTIN[INDEX_DIVISION];
-            case '^': return BUILTIN[INDEX_POWER];
-            case '%': return BUILTIN[INDEX_MODULO];
-            case '&': return BUILTIN[INDEX_OP_AND];
-            case '|': return BUILTIN[INDEX_OP_OR];
-            case '¬': return BUILTIN[INDEX_OP_NOT];
+            case '*': return MUTLIPLICATION;
+            case '/': return DIVISION;
+            case '^': return POWER;
+            case '%': return MODULO;
+            case '&': return AND;
+            case '|': return OR;
+            case '¬': return NOT;
             case '!':
                 if (numArguments != 1) {
-                    return BUILTIN[INDEX_FACTORIAL];
+                    return FACTORIAL;
                 }
             default:
                 return null;
