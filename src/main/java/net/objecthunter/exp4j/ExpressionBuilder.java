@@ -16,11 +16,11 @@
 
 package net.objecthunter.exp4j;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.regex.Pattern;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
@@ -56,8 +56,8 @@ public class ExpressionBuilder {
         }
 
         this.expression = expression;
-        this.userOperators = new HashMap<>(4);
-        this.userFunctions = new HashMap<>(4);
+        this.userOperators = new TreeMap<>();
+        this.userFunctions = new TreeMap<>();
         this.variableNames = new HashSet<>(4);
     }
 
@@ -235,10 +235,9 @@ public class ExpressionBuilder {
                 userOperators,
                 variableNames,
                 useBuiltInFunctions
-
         );
 
-        return new Expression(tokens, this.userFunctions.keySet());
+        return new Expression(tokens, userFunctions.keySet().toArray(new String[userFunctions.size()]));
     }
 
     @Override
