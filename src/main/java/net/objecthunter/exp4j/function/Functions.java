@@ -49,6 +49,18 @@ public final class Functions {
     private Functions() {
         // Don't let anyone initialize this class
     }
+    
+    public static Function[] getFunctions() {
+        return new Function[] {
+            SIN, COS, TAN, 
+            ASIN, ACOS, ATAN,
+            SINH, COSH, TANH,
+            LOG, LOG2, LOG10, LOG1P, 
+            ABS, CBRT, CEIL, FLOOR, 
+            SQRT, POW, EXP, EXPM1, SGN, 
+            PI, E
+        };
+    }
 
     /**
      * Get the builtin function for a given name
