@@ -156,7 +156,7 @@ public class SimplifierTest {
         ValidationResult res = e.validate();
         assertFalse(res.isValid());
         assertEquals(1, res.getErrors().size());
-        assertEquals("The setVariable 'a' has not been set", res.getErrors().get(0));
+        assertEquals("The variable 'a' has not been set", res.getErrors().get(0));
     }
 
     @Test(expected = IllegalArgumentException.class)
