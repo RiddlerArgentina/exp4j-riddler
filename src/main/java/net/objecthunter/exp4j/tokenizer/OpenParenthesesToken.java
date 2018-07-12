@@ -17,7 +17,8 @@ package net.objecthunter.exp4j.tokenizer;
 
 import java.io.Serializable;
 
-class OpenParenthesesToken extends Token implements Serializable {
+public final class OpenParenthesesToken extends Token implements Serializable {
+    private static final long serialVersionUID = 2484760300350260473L;
 
     OpenParenthesesToken() {
         super(TokenType.PARENTHESES_OPEN);

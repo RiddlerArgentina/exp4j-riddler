@@ -41,6 +41,8 @@ import static net.objecthunter.exp4j.tokenizer.TokenType.*;
 
 public class Expression implements Serializable {
 
+    private static final long serialVersionUID = -2510794384846712749L;
+
     private final Token[] tokens;
 
     private final String[] userFunctionNames;

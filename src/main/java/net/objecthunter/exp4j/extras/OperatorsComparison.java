@@ -81,6 +81,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpGT extends Operator implements Serializable {
+        private static final long serialVersionUID = -3577940809939988953L;
         OpGT() { super(">", 2, true, PRECEDENCE_COMPARISON); }
         @Override
         public double apply(double... args) {
@@ -91,6 +92,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpGOE extends Operator implements Serializable {
+        private static final long serialVersionUID = 4458035942461875803L;
         OpGOE() { super(">=", 2, true, PRECEDENCE_COMPARISON); }
         @Override
         public double apply(double... args) {
@@ -101,6 +103,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpLT extends Operator implements Serializable {
+        private static final long serialVersionUID = -1309870683874217267L;
         OpLT() { super("<", 2, false, PRECEDENCE_COMPARISON); }
         @Override
         public double apply(double... args) {
@@ -111,6 +114,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpLOE extends Operator implements Serializable {
+        private static final long serialVersionUID = 7679772268080021230L;
         OpLOE() { super("<=", 2, false, PRECEDENCE_COMPARISON); }
         @Override
         public double apply(double... args) {
@@ -121,6 +125,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpEqu extends Operator implements Serializable {
+        private static final long serialVersionUID = 7987791934260015206L;
         OpEqu() { super("==", 2, true, PRECEDENCE_EQUAL); }
         @Override
         public double apply(double... args) {
@@ -131,6 +136,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpNeq extends Operator implements Serializable {
+        private static final long serialVersionUID = -6219775221131013725L;
         OpNeq() { super("!=", 2, true, PRECEDENCE_EQUAL); }
         @Override
         public double apply(double... args) {

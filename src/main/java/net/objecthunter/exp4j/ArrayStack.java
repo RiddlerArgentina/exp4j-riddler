@@ -26,6 +26,8 @@ import java.util.EmptyStackException;
  */
 final class ArrayStack implements Serializable {
 
+    private static final long serialVersionUID = 1922104850295923845L;
+
     private double[] data;
 
     private int idx;

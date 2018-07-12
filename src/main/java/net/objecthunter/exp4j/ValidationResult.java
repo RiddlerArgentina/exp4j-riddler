@@ -23,6 +23,8 @@ import java.util.List;
  * Contains the validation result for a given {@link Expression}
  */
 public final class ValidationResult implements Serializable {
+
+    private static final long serialVersionUID = -4623935821384176190L;
     /**
      * A static class representing a successful validation result
      */

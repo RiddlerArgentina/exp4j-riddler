@@ -25,6 +25,7 @@ import net.objecthunter.exp4j.tokenizer.Token;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 final class TokenStack implements Serializable {
+    private static final long serialVersionUID = -511763000103618441L;
 
     private Token[] data;
 

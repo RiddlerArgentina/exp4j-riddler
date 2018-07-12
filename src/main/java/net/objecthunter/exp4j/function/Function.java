@@ -22,6 +22,7 @@ import java.io.Serializable;
  * A class representing a Function which can be used in an expression
  */
 public abstract class Function implements Serializable {
+    private static final long serialVersionUID = -4027601306719396290L;
 
     protected final String name;
 

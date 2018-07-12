@@ -61,6 +61,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Equals extends Function implements Serializable {
+        private static final long serialVersionUID = 2388827649030518290L;
         Equals() { super("equal", 2); }
         @Override
         public double apply(double... args) {
@@ -71,6 +72,7 @@ public final class FunctionsMisc {
     }
 
     private static final class If extends Function implements Serializable {
+        private static final long serialVersionUID = 3865326455639650003L;
         If() { super("if", 3); }
         @Override
         public double apply(double... args) {
@@ -82,6 +84,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Sinc extends Function implements Serializable {
+        private static final long serialVersionUID = -3749047550580483555L;
         Sinc() { super("sinc", 1); }
         @Override
         public double apply(double... args) {

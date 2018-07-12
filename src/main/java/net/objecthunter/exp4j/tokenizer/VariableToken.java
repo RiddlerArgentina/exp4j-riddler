@@ -20,7 +20,9 @@ import java.io.Serializable;
 /**
  * represents a setVariable used in an expression
  */
-public class VariableToken extends Token implements Serializable {
+public final class VariableToken extends Token implements Serializable {
+    private static final long serialVersionUID = -2944291251393065262L;
+
     private final String name;
     private boolean valueSet;
     private double value;
@@ -41,7 +43,7 @@ public class VariableToken extends Token implements Serializable {
         super(TokenType.VARIABLE);
         this.name = name;
     }
-    
+
     /**
      * Retrieves the currently assigned value for this Variable
      * @return value
@@ -49,7 +51,7 @@ public class VariableToken extends Token implements Serializable {
     public double getValue() {
         return value;
     }
-    
+
     /**
      * Sets a new value for this Variable
      * @param value new value for this variable
@@ -58,7 +60,7 @@ public class VariableToken extends Token implements Serializable {
         this.value = value;
         valueSet = true;
     }
-    
+
     /**
      * Tells if a value has been set for this variable
      * @return {@code true} if a value has been set, and {@code false} otherwise
@@ -66,10 +68,10 @@ public class VariableToken extends Token implements Serializable {
     public boolean isValueSet() {
         return valueSet;
     }
-    
+
     /**
      * Retrieves a copy of this token
-     * 
+     *
      * @return {@code VariableToken}
      */
     public VariableToken copy() {
@@ -79,7 +81,7 @@ public class VariableToken extends Token implements Serializable {
         }
         return vt;
     }
-    
+
     @Override
     public String toString() {
         if (!valueSet) {

@@ -26,7 +26,7 @@ import net.objecthunter.exp4j.operator.Operators;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
 
-public class Tokenizer {
+public final class Tokenizer {
 
     private final char[] expression;
 

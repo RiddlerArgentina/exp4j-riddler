@@ -21,6 +21,8 @@ import java.io.Serializable;
  * Class representing operators that can be used in an expression
  */
 public abstract class Operator implements Serializable {
+    private static final long serialVersionUID = -2212179357073818713L;
+    
     /**
      * The precedence value for the addition operation (default: {@value})
      */
