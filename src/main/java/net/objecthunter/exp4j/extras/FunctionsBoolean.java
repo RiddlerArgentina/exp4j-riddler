@@ -15,7 +15,7 @@
 */
 package net.objecthunter.exp4j.extras;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
@@ -38,99 +38,18 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsBoolean {
-    public static final Function NOT;
-    public static final Function AND;
-    public static final Function OR;
-    public static final Function XOR;
-    public static final Function NAND;
-    public static final Function NOR;
-    public static final Function XNOR;
-    public static final Function FALSE;
-    public static final Function TRUE;
-
-    private static final Function[] FUNCTIONS = new Function[9];
-
-    static {
-        int i = 0;
-        NOT = new Function("not") {
-            @Override
-            public double apply(double... args) {
-                return (Math.abs(args[0]) >= BOOLEAN_THRESHOLD) ? 0 : 1;
-            }
-        };
-        FUNCTIONS[i++] = NOT;
-        AND = new Function("and", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a & b) ? 1 : 0;
-            }
-        };
-        FUNCTIONS[i++] = AND;
-        OR = new Function("or", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a | b) ? 1 : 0;
-            }
-        };
-        FUNCTIONS[i++] = OR;
-        XOR = new Function("xor", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a ^ b) ? 1 : 0;
-            }
-        };
-        FUNCTIONS[i++] = XOR;
-        NAND = new Function("nand", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a & b) ? 0 : 1;
-            }
-        };
-        FUNCTIONS[i++] = NAND;
-        NOR = new Function("nor", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a | b) ? 0 : 1;
-            }
-        };
-        FUNCTIONS[i++] = NOR;
-        XNOR = new Function("xnor", 2) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a ^ b) ? 0 : 1;
-            }
-        };
-        FUNCTIONS[i++] = XNOR;
-        FALSE = new Function("false", 0) {
-            @Override
-            public double apply(double... args) {
-                return 0;
-            }
-        };
-        FUNCTIONS[i++] = FALSE;
-        TRUE = new Function("true", 0) {
-            @Override
-            public double apply(double... args) {
-                return 1;
-            }
-        };
-        FUNCTIONS[i++] = TRUE;
-    }
+    public static final Function NOT   = new Not();
+    public static final Function AND   = new And();
+    public static final Function OR    = new Or();
+    public static final Function XOR   = new Xor();
+    public static final Function NAND  = new Nand();
+    public static final Function NOR   = new Nor();
+    public static final Function XNOR  = new Xnor();
+    public static final Function FALSE = new False();
+    public static final Function TRUE  = new True();
 
     public static Function[] getFunctions() {
-        return Arrays.copyOf(FUNCTIONS, FUNCTIONS.length);
+        return new Function[] {NOT, AND, OR, XOR, NAND, NOR, XNOR, FALSE, TRUE};
     }
 
     /**
@@ -155,5 +74,89 @@ public final class FunctionsBoolean {
 
     private FunctionsBoolean() {
         // Don't let anyone initialize this class
+    }
+
+    private static final class Not extends Function implements Serializable {
+        Not() { super("not", 1); }
+        @Override
+        public double apply(double... args) {
+            return (Math.abs(args[0]) >= BOOLEAN_THRESHOLD) ? 0 : 1;
+        }
+    }
+
+    private static final class And extends Function implements Serializable {
+        And() { super("and", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a & b) ? 1 : 0;
+        }
+    }
+
+    private static final class Or extends Function implements Serializable {
+        Or() { super("or", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a | b) ? 1 : 0;
+        }
+    }
+
+    private static final class Xor extends Function implements Serializable {
+        Xor() { super("xor", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a ^ b) ? 1 : 0;
+        }
+    }
+
+    private static final class Nand extends Function implements Serializable {
+        Nand() { super("nand", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a & b) ? 0 : 1;
+        }
+    }
+
+    private static final class Nor extends Function implements Serializable {
+        Nor() { super("nor", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a | b) ? 0 : 1;
+        }
+    }
+
+    private static final class Xnor extends Function implements Serializable {
+        Xnor() { super("xnor", 2); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a ^ b) ? 0 : 1;
+        }
+    }
+
+    private static final class False extends Function implements Serializable {
+        False() { super("false", 0); }
+        @Override
+        public double apply(double... args) {
+            return 0;
+        }
+    }
+
+    private static final class True extends Function implements Serializable {
+        True() { super("true", 0); }
+        @Override
+        public double apply(double... args) {
+            return 1;
+        }
     }
 }
