@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.objecthunter</groupId>
     <artifactId>exp4j</artifactId>
-    <version>0.6-riddler</version>
+    <version>0.7-riddler</version>
     <name>exp4j</name>
     <description>A fork of the original exp4j. A simple mathematical expression
                  evaluator for java.</description>
@@ -14,15 +14,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <url>https://github.com/RiddlerArgentina/exp4j/</url>
+    <url>https://redmine.riddler.com.ar/projects/exp4j</url>
     <issueManagement>
-        <url>https://github.com/RiddlerArgentina/exp4j/issues</url>
-        <system>Github</system>
+        <url>https://redmine.riddler.com.ar/projects/exp4j/issues</url>
+        <system>Redmine</system>
     </issueManagement>
     <mailingLists>
         <mailingList>
-            <name>exp4j Google Group</name>
-            <archive>https://groups.google.com/forum/#!forum/exp4j</archive>
+            <name>exp4j Forum</name>
+            <archive>https://redmine.riddler.com.ar/projects/exp4j/boards</archive>
         </mailingList>
     </mailingLists>
     <developers>
