@@ -1,5 +1,7 @@
 package net.objecthunter.exp4j.tokenizer;
 
+import net.objecthunter.exp4j.utils.Text;
+
 /**
  * This exception is being thrown whenever {@link Tokenizer} finds unknown function or variable.
  *
@@ -14,49 +16,49 @@ public class UnknownFunctionOrVariableException extends IllegalArgumentException
     private final int position;
 
     public UnknownFunctionOrVariableException(String exp, int position, int length) {
-            this.expression = exp;
-            this.token = token(exp, position, length);
-            this.position = position;
-            this.message = String.format(
-        "Unknown function or variable '%s' at pos %d in expression '%s'", token, position, exp
-    );
+        this.expression = exp;
+        this.token = token(exp, position, length);
+        this.position = position;
+        this.message = Text.l10n(
+            "Unknown function or variable '%s' at pos %d in expression '%s'",
+            token, position, exp
+        );
     }
 
     private static String token(String expression, int position, int length) {
+        int len = expression.length();
+        int end = position + length - 1;
 
-            int len = expression.length();
-            int end = position + length - 1;
+        if (len < end) {
+                end = len;
+        }
 
-            if (len < end) {
-                    end = len;
-            }
-
-            return expression.substring(position, end);
+        return expression.substring(position, end);
     }
 
     @Override
     public String getMessage() {
-            return message;
+        return message;
     }
 
     /**
      * @return Expression which contains unknown function or variable
      */
     public String getExpression() {
-            return expression;
+        return expression;
     }
 
     /**
      * @return The name of unknown function or variable
      */
     public String getToken() {
-            return token;
+        return token;
     }
 
     /**
      * @return The position of unknown function or variable
      */
     public int getPosition() {
-            return position;
+        return position;
     }
 }

@@ -24,6 +24,7 @@ import net.objecthunter.exp4j.tokenizer.Token;
 import net.objecthunter.exp4j.tokenizer.Tokenizer;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
+import static net.objecthunter.exp4j.utils.Text.l10n;
 
 /**
  * Shunting yard implementation to convert infix to reverse polish notation
@@ -96,9 +97,9 @@ public final class ShuntingYard {
             Token t = stack.pop();
             if (t.getType() == PARENTHESES_CLOSE ||
                 t.getType() == PARENTHESES_OPEN) {
-                throw new IllegalArgumentException(
+                throw new IllegalArgumentException(l10n(
                     "Mismatched parentheses detected. Please check the expression"
-                );
+                ));
             } else {
                 output.push(t);
             }
@@ -133,18 +134,17 @@ public final class ShuntingYard {
         }
 
         if (stack.isEmpty() || stack.peek().getType() != PARENTHESES_OPEN) {
-            throw new IllegalArgumentException(
+            throw new IllegalArgumentException(l10n(
                 "Misplaced function separator ',' or mismatched parentheses"
-            );
+            ));
         }
     }
 
     private static void function(TokenStack stack, Token token) {
         if(!stack.isEmpty() && stack.peek().getType() == FUNCTION) {
-            throw new IllegalArgumentException(
-                    "Mismatched parentheses detected. "
-                  + "Please check the expression"
-            );
+            throw new IllegalArgumentException(l10n(
+                "Mismatched parentheses detected. Please check the expression"
+            ));
         }
         stack.push(token);
     }

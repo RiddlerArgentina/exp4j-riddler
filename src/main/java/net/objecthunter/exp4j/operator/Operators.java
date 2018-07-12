@@ -17,6 +17,7 @@ package net.objecthunter.exp4j.operator;
 
 
 import static net.objecthunter.exp4j.operator.Operator.*;
+import static net.objecthunter.exp4j.utils.Text.l10n;
 
 /**
  * This class implements all of the built-in operators both arithmetic and boolean.
@@ -144,7 +145,7 @@ public final class Operators {
         @Override
         public double apply(double... args) {
             if (args[1] == 0d) {
-                throw new ArithmeticException("Division by zero!");
+                throw new ArithmeticException(l10n("Division by zero!"));
             }
             return args[0] / args[1];
         }
@@ -165,7 +166,7 @@ public final class Operators {
         @Override
         public double apply(double... args) {
             if (args[1] == 0d) {
-                throw new ArithmeticException("Division by zero!");
+                throw new ArithmeticException(l10n("Division by zero!"));
             }
             return args[0] % args[1];
         }
@@ -210,15 +211,15 @@ public final class Operators {
             final int arg = (int) args[0];
             if ((double) arg != args[0]) {
                 String msg = "Operand for factorial has to be an integer";
-                throw new IllegalArgumentException(msg);
+                throw new IllegalArgumentException(l10n(msg));
             }
             if (arg < 0) {
                 String msg = "The operand of the factorial can not be less than zero";
-                throw new IllegalArgumentException(msg);
+                throw new IllegalArgumentException(l10n(msg));
             }
             if (arg > 170) {
                 String msg = "The operand of the factorial can not be more than 170";
-                throw new IllegalArgumentException(msg);
+                throw new IllegalArgumentException(l10n(msg));
             }
             double result = 1;
             for (int i = 1; i <= arg; i++) {

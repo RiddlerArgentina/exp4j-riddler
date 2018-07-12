@@ -18,6 +18,7 @@ package net.objecthunter.exp4j;
 
 import java.io.Serializable;
 import java.util.EmptyStackException;
+import net.objecthunter.exp4j.utils.Text;
 
 /**
  * Simple double stack using a double array as data storage
@@ -39,7 +40,8 @@ final class ArrayStack implements Serializable {
     protected ArrayStack(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException(
-                    "Stack's capacity must be positive");
+                Text.l10n("Stack's capacity must be positive")
+            );
         }
 
         data = new double[initialCapacity];

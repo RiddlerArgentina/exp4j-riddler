@@ -28,6 +28,8 @@ import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.shuntingyard.ShuntingYard;
 import net.objecthunter.exp4j.tokenizer.Token;
 
+import static net.objecthunter.exp4j.utils.Text.l10n;
+
 /**
  * Factory class for {@link Expression} instances. This class is the main API entrypoint.
  * Users should create new {@link Expression} instances using this factory class.
@@ -52,7 +54,7 @@ public class ExpressionBuilder {
      */
     public ExpressionBuilder(String expression) {
         if (expression == null || expression.trim().length() == 0) {
-            throw new IllegalArgumentException("Expression can not be empty");
+            throw new IllegalArgumentException(l10n("Expression can not be empty"));
         }
 
         this.expression = expression;
@@ -169,7 +171,7 @@ public class ExpressionBuilder {
         String name = op.getSymbol();
         for (char ch : name.toCharArray()) {
             if (!Operator.isAllowedOperatorChar(ch)) {
-                throw new IllegalArgumentException(String.format(
+                throw new IllegalArgumentException(l10n(
                     "The operator symbol '%s' is invalid", name
                 ));
             }
@@ -222,7 +224,7 @@ public class ExpressionBuilder {
         /* Check if there are duplicate vars/functions */
         for (String var : variableNames) {
             if (Functions.getBuiltinFunction(var) != null || userFunctions.containsKey(var)) {
-                throw new IllegalArgumentException(String.format(
+                throw new IllegalArgumentException(l10n(
                     "A variable can not have the same name as a function [%s]", var
                 ));
             }
@@ -247,7 +249,7 @@ public class ExpressionBuilder {
 
     private static void checkVariableName(String vname) throws IllegalArgumentException {
         if (VAR_NAME_PATTERN.matcher(vname).matches()) {
-            throw new IllegalArgumentException("Variable names can't contain non ASCII letters");
+            throw new IllegalArgumentException(l10n("Variable names can't contain non ASCII letters"));
         }
     }
 

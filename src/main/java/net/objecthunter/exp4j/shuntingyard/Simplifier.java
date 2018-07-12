@@ -20,6 +20,7 @@ import net.objecthunter.exp4j.tokenizer.FunctionToken;
 import net.objecthunter.exp4j.tokenizer.NumberToken;
 import net.objecthunter.exp4j.tokenizer.OperatorToken;
 import net.objecthunter.exp4j.tokenizer.Token;
+import net.objecthunter.exp4j.utils.Text;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.NUMBER;
 
@@ -45,7 +46,9 @@ final class Simplifier {
                     final Operator operator = op.getOperator();
 
                     if (output.size()  < operator.getNumOperands()) {
-                        throw new IllegalArgumentException("Invalid number of operands available");
+                        throw new IllegalArgumentException(Text.l10n(
+                                "Invalid number of operands available"
+                        ));
                     }
 
                     if (operator.getNumOperands() == 2) {

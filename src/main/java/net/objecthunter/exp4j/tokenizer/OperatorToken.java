@@ -16,6 +16,7 @@
 package net.objecthunter.exp4j.tokenizer;
 
 import net.objecthunter.exp4j.operator.Operator;
+import net.objecthunter.exp4j.utils.Text;
 
 /**
  * Represents an operator used in expressions
@@ -32,7 +33,9 @@ public final class OperatorToken extends Token {
     public OperatorToken(Operator op) {
         super(TokenType.OPERATOR);
         if (op == null) {
-            throw new IllegalArgumentException("Operator is unknown for token.");
+            throw new IllegalArgumentException(Text.l10n(
+                    "Operator is unknown for token."
+            ));
         }
         this.operator = op;
     }

@@ -25,6 +25,7 @@ import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.operator.Operators;
 
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
+import static net.objecthunter.exp4j.utils.Text.l10n;
 
 public final class Tokenizer {
 
@@ -75,7 +76,7 @@ public final class Tokenizer {
         if (Character.isDigit(ch) || ch == '.') {
             if (lastToken != null) {
                 if (lastToken.getType() == NUMBER) {
-                    throw new IllegalArgumentException(String.format(
+                    throw new IllegalArgumentException(l10n(
                         "Unable to parse char '%s' (Code: %d) at [%d]", ch, (int) ch, pos
                     ));
                 } else if ((lastToken.getType() != OPERATOR
@@ -119,7 +120,7 @@ public final class Tokenizer {
             return parseFunctionOrVariable();
 
         }
-        throw new IllegalArgumentException(String.format(
+        throw new IllegalArgumentException(l10n(
             "Unable to parse char '%s' (Code: %d) at [%d]", ch, (int) ch, pos
         ));
     }
