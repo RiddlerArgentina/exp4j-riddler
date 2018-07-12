@@ -15,6 +15,7 @@
 */
 package net.objecthunter.exp4j.operator;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 import static net.objecthunter.exp4j.operator.Operator.*;
@@ -54,105 +55,18 @@ public final class Operators {
     private static final Operator[] BUILTIN = new Operator[12];
 
     static {
-        BUILTIN[INDEX_ADDITION]= new Operator("+", 2, true, PRECEDENCE_ADDITION) {
-            @Override
-            public double apply(final double... args) {
-                return args[0] + args[1];
-            }
-        };
-        BUILTIN[INDEX_SUBTRACTION]= new Operator("-", 2, true, PRECEDENCE_ADDITION) {
-            @Override
-            public double apply(final double... args) {
-                return args[0] - args[1];
-            }
-        };
-        BUILTIN[INDEX_UNARYMINUS]= new Operator("-", 1, false, PRECEDENCE_UNARY_MINUS) {
-            @Override
-            public double apply(final double... args) {
-                return -args[0];
-            }
-        };
-        BUILTIN[INDEX_UNARYPLUS]= new Operator("+", 1, false, PRECEDENCE_UNARY_PLUS) {
-            @Override
-            public double apply(final double... args) {
-                return args[0];
-            }
-        };
-        BUILTIN[INDEX_MUTLIPLICATION]= new Operator("*", 2, true, PRECEDENCE_MULTIPLICATION) {
-            @Override
-            public double apply(final double... args) {
-                return args[0] * args[1];
-            }
-        };
-        BUILTIN[INDEX_DIVISION]= new Operator("/", 2, true, PRECEDENCE_DIVISION) {
-            @Override
-            public double apply(final double... args) {
-                if (args[1] == 0d) {
-                    throw new ArithmeticException("Division by zero!");
-                }
-                return args[0] / args[1];
-            }
-        };
-        BUILTIN[INDEX_POWER]= new Operator("^", 2, false, PRECEDENCE_POWER) {
-            @Override
-            public double apply(final double... args) {
-                return Math.pow(args[0], args[1]);
-            }
-        };
-        BUILTIN[INDEX_MODULO]= new Operator("%", 2, true, PRECEDENCE_MODULO) {
-            @Override
-            public double apply(final double... args) {
-                if (args[1] == 0d) {
-                    throw new ArithmeticException("Division by zero!");
-                }
-                return args[0] % args[1];
-            }
-        };
-        BUILTIN[INDEX_OP_AND]= new Operator("&", 2, true, PRECEDENCE_AND) {
-            @Override
-            public double apply(final double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a & b) ? 1 : 0;
-            }
-        };
-        BUILTIN[INDEX_OP_OR]= new Operator("|", 2, true, PRECEDENCE_OR) {
-            @Override
-            public double apply(final double... args) {
-                final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
-                final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
-                return (a | b) ? 1 : 0;
-            }
-        };
-        BUILTIN[INDEX_OP_NOT]= new Operator("¬", 1, false, PRECEDENCE_NOT) {
-            @Override
-            public double apply(final double... args) {
-                return (Math.abs(args[0]) < BOOLEAN_THRESHOLD) ? 1 : 0;
-            }
-        };
-        BUILTIN[INDEX_FACTORIAL]= new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
-            @Override
-            public double apply(double... args) {
-                final int arg = (int) args[0];
-                if ((double) arg != args[0]) {
-                    String msg = "Operand for factorial has to be an integer";
-                    throw new IllegalArgumentException(msg);
-                }
-                if (arg < 0) {
-                    String msg = "The operand of the factorial can not be less than zero";
-                    throw new IllegalArgumentException(msg);
-                }
-                if (arg > 170) {
-                    String msg = "The operand of the factorial can not be more than 170";
-                    throw new IllegalArgumentException(msg);
-                }
-                double result = 1;
-                for (int i = 1; i <= arg; i++) {
-                    result *= i;
-                }
-                return result;
-            }
-        };
+        BUILTIN[INDEX_ADDITION]= new OpAdd();
+        BUILTIN[INDEX_SUBTRACTION] = new OpMinus();
+        BUILTIN[INDEX_UNARYMINUS]= new OpMinusUnary();
+        BUILTIN[INDEX_UNARYPLUS]= new OpAddUnary();
+        BUILTIN[INDEX_MUTLIPLICATION]= new OpMultiply();
+        BUILTIN[INDEX_DIVISION]= new OpDivide();
+        BUILTIN[INDEX_POWER]= new OpPower();
+        BUILTIN[INDEX_MODULO]= new OpModulo();
+        BUILTIN[INDEX_OP_AND]= new OpAnd();
+        BUILTIN[INDEX_OP_OR]= new OpOr();
+        BUILTIN[INDEX_OP_NOT]= new OpNot();
+        BUILTIN[INDEX_FACTORIAL]= new OpFactorial();
     }
 
     public static Operator[] getOperators() {
@@ -193,4 +107,126 @@ public final class Operators {
         // Don't let anyone initialize this class
     }
 
+    private static final class OpAdd extends Operator implements Serializable {
+        OpAdd() { super("+", 2, true, PRECEDENCE_ADDITION); }
+        @Override
+        public double apply(double... args) {
+            return args[0] + args[1];
+        }
+    }
+
+    private static final class OpAddUnary extends Operator implements Serializable {
+        OpAddUnary() { super("+", 1, false, PRECEDENCE_UNARY_PLUS); }
+        @Override
+        public double apply(double... args) {
+            return args[0];
+        }
+    }
+
+    private static final class OpMinus extends Operator implements Serializable {
+        OpMinus() { super("-", 2, true, PRECEDENCE_ADDITION); }
+        @Override
+        public double apply(double... args) {
+            return args[0] - args[1];
+        }
+    }
+
+    private static final class OpMinusUnary extends Operator implements Serializable {
+        OpMinusUnary() { super("-", 1, false, PRECEDENCE_UNARY_MINUS); }
+        @Override
+        public double apply(double... args) {
+            return -args[0];
+        }
+    }
+
+    private static final class OpMultiply extends Operator implements Serializable {
+        OpMultiply() { super("*", 2, true, PRECEDENCE_MULTIPLICATION); }
+        @Override
+        public double apply(double... args) {
+            return args[0] * args[1];
+        }
+    }
+
+    private static final class OpDivide extends Operator implements Serializable {
+        OpDivide() { super("/", 2, true, PRECEDENCE_DIVISION); }
+        @Override
+        public double apply(double... args) {
+            if (args[1] == 0d) {
+                throw new ArithmeticException("Division by zero!");
+            }
+            return args[0] / args[1];
+        }
+    }
+
+    private static final class OpPower extends Operator implements Serializable {
+        OpPower() { super("^", 2, false, PRECEDENCE_POWER); }
+        @Override
+        public double apply(double... args) {
+            return Math.pow(args[0], args[1]);
+        }
+    }
+
+    private static final class OpModulo extends Operator implements Serializable {
+        OpModulo() { super("%", 2, true, PRECEDENCE_MODULO); }
+        @Override
+        public double apply(double... args) {
+            if (args[1] == 0d) {
+                throw new ArithmeticException("Division by zero!");
+            }
+            return args[0] % args[1];
+        }
+    }
+
+    private static final class OpAnd extends Operator implements Serializable {
+        OpAnd() { super("&", 2, true, PRECEDENCE_AND); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a & b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpOr extends Operator implements Serializable {
+        OpOr() { super("|", 2, true, PRECEDENCE_OR); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = Math.abs(args[0]) >= BOOLEAN_THRESHOLD;
+            final boolean b = Math.abs(args[1]) >= BOOLEAN_THRESHOLD;
+            return (a | b) ? 1 : 0;
+        }
+    }
+
+    private static final class OpNot extends Operator implements Serializable {
+        OpNot() { super("¬", 1, false, PRECEDENCE_NOT); }
+        @Override
+        public double apply(double... args) {
+            return (Math.abs(args[0]) < BOOLEAN_THRESHOLD) ? 1 : 0;
+        }
+    }
+
+    private static final class OpFactorial extends Operator implements Serializable {
+        OpFactorial() { super("!", 1, true, Operator.PRECEDENCE_POWER + 1); }
+        @Override
+        public double apply(double... args) {
+            final int arg = (int) args[0];
+            if ((double) arg != args[0]) {
+                String msg = "Operand for factorial has to be an integer";
+                throw new IllegalArgumentException(msg);
+            }
+            if (arg < 0) {
+                String msg = "The operand of the factorial can not be less than zero";
+                throw new IllegalArgumentException(msg);
+            }
+            if (arg > 170) {
+                String msg = "The operand of the factorial can not be more than 170";
+                throw new IllegalArgumentException(msg);
+            }
+            double result = 1;
+            for (int i = 1; i <= arg; i++) {
+                result *= i;
+            }
+            return result;
+        }
+    }
 }
