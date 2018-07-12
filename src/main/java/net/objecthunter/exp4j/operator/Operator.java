@@ -76,7 +76,7 @@ public abstract class Operator implements Serializable {
     /**
      * The set of allowed operator chars
      */
-    public static final char[] ALLOWED_OPERATOR_CHARS = {
+    private static final char[] ALLOWED_OPERATOR_CHARS = {
         '+', '-', '*', '/', '%',
         '^', '!', '#', '§', '$',
         '&', ';', ':', '~', '<',
