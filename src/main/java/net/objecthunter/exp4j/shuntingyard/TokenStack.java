@@ -76,7 +76,7 @@ final class TokenStack implements Serializable {
     protected int size() {
         return idx + 1;
     }
-    
+
     protected Token[] toArray() {
         Token[] ret = new Token[idx + 1];
         System.arraycopy(data, 0, ret, 0, ret.length);

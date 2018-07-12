@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2014 Frank Asseg
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 
 package net.objecthunter.exp4j.function;
@@ -27,12 +27,12 @@ public abstract class Function implements Serializable {
     protected final String name;
 
     protected final int numArguments;
-    
+
     protected final boolean deterministic;
 
     /**
      * Create a new Function with a given name and number of arguments
-     * 
+     *
      * @param name the name of the Function
      * @param numArguments the number of arguments the function takes
      * @param deterministic {@code true} if the function is deterministic (i.e. can be simplified)
@@ -56,7 +56,7 @@ public abstract class Function implements Serializable {
 
     /**
      * Create a new Function with a given name and number of arguments
-     * 
+     *
      * @param name the name of the Function
      * @param numArguments the number of arguments the function takes
      */
@@ -66,17 +66,17 @@ public abstract class Function implements Serializable {
 
     /**
      * Create a new Function with a given name that takes a single argument
-     * 
+     *
      * @param name the name of the Function
      */
     public Function(String name) {
         this(name, 1);
     }
-    
+
     /**
      * Tells if a function is deterministic, in this scenario basically applies to functions that
      * are not supposed to be simplified.
-     * 
+     *
      * @return {@code true} if the function is to be simplified (deterministic) and {@code false}
      * otherwise
      */
@@ -86,7 +86,7 @@ public abstract class Function implements Serializable {
 
     /**
      * Get the name of the Function
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -95,7 +95,7 @@ public abstract class Function implements Serializable {
 
     /**
      * Get the number of arguments for this function
-     * 
+     *
      * @return the number of arguments
      */
     public int getNumArguments() {
@@ -104,7 +104,7 @@ public abstract class Function implements Serializable {
 
     /**
      * Method that does the actual calculation of the function value given the arguments
-     * 
+     *
      * @param args the set of arguments used for calculating the function
      * @return the result of the function evaluation
      */

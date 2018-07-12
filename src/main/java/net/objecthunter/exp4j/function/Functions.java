@@ -45,19 +45,19 @@ public final class Functions {
     public static final Function SGN   = new Signum();
     public static final Function PI    = new Pi();
     public static final Function E     = new E();
-    
+
     private Functions() {
         // Don't let anyone initialize this class
     }
-    
+
     public static Function[] getFunctions() {
         return new Function[] {
-            SIN, COS, TAN, 
+            SIN, COS, TAN,
             ASIN, ACOS, ATAN,
             SINH, COSH, TANH,
-            LOG, LOG2, LOG10, LOG1P, 
-            ABS, CBRT, CEIL, FLOOR, 
-            SQRT, POW, EXP, EXPM1, SGN, 
+            LOG, LOG2, LOG10, LOG1P,
+            ABS, CBRT, CEIL, FLOOR,
+            SQRT, POW, EXP, EXPM1, SGN,
             PI, E
         };
     }

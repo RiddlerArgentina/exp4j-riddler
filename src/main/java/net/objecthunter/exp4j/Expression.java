@@ -123,7 +123,7 @@ public class Expression implements Serializable {
         }
         return contains;
     }
-    
+
     private void checkVariableName(String name) {
         if (hasUserFunction(name) || Functions.getBuiltinFunction(name) != null) {
             throw new IllegalArgumentException(String.format(

@@ -44,11 +44,11 @@ public final class Operators {
     private static final Operator DIVISION        = new OpDivide();
     private static final Operator MODULO          = new OpModulo();
     private static final Operator POWER           = new OpPower();
-    
+
     private static final Operator AND             = new OpAnd();
     private static final Operator OR              = new OpOr();
     private static final Operator NOT             = new OpNot();
-    
+
     private static final Operator FACTORIAL       = new OpFactorial();
 
     public static Operator getBuiltinOperator(final char symbol, final int numArguments) {
@@ -84,7 +84,7 @@ public final class Operators {
     private Operators() {
         // Don't let anyone initialize this class
     }
-    
+
     public static Operator[] getOperators() {
         return new Operator[]{
             ADDITION, ADDITION_UN, SUBTRACTION, SUBTRACTION_UN,
