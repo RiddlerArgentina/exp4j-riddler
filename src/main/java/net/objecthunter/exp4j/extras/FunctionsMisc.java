@@ -15,7 +15,7 @@
 */
 package net.objecthunter.exp4j.extras;
 
-import java.util.Arrays;
+import java.io.Serializable;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 
@@ -26,9 +26,9 @@ import net.objecthunter.exp4j.operator.Operator;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsMisc {
-    public static final Function EQUAL;
-    public static final Function IF;
-    public static final Function SINC;
+    public static final Function EQUAL = new Equals();
+    public static final Function IF    = new If();
+    public static final Function SINC  = new Sinc();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -37,41 +37,9 @@ public final class FunctionsMisc {
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
 
-    private static final Function[] FUNCTIONS = new Function[3];
-
-    static {
-        int i = 0;
-        EQUAL = new Function("equal", 2) {
-            @Override
-            public double apply(double... args) {
-                final double  a = args[0];
-                final double  b = args[1];
-                return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
-            }
-        };
-        FUNCTIONS[i++] = EQUAL;
-        IF = new Function("if", 3) {
-            @Override
-            public double apply(double... args) {
-                final boolean a = args[0] >= EQUALITY_THRESHOLD;
-                final double  t = args[1];
-                final double  f = args[2];
-                return a ? t : f;
-            }
-        };
-        FUNCTIONS[i++] = IF;
-        SINC = new Function("sinc", 1) {
-            @Override
-            public double apply(double... args) {
-                final double a = args[0];
-                return a == 0.0 ? 1 : Math.sin(a) / a;
-            }
-        };
-        FUNCTIONS[i++] = SINC;
-    }
 
     public static Function[] getFunctions() {
-        return Arrays.copyOf(FUNCTIONS, FUNCTIONS.length);
+        return new Function[]{EQUAL, IF, SINC};
     }
 
     /**
@@ -90,5 +58,35 @@ public final class FunctionsMisc {
 
     private FunctionsMisc() {
         // Don't let anyone initialize this class
+    }
+
+    private static final class Equals extends Function implements Serializable {
+        Equals() { super("equals", 2); }
+        @Override
+        public double apply(double... args) {
+            final double  a = args[0];
+            final double  b = args[1];
+            return Math.abs(a - b) < EQUALITY_THRESHOLD ? 1 : 0;
+        }
+    }
+
+    private static final class If extends Function implements Serializable {
+        If() { super("if", 3); }
+        @Override
+        public double apply(double... args) {
+            final boolean a = args[0] >= EQUALITY_THRESHOLD;
+            final double  t = args[1];
+            final double  f = args[2];
+            return a ? t : f;
+        }
+    }
+
+    private static final class Sinc extends Function implements Serializable {
+        Sinc() { super("sinc", 1); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            return a == 0.0 ? 1 : Math.sin(a) / a;
+        }
     }
 }
