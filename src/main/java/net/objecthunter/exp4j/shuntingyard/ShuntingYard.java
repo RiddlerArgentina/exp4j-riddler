@@ -42,7 +42,7 @@ public final class ShuntingYard {
      * @param userFunctions the custom functions used
      * @param userOperators the custom operators used
      * @param variableNames the variable names used in the expression
-     * @param useBuiltInFunctions
+     * @param useBuiltInFunctions tells if builtin functions should be enabled
      * @return a {@link net.objecthunter.exp4j.tokenizer.Token} array containing the result
      */
     public static Token[] convertToRPN(final boolean simplify,
