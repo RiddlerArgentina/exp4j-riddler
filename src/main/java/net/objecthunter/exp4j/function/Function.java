@@ -26,11 +26,11 @@ import static net.objecthunter.exp4j.utils.Text.l10n;
 public abstract class Function implements Serializable {
     private static final long serialVersionUID = -4027601306719396290L;
 
-    protected final String name;
+    private final String name;
 
-    protected final int numArguments;
+    private final int numArguments;
 
-    protected final boolean deterministic;
+    private final boolean deterministic;
 
     /**
      * Create a new Function with a given name and number of arguments
@@ -112,6 +112,15 @@ public abstract class Function implements Serializable {
      */
     public abstract double apply(double... args);
 
+    /**
+     * Tells if a function name is valid in the context of the expression.
+     * This means that it's not {@code null} or empty and it only contains
+     * {@code ASCII} chars, {@code _} or digits.
+     *
+     * @param name name to test
+     * @return {@code true} if the function name can be used and {@code false}
+     * otherwise
+     */
     public static boolean isValidFunctionName(final String name) {
         if (name == null) {
             return false;

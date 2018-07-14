@@ -83,10 +83,10 @@ public abstract class Operator implements Serializable {
         '>', '|', '=', '¬'
     };
 
-    protected final int numOperands;
-    protected final boolean leftAssociative;
-    protected final String symbol;
-    protected final int precedence;
+    private final int numOperands;
+    private final boolean leftAssociative;
+    private final String symbol;
+    private final int precedence;
 
     /**
      * Create a new operator for use in expressions
