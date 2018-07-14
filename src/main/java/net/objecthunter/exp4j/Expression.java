@@ -40,6 +40,12 @@ import java.util.concurrent.Future;
 import static net.objecthunter.exp4j.tokenizer.TokenType.*;
 import static net.objecthunter.exp4j.utils.Text.l10n;
 
+/**
+ * This class represents a valid mathematical expression.
+ *
+ * @author Frank Asseg
+ * @see ExpressionBuilder#build()
+ */
 public class Expression implements Serializable {
 
     private static final long serialVersionUID = -2510794384846712749L;

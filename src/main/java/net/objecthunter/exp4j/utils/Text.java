@@ -18,26 +18,40 @@ package net.objecthunter.exp4j.utils;
 import java.util.ResourceBundle;
 
 /**
- *
+ * Small wrapper for {@code ResourceBundle}
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class Text {
     private final static ResourceBundle L10N = ResourceBundle.getBundle("net.objecthunter.exp4j.utils.Bundle");
 
+    /**
+     * Retrieves the localized version of the string.
+     *
+     * @param key key to search
+     * @return if the key is found it retrieves the value, in case of error it
+     * returns the key itself
+     */
     public static String l10n(String key) {
         try {
             return L10N.getString(key);
         } catch (Exception e) {
-            e.printStackTrace();
             return key;
         }
     }
 
+    /**
+     * Retrieves the localized and formatted version of the string.
+     *
+     * @param key key to search
+     * @param args arguments used for formatting
+     * @return if the key is found it retrieves the value, in case of error it
+     * returns the key itself
+     * @see String#format(java.lang.String, java.lang.Object...)
+     */
     public static String l10n(String key, Object...args) {
         try {
             return String.format(L10N.getString(key), args);
         } catch (Exception e) {
-            e.printStackTrace();
             return key;
         }
     }

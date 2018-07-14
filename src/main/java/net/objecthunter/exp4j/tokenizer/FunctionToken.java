@@ -17,15 +17,28 @@ package net.objecthunter.exp4j.tokenizer;
 
 import net.objecthunter.exp4j.function.Function;
 
+/**
+ * Represents a {@link Function}
+ */
 public final class FunctionToken extends Token {
     private static final long serialVersionUID = 6070719888134223365L;
 
     private final Function function;
+
+    /**
+     * Create a new instance
+     * @param function Function
+     */
     public FunctionToken(final Function function) {
         super(TokenType.FUNCTION);
         this.function = function;
     }
 
+    /**
+     * Retrieves the {@link Function} associated to this {@link Token}
+     *
+     * @return {@link Function}
+     */
     public Function getFunction() {
         return function;
     }

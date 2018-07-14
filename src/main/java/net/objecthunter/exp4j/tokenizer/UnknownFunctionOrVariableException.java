@@ -15,6 +15,11 @@ public class UnknownFunctionOrVariableException extends IllegalArgumentException
     private final String token;
     private final int position;
 
+    /**
+     * @param exp expression that throwed the exception
+     * @param position location of the error
+     * @param length length of the token
+     */
     public UnknownFunctionOrVariableException(String exp, int position, int length) {
         this.expression = exp;
         this.token = token(exp, position, length);

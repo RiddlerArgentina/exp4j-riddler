@@ -23,12 +23,16 @@ import java.io.Serializable;
 public abstract class Token implements Serializable {
     private static final long serialVersionUID = 2938544527369187154L;
 
-    protected final TokenType type;
+    private final TokenType type;
 
     Token(TokenType type) {
         this.type = type;
     }
 
+    /**
+     * Retrieves the {@link TokenType} of this token
+     * @return {@link TokenType}
+     */
     public final TokenType getType() {
         return type;
     }

@@ -16,15 +16,43 @@
 package net.objecthunter.exp4j.tokenizer;
 
 /**
+ * Types of tokens available
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public enum TokenType {
+    /**
+     * Associated with {@link NumberToken}
+     */
     NUMBER,
+
+    /**
+     * Associated with {@link OperatorToken}
+     */
     OPERATOR,
+
+    /**
+     * Associated with {@link FunctionToken}
+     */
     FUNCTION,
+
+    /**
+     * Associated with {@link OpenParenthesesToken}
+     */
     PARENTHESES_OPEN,
+
+    /**
+     * Associated with {@link CloseParenthesesToken}
+     */
     PARENTHESES_CLOSE,
+
+    /**
+     * Associated with {@link VariableToken}
+     */
     VARIABLE,
+
+    /**
+     * Represents a function parameter delimiter
+     */
     SEPARATOR;
 }

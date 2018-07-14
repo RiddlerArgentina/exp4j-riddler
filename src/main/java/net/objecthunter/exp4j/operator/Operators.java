@@ -51,6 +51,15 @@ public final class Operators {
 
     private static final Operator FACTORIAL       = new OpFactorial();
 
+    /**
+     * Retrieves a Built-in operator.
+     *
+     * @param symbol Symbol representing the operator
+     * @param numArguments Number of arguments of the operator
+     * @return An operator matching the criteria if one exists or {@code null}
+     * otherwise
+     * @see Operator
+     */
     public static Operator getBuiltinOperator(final char symbol, final int numArguments) {
         switch(symbol) {
             case '+':
@@ -85,6 +94,12 @@ public final class Operators {
         // Don't let anyone initialize this class
     }
 
+    /**
+     * Array with all the available operators
+     *
+     * @return {@link Operator} array
+     * @see Operators#getBuiltinOperator(char, int)
+     */
     public static Operator[] getOperators() {
         return new Operator[]{
             ADDITION, ADDITION_UN, SUBTRACTION, SUBTRACTION_UN,

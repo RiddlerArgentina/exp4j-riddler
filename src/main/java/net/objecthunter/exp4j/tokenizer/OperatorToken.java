@@ -19,7 +19,7 @@ import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.utils.Text;
 
 /**
- * Represents an operator used in expressions
+ * Represents an {@link Operator}
  */
 public final class OperatorToken extends Token {
     private static final long serialVersionUID = -3066884319239647929L;

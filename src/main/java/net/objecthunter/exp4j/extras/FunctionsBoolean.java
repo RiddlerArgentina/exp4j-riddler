@@ -37,16 +37,112 @@ import static net.objecthunter.exp4j.operator.Operator.*;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsBoolean {
+
+    /**
+     * Logical function {@code NOT}
+     * <pre>
+     *     <b>a</b> | <b>~a</b>
+     *     --+--
+     *     0 | <i>1</i>
+     *     1 | <i>0</i>
+     * </pre>
+     */
     public static final Function NOT   = new Not();
+
+    /**
+     * Logical function {@code AND}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>a&amp;b</b>
+     *     --+---+----
+     *     0 | 0 |  <i>0</i>
+     *     0 | 1 |  <i>0</i>
+     *     1 | 0 |  <i>0</i>
+     *     1 | 1 |  <i>1</i>
+     * </pre>
+     */
     public static final Function AND   = new And();
+
+    /**
+     * Logical function {@code OR}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>a|b</b>
+     *     --+---+----
+     *     0 | 0 |  <i>1</i>
+     *     0 | 1 |  <i>1</i>
+     *     1 | 0 |  <i>1</i>
+     *     1 | 1 |  <i>0</i>
+     * </pre>
+     */
     public static final Function OR    = new Or();
+
+    /**
+     * Logical function {@code XOR}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>a^b</b>
+     *     --+---+----
+     *     0 | 0 |  <i>0</i>
+     *     0 | 1 |  <i>1</i>
+     *     1 | 0 |  <i>1</i>
+     *     1 | 1 |  <i>0</i>
+     * </pre>
+     */
     public static final Function XOR   = new Xor();
+
+    /**
+     * Logical function {@code NAND}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>!(a&amp;b)</b>
+     *     --+---+-------
+     *     0 | 0 |   <i>1</i>
+     *     0 | 1 |   <i>1</i>
+     *     1 | 0 |   <i>1</i>
+     *     1 | 1 |   <i>0</i>
+     * </pre>
+     */
     public static final Function NAND  = new Nand();
+
+    /**
+     * Logical function {@code NOR}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>!(a|b)</b>
+     *     --+---+-------
+     *     0 | 0 |   <i>1</i>
+     *     0 | 1 |   <i>0</i>
+     *     1 | 0 |   <i>0</i>
+     *     1 | 1 |   <i>1</i>
+     * </pre>
+     */
     public static final Function NOR   = new Nor();
+
+    /**
+     * Logical function {@code XNOR}
+     * <pre>
+     *     <b>a</b> | <b>b</b> | <b>!(a^b)</b>
+     *     --+---+-------
+     *     0 | 0 |   <i>1</i>
+     *     0 | 1 |   <i>0</i>
+     *     1 | 0 |   <i>0</i>
+     *     1 | 1 |   <i>1</i>
+     * </pre>
+     */
     public static final Function XNOR  = new Xnor();
+
+    /**
+     * Boolean value {@code false} -&gt; {@code 0.0}
+     */
     public static final Function FALSE = new False();
+
+    /**
+     * Boolean value {@code true} -&gt; {@code 1.0}
+     */
     public static final Function TRUE  = new True();
 
+    /**
+     * Array with all the available functions
+     *
+     * @return {@link Function} array
+     * @see FunctionsBoolean#getFunction(java.lang.String)
+     */
     public static Function[] getFunctions() {
         return new Function[] {NOT, AND, OR, XOR, NAND, NOR, XNOR, FALSE, TRUE};
     }
@@ -55,6 +151,7 @@ public final class FunctionsBoolean {
      * Get the function for a given name
      * @param name the name of the function
      * @return a Function instance
+     * @see FunctionsBoolean#getFunctions()
      */
     public static Function getFunction(final String name) {
         switch (name) {

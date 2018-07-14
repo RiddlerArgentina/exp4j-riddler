@@ -25,8 +25,32 @@ import net.objecthunter.exp4j.operator.Operator;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class FunctionsMisc {
+    /**
+     * Equality function.
+     *
+     * The test is performed using a threshold given by
+     * {@link Operator#BOOLEAN_THRESHOLD}.
+     *
+     * @see Operator#BOOLEAN_THRESHOLD
+     */
     public static final Function EQUAL = new Equals();
+
+    /**
+     * Branching function.
+     *
+     * @see Operator#BOOLEAN_THRESHOLD
+     * @see OperatorsComparison#OP_EQU
+     * @see OperatorsComparison#OP_GOE
+     * @see OperatorsComparison#OP_GT
+     * @see OperatorsComparison#OP_LOE
+     * @see OperatorsComparison#OP_LT
+     * @see OperatorsComparison#OP_NEQ
+     */
     public static final Function IF    = new If();
+
+    /**
+     * Cardinal Sin (non-normalized).
+     */
     public static final Function SINC  = new Sinc();
 
     /**
@@ -36,7 +60,12 @@ public final class FunctionsMisc {
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
 
-
+    /**
+     * Array with all the available functions
+     *
+     * @return {@link Function} array
+     * @see FunctionsMisc#getFunction(java.lang.String)
+     */
     public static Function[] getFunctions() {
         return new Function[]{EQUAL, IF, SINC};
     }
@@ -45,6 +74,7 @@ public final class FunctionsMisc {
      * Get the function for a given name
      * @param name the name of the function
      * @return a Function instance
+     * @see FunctionsMisc#getFunctions()
      */
     public static Function getFunction(final String name) {
         switch (name) {
