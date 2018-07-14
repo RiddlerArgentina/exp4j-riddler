@@ -19,35 +19,137 @@ package net.objecthunter.exp4j.function;
  * Class representing the builtin functions available for use in expressions
  */
 public final class Functions {
+
+    /**
+     * Wrapper for {@link Math#sin(double)}.
+     */
     public static final Function SIN   = new Sin();
+
+    /**
+     * Wrapper for {@link Math#cos(double)}.
+     */
     public static final Function COS   = new Cos();
+
+    /**
+     * Wrapper for {@link Math#tan(double)}.
+     */
     public static final Function TAN   = new Tan();
+
+    /**
+     * Wrapper for {@link Math#log(double)}.
+     */
     public static final Function LOG   = new Log();
+
+    /**
+     * Wrapper for {@link Math#log1p(double)}.
+     */
     public static final Function LOG1P = new Log1p();
+
+    /**
+     * Wrapper for {@link Math#log10(double)}.
+     */
     public static final Function LOG10 = new Log10();
+
+    /**
+     * Base 2 Logarithm
+     */
     public static final Function LOG2  = new Log2();
+
+    /**
+     * Wrapper for {@link Math#abs(double)}.
+     */
     public static final Function ABS   = new Abs();
+
+    /**
+     * Wrapper for {@link Math#acos(double)}.
+     */
     public static final Function ACOS  = new ACos();
+
+    /**
+     * Wrapper for {@link Math#asin(double)}.
+     */
     public static final Function ASIN  = new ASin();
+
+    /**
+     * Wrapper for {@link Math#atan(double)}.
+     */
     public static final Function ATAN  = new ATan();
+
+    /**
+     * Wrapper for {@link Math#cbrt(double)}.
+     */
     public static final Function CBRT  = new CBRT();
+
+    /**
+     * Wrapper for {@link Math#ceil(double)}.
+     */
     public static final Function CEIL  = new Ceil();
+
+    /**
+     * Wrapper for {@link Math#floor(double)}.
+     */
     public static final Function FLOOR = new Floor();
+
+    /**
+     * Wrapper for {@link Math#sinh(double)}.
+     */
     public static final Function SINH  = new Sinh();
+
+    /**
+     * Wrapper for {@link Math#sqrt(double)}.
+     */
     public static final Function SQRT  = new Sqrt();
+
+    /**
+     * Wrapper for {@link Math#tanh(double)}.
+     */
     public static final Function TANH  = new Tanh();
+
+    /**
+     * Wrapper for {@link Math#cosh(double)}.
+     */
     public static final Function COSH  = new Cosh();
+
+    /**
+     * Wrapper for {@link Math#pow(double, double)}.
+     */
     public static final Function POW   = new Pow();
+
+    /**
+     * Wrapper for {@link Math#exp(double)}.
+     */
     public static final Function EXP   = new Exp();
+
+    /**
+     * Wrapper for {@link Math#expm1(double)}.
+     */
     public static final Function EXPM1 = new Expm1();
+
+    /**
+     * Wrapper for {@link Math#signum(double)}.
+     */
     public static final Function SGN   = new Signum();
+
+    /**
+     * Wrapper for {@link Math#PI}.
+     */
     public static final Function PI    = new Pi();
+
+    /**
+     * Wrapper for {@link Math#E}.
+     */
     public static final Function E     = new E();
 
     private Functions() {
         // Don't let anyone initialize this class
     }
 
+    /**
+     * Array with all the available functions
+     *
+     * @return {@link Function} array
+     * @see Functions#getBuiltinFunction(java.lang.String)
+     */
     public static Function[] getFunctions() {
         return new Function[] {
             SIN, COS, TAN,
@@ -64,6 +166,7 @@ public final class Functions {
      * Get the builtin function for a given name
      * @param name the name of the function
      * @return a Function instance
+     * @see Functions#getFunctions()
      */
     public static Function getBuiltinFunction(final String name) {
         switch (name) {

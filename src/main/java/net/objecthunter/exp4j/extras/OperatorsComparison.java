@@ -41,14 +41,52 @@ import net.objecthunter.exp4j.operator.Operator;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class OperatorsComparison {
+    /**
+     * Precedence for the comparison operators (Value {@value}).
+     *
+     * @see OperatorsComparison#OP_GOE
+     * @see OperatorsComparison#OP_GT
+     * @see OperatorsComparison#OP_LOE
+     * @see OperatorsComparison#OP_LT
+     */
     public static final int PRECEDENCE_COMPARISON = Operator.PRECEDENCE_ADDITION - 50;
+
+    /**
+     * Precedence for the equality operators (Value {@value}).
+     *
+     * @see OperatorsComparison#OP_EQU
+     * @see OperatorsComparison#OP_NEQ
+     */
     public static final int PRECEDENCE_EQUAL = Operator.PRECEDENCE_OR - 50;
 
+    /**
+     * Operator Greater Than {@code >}s
+     */
     public static final Operator OP_GT  = new OpGT();
+
+    /**
+     * Operator Greater Or Equal Than {@code >=}
+     */
     public static final Operator OP_GOE = new OpGOE();
+
+    /**
+     * Operator Less Than {@code <}
+     */
     public static final Operator OP_LT  = new OpLT();
+
+    /**
+     * Operator Less Or Equal Than {@code <=}
+     */
     public static final Operator OP_LOE = new OpLOE();
+
+    /**
+     * Operator Equality {@code =}
+     */
     public static final Operator OP_EQU = new OpEqu();
+
+    /**
+     * Operator Inequality {@code !=}
+     */
     public static final Operator OP_NEQ = new OpNeq();
 
     /**
@@ -58,10 +96,24 @@ public final class OperatorsComparison {
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
 
+    /**
+     * Retrieves all the available operators.
+     *
+     * @return {@link Operator} list
+     * @see OperatorsComparison#getOperator(java.lang.String)
+     */
     public static Operator[] getOperators() {
         return new Operator[]{OP_GT, OP_GOE, OP_LT, OP_LOE, OP_EQU, OP_NEQ};
     }
 
+    /**
+     * Retrieves an operator by it's symbol.
+     *
+     * @param symbol Operator symbol
+     * @return Operator corresponding to this symbol, or {@code null} if the
+     * operator doesn't exist
+     * @see OperatorsComparison#getOperators()
+     */
     public static Operator getOperator(final String symbol) {
         switch(symbol) {
             case ">":  return OP_GT;
