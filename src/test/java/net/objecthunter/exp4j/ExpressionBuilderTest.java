@@ -472,7 +472,7 @@ public class ExpressionBuilderTest {
             @Override
             public double apply(double... values) {
                 double max = values[0];
-                for (int i = 1; i < numArguments; i++) {
+                for (int i = 1; i < getNumArguments(); i++) {
                     if (values[i] > max) {
                         max = values[i];
                     }
@@ -493,7 +493,7 @@ public class ExpressionBuilderTest {
             @Override
             public double apply(double... values) {
                 double max = values[0];
-                for (int i = 1; i < numArguments; i++) {
+                for (int i = 1; i < getNumArguments(); i++) {
                     if (values[i] > max) {
                         max = values[i];
                     }
@@ -638,7 +638,7 @@ public class ExpressionBuilderTest {
             @Override
             public double apply(double... values) {
                 double max = values[0];
-                for (int i = 1; i < numArguments; i++) {
+                for (int i = 1; i < getNumArguments(); i++) {
                     if (values[i] > max) {
                         max = values[i];
                     }
