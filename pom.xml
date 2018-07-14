@@ -27,6 +27,15 @@
     </mailingLists>
     <developers>
         <developer>
+            <name>Federico Vera</name>
+            <email>fede@riddler.com.ar</email>
+            <url>https://gitlab.com/fedevera</url>
+            <organizationUrl>https://www.riddler.com.ar</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+        </developer>
+        <developer>
             <id>fas</id>
             <name>frank</name>
             <email>frank.asseg@objecthunter.net</email>
@@ -39,14 +48,6 @@
         </developer>
     </developers>
     <contributors>
-        <contributor>
-            <name>Federico Vera</name>
-            <email>fede@riddler.com.ar</email>
-            <url>https://github.com/dktcoding</url>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </contributor>
         <contributor>
             <name>Leo Gutiérrez Ramírez</name>
             <url>https://github.com/leogtzr</url>
@@ -96,25 +97,6 @@
 
     <build>
         <plugins>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>report</id>
-                        <phase>prepare-package</phase>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
