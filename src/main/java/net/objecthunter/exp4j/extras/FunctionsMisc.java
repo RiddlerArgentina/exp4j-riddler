@@ -15,7 +15,9 @@
 */
 package net.objecthunter.exp4j.extras;
 
+import java.math.BigInteger;
 import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
@@ -74,6 +76,15 @@ public final class FunctionsMisc {
     public static final Function MAX  = new Max();
 
     /**
+     * Returns the Greatest Common Denominator of two numbers.
+     * The numbers WILL be rounded using {@link Math#round(double)} before the
+     * analysis.
+     * @see Functions#FLOOR
+     * @see Functions#CEIL
+     */
+    public static final Function GCD  = new GCD();
+
+    /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
      * {@code b} are separated by less than this threshold they will be considered to be equal, it
      * has a default value of {@value}
@@ -87,7 +98,7 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX};
+        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX, GCD};
     }
 
     /**
@@ -105,6 +116,7 @@ public final class FunctionsMisc {
             case "isnan": return IS_NAN;
             case "min"  : return MIN;
             case "max"  : return MAX;
+            case "gcd"  : return GCD;
             default:      return null;
         }
     }
@@ -184,6 +196,17 @@ public final class FunctionsMisc {
             final double v1 = args[0];
             final double v2 = args[1];
             return Math.max(v1, v2);
+        }
+    }
+
+    private static final class GCD extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        GCD() { super("gcd", 2); }
+        @Override
+        public double apply(double... args) {
+            final BigInteger v1 = BigInteger.valueOf(Math.round(args[0]));
+            final BigInteger v2 = BigInteger.valueOf(Math.round(args[1]));
+            return v1.gcd(v2).longValueExact();
         }
     }
 }
