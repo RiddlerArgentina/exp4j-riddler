@@ -26,16 +26,30 @@ public class FunctionsSignal {
 
     /**
      * Cardinal Sin (non-normalized).
+     * This function has one argument {@code sinc(t)} where:
+     * <ul>
+     * <li><code><b>t</b></code>: Current point</li>
+     * </ul>
      */
     public static final Function SINC  = new Sinc();
 
     /**
      * Heavyside Step Function.
+     * This function has one argument {@code heavyside(t)} where:
+     * <ul>
+     * <li><code><b>t</b></code>: Current point</li>
+     * </ul>
      */
     public static final Function HEAVYSIDE  = new HeavySide();
 
     /**
      * Rectangular Function.
+     * This function has three arguments {@code rectangle(t, X, Y)} where:
+     * <ul>
+     * <li><code><b>t</b></code>: Current point</li>
+     * <li><code><b>X</b></code>: Center of the rectangle</li>
+     * <li><code><b>Y</b></code>: Length of the rectangle</li>
+     * </ul>
      */
     public static final Function RECTANGULAR  = new Rectangular();
 
