@@ -435,6 +435,42 @@ public class FunctionsMiscTest {
     }
 
     @Test
+    public void testRound() {
+        Expression e1 = new ExpressionBuilder("round(1)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRound2() {
+        Expression e1 = new ExpressionBuilder("round(1.12452)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRound3() {
+        Expression e1 = new ExpressionBuilder("round(1.99991274)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(2.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRound4() {
+        Expression e1 = new ExpressionBuilder("round(-1.99991274)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(-2.0, e1.evaluate(), 0d);
+    }
+
+    @Test
     public void testGetFunctionNonExistent() {
         assertNull(FunctionsMisc.getFunction("foo"));
     }
