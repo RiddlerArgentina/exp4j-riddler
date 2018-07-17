@@ -30,6 +30,11 @@ public class FunctionsSignal {
     public static final Function SINC  = new Sinc();
 
     /**
+     * Heavyside Step Function.
+     */
+    public static final Function HEAVYSIDE  = new HeavySide();
+
+    /**
      * Array with all the available functions
      *
      * @return {@link Function} array
@@ -37,7 +42,7 @@ public class FunctionsSignal {
      */
     public static Function[] getFunctions() {
         return new Function[]{
-            SINC
+            SINC, HEAVYSIDE
         };
     }
 
@@ -49,7 +54,8 @@ public class FunctionsSignal {
      */
     public static Function getFunction(final String name) {
         switch (name) {
-            case "sinc": return SINC;
+            case "sinc"     : return SINC;
+            case "heavyside": return HEAVYSIDE;
             default:      return null;
         }
     }
@@ -65,6 +71,16 @@ public class FunctionsSignal {
         public double apply(double... args) {
             final double a = args[0];
             return a == 0.0 ? 1 : Math.sin(a) / a;
+        }
+    }
+
+    private static final class HeavySide extends Function {
+        private static final long serialVersionUID = -3749047550580483555L;
+        HeavySide() { super("heavyside", 1); }
+        @Override
+        public double apply(double... args) {
+            final double a = args[0];
+            return a < 0 ? 1.0 : 0.0;
         }
     }
 }
