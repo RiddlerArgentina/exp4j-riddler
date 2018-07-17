@@ -714,22 +714,3 @@ exp4j-0.4.7 / 2016-04-22
   * fixed spelling
   * added README
   * added ExpressionBuilder, moved to github
-
-n.n.n / 2018-07-17
-==================
-
-
-
-0.7-riddler / 2018-07-14
-==================
-
-  * Merge branch 'gitlab-ci' into 'master'
-  * Remove JDK7 verification
-  * Attempt to build with Gitlab/CI
-  * Remove JaCoCo
-  * Add .gitlab-ci.yml
-  * Add missing JavaDocs Task #759 - Corregir todas las advertencias de JavaDoc
-  * Add lot's of missing JavaDocs Task #759 - Corregir todas las advertencias de JavaDoc
-  * Adapt tests Task #759 - Corregir todas las advertencias de JavaDoc
-  * Make some fields final Task #759 - Corregir todas las advertencias de JavaDoc
-  * Fix JavaDoc Task #759 - Corregir todas las advertencias de JavaDoc
