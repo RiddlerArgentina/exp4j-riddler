@@ -34,10 +34,20 @@ import net.objecthunter.exp4j.operator.Operator;
  *             -----  ---  ---------  -  -  -  -----
  *             ^^^ The dashes indicate the ones with the same precedence
  * So:
- * a + b * c &gt; d / e &amp; f &lt; g == (((a + (b * c)) &gt; (d / e)) &amp; (f &lt; g))
- *
- * </pre>
- *
+ * a + b * c &gt; d / e &amp; f &lt; g == (((a + (b * c)) &gt; (d / e)) &amp; (f &lt; g))</pre>
+ * <p><span style="color:red"><i><b>WARNING</b></i></span>:
+ * Concatenating comparison operators should be avoided!
+ * This is a brutal and very common error. Imagine the following equation:
+ * {@code a < b < c}, now let's set {@code a = 1}, {@code b = 3} and
+ * {@code c = 2} so it will roughly translate to {@code 1 < 3 < 2}. Those of you
+ * not familiarized with operator precedence evaluation might think that this
+ * will result in {@code false} but it will actually return {@code true}. Why?</p>
+ * <p>Well:
+ * <pre>a &lt; b &lt; c -&gt; ((a &lt; b) &lt; c) </pre>
+ * <p>So the example will become:</p>
+ * <pre>1 &lt; 3 &lt; 2 -&gt; ((1 &lt; 3) &lt; 2) -&gt; ((1) &lt; 2) -&gt; 1</pre>
+ * <p>So the morality of this tale is: if unsure, <span style="color:red"><b>
+ * DON'T CONCATENATE OPERATORS</b></span></p>
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public final class OperatorsComparison {
