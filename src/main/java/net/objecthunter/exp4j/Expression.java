@@ -256,7 +256,7 @@ public class Expression implements Serializable {
 
     /**
      * Simple wrapper for {@link ExecutorService#submit(java.util.concurrent.Callable)}.<br><br>
-     * Expressions are <big><b>NOT</b></big> thread safe (and most likely will never be).
+     * Expressions are <b>NOT</b> thread safe (and most likely will never be).
      * @param executor {@link ExecutorService} to use
      * @return {@link Future} task that will eventually have the result of evaluate()
      * @see Expression#evaluate()
