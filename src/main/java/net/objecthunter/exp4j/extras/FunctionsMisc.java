@@ -59,6 +59,11 @@ public final class FunctionsMisc {
     public static final Function INFINITY  = new Infinity();
 
     /**
+     * Tells if a number is {@link Double#NaN}.
+     */
+    public static final Function IS_NAN  = new IsNaN();
+
+    /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
      * {@code b} are separated by less than this threshold they will be considered to be equal, it
      * has a default value of {@value}
@@ -72,7 +77,7 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC, INFINITY};
+        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN};
     }
 
     /**
@@ -87,6 +92,7 @@ public final class FunctionsMisc {
             case "if"   : return IF;
             case "sinc" : return SINC;
             case "inf"  : return INFINITY;
+            case "isnan": return IS_NAN;
             default:      return null;
         }
     }
@@ -134,6 +140,16 @@ public final class FunctionsMisc {
         @Override
         public double apply(double... args) {
             return Double.POSITIVE_INFINITY;
+        }
+    }
+
+    private static final class IsNaN extends Function {
+        private static final long serialVersionUID = -3749047550580483555L;
+        IsNaN() { super("isnan", 1); }
+        @Override
+        public double apply(double... args) {
+            final double val = args[0];
+            return Double.isNaN(val) ? 1.0 : 0.0;
         }
     }
 }
