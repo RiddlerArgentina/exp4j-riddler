@@ -26,7 +26,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class FunctionsSignalTest {
 
-
     @Test
     public void testSinc() {
         Expression sinc = new ExpressionBuilder("sinc(x)")
@@ -42,5 +41,32 @@ public class FunctionsSignalTest {
 
         double x = Math.random();
         assertEquals(Math.sin(x)/x, sinc.setVariable("x",  x).evaluate(), 1e-12);
+    }
+
+    @Test
+    public void testHeavySide() {
+        Expression e1 = new ExpressionBuilder("heavyside(10)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testHeavySide2() {
+        Expression e1 = new ExpressionBuilder("heavyside(0)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testHeavySide3() {
+        Expression e1 = new ExpressionBuilder("heavyside(-23)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
     }
 }
