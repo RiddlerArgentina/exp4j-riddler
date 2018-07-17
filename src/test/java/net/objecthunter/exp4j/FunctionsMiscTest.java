@@ -18,9 +18,10 @@ package net.objecthunter.exp4j;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
-import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -129,7 +130,7 @@ public class FunctionsMiscTest {
                              .build();
 
         ValidationResult vr = inf.validate();
-        Assert.assertTrue(vr.isValid());
+        assertTrue(vr.isValid());
         assertEquals(Double.POSITIVE_INFINITY, inf.evaluate(), 0d);
     }
 
@@ -140,7 +141,8 @@ public class FunctionsMiscTest {
                              .build(true);
 
         ValidationResult vr = inf.validate();
-        Assert.assertTrue(vr.isValid());
+        assertTrue(vr.isValid());
+        assertTrue(Double.isInfinite(inf.evaluate()));
         assertEquals(Double.POSITIVE_INFINITY, inf.evaluate(), 0d);
     }
 
@@ -150,7 +152,7 @@ public class FunctionsMiscTest {
                              .functions(FunctionsMisc.getFunctions())
                              .build();
         ValidationResult vr = inf.validate();
-        Assert.assertFalse(vr.isValid());
+        assertFalse(vr.isValid());
         inf.evaluate();
     }
 
@@ -161,8 +163,42 @@ public class FunctionsMiscTest {
                              .build(true);
 
         ValidationResult vr = inf.validate();
-        Assert.assertTrue(vr.isValid());
+        assertTrue(vr.isValid());
+        assertTrue(Double.isInfinite(inf.evaluate()));
         assertEquals(Double.NEGATIVE_INFINITY, inf.evaluate(), 0d);
+    }
+
+    @Test
+    public void testIsNaN() {
+        Expression inf = new ExpressionBuilder("isnan(inf()/inf())")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build(true);
+
+        ValidationResult vr = inf.validate();
+        assertTrue(vr.isValid());
+        assertEquals(1.0, inf.evaluate(), 0d);
+    }
+
+    @Test
+    public void testIsNaN2() {
+        Expression inf = new ExpressionBuilder("inf()/inf()")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build(true);
+
+        ValidationResult vr = inf.validate();
+        assertTrue(vr.isValid());
+        assertTrue(Double.isNaN(inf.evaluate()));
+    }
+
+    @Test
+    public void testIsNaN3() {
+        Expression inf = new ExpressionBuilder("isnan(1/inf())")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build(true);
+
+        ValidationResult vr = inf.validate();
+        assertTrue(vr.isValid());
+        assertEquals(0.0, inf.evaluate(), 0d);
     }
 
     @Test
