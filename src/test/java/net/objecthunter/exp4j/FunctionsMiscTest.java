@@ -268,6 +268,61 @@ public class FunctionsMiscTest {
     }
 
     @Test
+    public void testGcd() {
+        Expression gcd = new ExpressionBuilder("gcd(-10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = gcd.validate();
+        assertTrue(vr.isValid());
+        assertEquals(2.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
+    public void testGcd2() {
+        Expression gcd = new ExpressionBuilder("gcd(10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = gcd.validate();
+        assertTrue(vr.isValid());
+        assertEquals(2.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
+    public void testGcd3() {
+        Expression gcd = new ExpressionBuilder("gcd(10, gcd(1, 20))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = gcd.validate();
+        assertTrue(vr.isValid());
+        assertEquals(1.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
+    public void testGcd4() {
+        Expression gcd = new ExpressionBuilder("gcd(10.2, 17.124)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = gcd.validate();
+        assertTrue(vr.isValid());
+        assertEquals(1.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
+    public void testGcd5() {
+        Expression gcd = new ExpressionBuilder("gcd(10.2, 17 * 10)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = gcd.validate();
+        assertTrue(vr.isValid());
+        assertEquals(10.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
     public void testGetFunctionNonExistent() {
         assertNull(FunctionsMisc.getFunction("foo"));
     }
