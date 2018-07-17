@@ -46,9 +46,9 @@ cache:
     - 'mvn $MAVEN_CLI_OPTS verify'
 
 # Validate merge requests using JDK7
-validate:jdk7:
-  <<: *validate
-  image: maven:3.3.9-jdk-7
+# validate:jdk7:
+#   <<: *validate
+#   image: maven:3.3.9-jdk-7
 
 # Validate merge requests using JDK8
 validate:jdk8:
