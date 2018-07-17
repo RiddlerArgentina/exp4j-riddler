@@ -391,6 +391,50 @@ public class FunctionsMiscTest {
     }
 
     @Test
+    public void testDistribution() {
+        Expression e1 = new ExpressionBuilder("lcm(x, gcd(y, z))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y", "z")
+                             .build();
+        Expression e2 = new ExpressionBuilder("gcd(lcm(x, y), lcm(x, z))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y", "z")
+                             .build();
+
+        for (int i = 0; i < 10; i++) {
+            Map<String, Double> vars = new HashMap<>(3);
+            vars.put("x", Math.random() * 70);
+            vars.put("y", Math.random() * 30);
+            vars.put("z", Math.random() * 30);
+            double v1 = e1.setVariables(vars).evaluate();
+            double v2 = e2.setVariables(vars).evaluate();
+            assertEquals(v1, v2, 0d);
+        }
+    }
+
+    @Test
+    public void testDistribution2() {
+        Expression e1 = new ExpressionBuilder("gcd(x, lcm(y, z))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y", "z")
+                             .build();
+        Expression e2 = new ExpressionBuilder("lcm(gcd(x, y), gcd(x, z))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y", "z")
+                             .build();
+
+        for (int i = 0; i < 10; i++) {
+            Map<String, Double> vars = new HashMap<>(3);
+            vars.put("x", Math.random() * 70);
+            vars.put("y", Math.random() * 30);
+            vars.put("z", Math.random() * 30);
+            double v1 = e1.setVariables(vars).evaluate();
+            double v2 = e2.setVariables(vars).evaluate();
+            assertEquals(v1, v2, 0d);
+        }
+    }
+
+    @Test
     public void testGetFunctionNonExistent() {
         assertNull(FunctionsMisc.getFunction("foo"));
     }
