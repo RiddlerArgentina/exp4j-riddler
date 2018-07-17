@@ -109,23 +109,6 @@ public class FunctionsMiscTest {
     }
 
     @Test
-    public void testSinc() {
-        Expression sinc = new ExpressionBuilder("sinc(x)")
-                             .functions(FunctionsMisc.getFunctions())
-                             .variable("x")
-                             .build();
-
-        assertEquals(1, sinc.setVariable("x", 0).evaluate(), 0d);
-        assertEquals(0, sinc.setVariable("x", Math.PI).evaluate(), 1e-12);
-        assertEquals(0, sinc.setVariable("x", -Math.PI).evaluate(), 1e-12);
-        assertEquals(0, sinc.setVariable("x", -2 * Math.PI).evaluate(), 1e-12);
-        assertEquals(0, sinc.setVariable("x",  2 * Math.PI).evaluate(), 1e-12);
-
-        double x = Math.random();
-        assertEquals(Math.sin(x)/x, sinc.setVariable("x",  x).evaluate(), 1e-12);
-    }
-
-    @Test
     public void testInf() {
         Expression inf = new ExpressionBuilder("inf()")
                              .functions(FunctionsMisc.INFINITY)

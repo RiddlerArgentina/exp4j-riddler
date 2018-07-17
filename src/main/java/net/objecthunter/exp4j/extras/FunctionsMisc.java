@@ -51,11 +51,6 @@ public final class FunctionsMisc {
     public static final Function IF    = new If();
 
     /**
-     * Cardinal Sin (non-normalized).
-     */
-    public static final Function SINC  = new Sinc();
-
-    /**
      * Retrieves the value of {@link Double#POSITIVE_INFINITY}.
      */
     public static final Function INFINITY  = new Infinity();
@@ -121,7 +116,7 @@ public final class FunctionsMisc {
      */
     public static Function[] getFunctions() {
         return new Function[]{
-            EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX, GCD, LCM, ROUND
+            EQUAL, IF, INFINITY, IS_NAN, MIN, MAX, GCD, LCM, ROUND
         };
     }
 
@@ -135,7 +130,6 @@ public final class FunctionsMisc {
         switch (name) {
             case "equal": return EQUAL;
             case "if"   : return IF;
-            case "sinc" : return SINC;
             case "inf"  : return INFINITY;
             case "isnan": return IS_NAN;
             case "min"  : return MIN;
@@ -171,16 +165,6 @@ public final class FunctionsMisc {
             final double  t = args[1];
             final double  f = args[2];
             return a ? t : f;
-        }
-    }
-
-    private static final class Sinc extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
-        Sinc() { super("sinc", 1); }
-        @Override
-        public double apply(double... args) {
-            final double a = args[0];
-            return a == 0.0 ? 1 : Math.sin(a) / a;
         }
     }
 
