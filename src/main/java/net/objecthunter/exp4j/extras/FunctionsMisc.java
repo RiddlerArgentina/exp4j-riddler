@@ -32,6 +32,11 @@ public final class FunctionsMisc {
      *
      * The test is performed using a threshold given by
      * {@link Operator#BOOLEAN_THRESHOLD}.
+     * This function has two argument {@code equal(a, b)} where:
+     * <ul>
+     * <li><code><b>a</b></code>: First value to test</li>
+     * <li><code><b>b</b></code>: Second value to test</li>
+     * </ul>
      *
      * @see Operator#BOOLEAN_THRESHOLD
      */
@@ -39,7 +44,15 @@ public final class FunctionsMisc {
 
     /**
      * Branching function.
+     * This function has three argument {@code if(exp, v_true, v_false)} where:
+     * <ul>
+     * <li><code><b>exp</b></code>: Boolean expression</li>
+     * <li><code><b>v_true</b></code>: Value if true</li>
+     * <li><code><b>v_false</b></code>: Value if false</li>
+     * </ul>
      *
+     * @see FunctionsBoolean
+     * @see OperatorsComparison
      * @see Operator#BOOLEAN_THRESHOLD
      * @see OperatorsComparison#OP_EQU
      * @see OperatorsComparison#OP_GOE
@@ -48,49 +61,58 @@ public final class FunctionsMisc {
      * @see OperatorsComparison#OP_LT
      * @see OperatorsComparison#OP_NEQ
      */
-    public static final Function IF    = new If();
+    public static final Function IF = new If();
 
     /**
      * Retrieves the value of {@link Double#POSITIVE_INFINITY}.
+     * @see Double#POSITIVE_INFINITY
+     * @see Double#NEGATIVE_INFINITY
      */
-    public static final Function INFINITY  = new Infinity();
+    public static final Function INFINITY = new Infinity();
 
     /**
      * Tells if a number is {@link Double#NaN}.
+     * @see Double#isNaN(double)
      */
-    public static final Function IS_NAN  = new IsNaN();
+    public static final Function IS_NAN = new IsNaN();
 
     /**
      * Returns the smallest (closest to negative infinity) of two numbers.
+     * @see Math#min(double, double)
      */
-    public static final Function MIN  = new Min();
+    public static final Function MIN = new Min();
 
     /**
      * Returns the largest (closest to positive infinity) of two numbers.
+     * @see Math#max(double, double)
      */
-    public static final Function MAX  = new Max();
+    public static final Function MAX = new Max();
 
     /**
      * Returns the Greatest Common Denominator of two numbers.
      * The numbers WILL be rounded using {@link Math#round(double)} before the
      * analysis.
+     * If the resulting value is out of the range of the {@code long} type, then
+     * an {@code ArithmeticException} is thrown.
      * @see Functions#FLOOR
      * @see Functions#CEIL
      * @see FunctionsMisc#ROUND
      * @see FunctionsMisc#LCM
      */
-    public static final Function GCD  = new GCD();
+    public static final Function GCD = new GCD();
 
     /**
      * Returns the Least Common Multiple of two numbers.
      * The numbers WILL be rounded using {@link Math#round(double)} before the
      * analysis.
+     * If the resulting value is out of the range of the {@code long} type, then
+     * an {@code ArithmeticException} is thrown.
      * @see Functions#FLOOR
      * @see Functions#CEIL
      * @see FunctionsMisc#ROUND
      * @see FunctionsMisc#GCD
      */
-    public static final Function LCM  = new LCM();
+    public static final Function LCM = new LCM();
 
     /**
      * Rounds to closest integer.
@@ -99,7 +121,7 @@ public final class FunctionsMisc {
      * @see Functions#CEIL
      * @see Math#round(double)
      */
-    public static final Function ROUND  = new Round();
+    public static final Function ROUND = new Round();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
