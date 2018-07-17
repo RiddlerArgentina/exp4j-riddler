@@ -81,7 +81,7 @@ public class FunctionsSignal {
     }
 
     private static final class HeavySide extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
+        private static final long serialVersionUID = 5866054076148826759L;
         HeavySide() { super("heavyside", 1); }
         @Override
         public double apply(double... args) {
@@ -91,7 +91,7 @@ public class FunctionsSignal {
     }
 
     private static final class Rectangular extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
+        private static final long serialVersionUID = 555335310381844968L;
         Rectangular() { super("rectangle", 3); }
         @Override
         public double apply(double... args) {
