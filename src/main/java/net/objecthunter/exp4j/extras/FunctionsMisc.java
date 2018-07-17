@@ -54,6 +54,11 @@ public final class FunctionsMisc {
     public static final Function SINC  = new Sinc();
 
     /**
+     * Retrieves the value of {@link Double#POSITIVE_INFINITY}.
+     */
+    public static final Function INFINITY  = new Infinity();
+
+    /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
      * {@code b} are separated by less than this threshold they will be considered to be equal, it
      * has a default value of {@value}
@@ -67,7 +72,7 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC};
+        return new Function[]{EQUAL, IF, SINC, INFINITY};
     }
 
     /**
@@ -81,6 +86,7 @@ public final class FunctionsMisc {
             case "equal": return EQUAL;
             case "if"   : return IF;
             case "sinc" : return SINC;
+            case "inf"  : return INFINITY;
             default:      return null;
         }
     }
@@ -119,6 +125,15 @@ public final class FunctionsMisc {
         public double apply(double... args) {
             final double a = args[0];
             return a == 0.0 ? 1 : Math.sin(a) / a;
+        }
+    }
+
+    private static final class Infinity extends Function {
+        private static final long serialVersionUID = -3749047550580483555L;
+        Infinity() { super("inf", 0); }
+        @Override
+        public double apply(double... args) {
+            return Double.POSITIVE_INFINITY;
         }
     }
 }
