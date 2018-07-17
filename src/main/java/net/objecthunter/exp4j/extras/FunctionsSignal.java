@@ -80,7 +80,7 @@ public class FunctionsSignal {
         @Override
         public double apply(double... args) {
             final double a = args[0];
-            return a < 0 ? 1.0 : 0.0;
+            return a < 0 ? 0.0 : 1.0;
         }
     }
 }
