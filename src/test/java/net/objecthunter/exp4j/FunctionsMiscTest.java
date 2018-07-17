@@ -235,6 +235,39 @@ public class FunctionsMiscTest {
     }
 
     @Test
+    public void testMax() {
+        Expression min = new ExpressionBuilder("max(-10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = min.validate();
+        assertTrue(vr.isValid());
+        assertEquals(2.0, min.evaluate(), 0d);
+    }
+
+    @Test
+    public void testMax2() {
+        Expression min = new ExpressionBuilder("max(10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = min.validate();
+        assertTrue(vr.isValid());
+        assertEquals(10.0, min.evaluate(), 0d);
+    }
+
+    @Test
+    public void testMax3() {
+        Expression min = new ExpressionBuilder("max(10, max(1, 20))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = min.validate();
+        assertTrue(vr.isValid());
+        assertEquals(20.0, min.evaluate(), 0d);
+    }
+
+    @Test
     public void testGetFunctionNonExistent() {
         assertNull(FunctionsMisc.getFunction("foo"));
     }
