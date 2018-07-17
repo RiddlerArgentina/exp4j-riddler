@@ -18,6 +18,7 @@ package net.objecthunter.exp4j;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
+import org.junit.Assert;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -119,6 +120,49 @@ public class FunctionsMiscTest {
 
         double x = Math.random();
         assertEquals(Math.sin(x)/x, sinc.setVariable("x",  x).evaluate(), 1e-12);
+    }
+
+    @Test
+    public void testInf() {
+        Expression inf = new ExpressionBuilder("inf()")
+                             .functions(FunctionsMisc.INFINITY)
+                             .build();
+
+        ValidationResult vr = inf.validate();
+        Assert.assertTrue(vr.isValid());
+        assertEquals(Double.POSITIVE_INFINITY, inf.evaluate(), 0d);
+    }
+
+    @Test
+    public void testInf2() {
+        Expression inf = new ExpressionBuilder("inf()")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build(true);
+
+        ValidationResult vr = inf.validate();
+        Assert.assertTrue(vr.isValid());
+        assertEquals(Double.POSITIVE_INFINITY, inf.evaluate(), 0d);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testInf3() {
+        Expression inf = new ExpressionBuilder("inf(1)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+        ValidationResult vr = inf.validate();
+        Assert.assertFalse(vr.isValid());
+        inf.evaluate();
+    }
+
+    @Test
+    public void testInf4() {
+        Expression inf = new ExpressionBuilder("-inf()")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build(true);
+
+        ValidationResult vr = inf.validate();
+        Assert.assertTrue(vr.isValid());
+        assertEquals(Double.NEGATIVE_INFINITY, inf.evaluate(), 0d);
     }
 
     @Test
