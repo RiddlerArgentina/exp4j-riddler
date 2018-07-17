@@ -69,4 +69,40 @@ public class FunctionsSignalTest {
 
         assertEquals(0.0, e1.evaluate(), 0d);
     }
+
+    @Test
+    public void testRectangle() {
+        Expression e1 = new ExpressionBuilder("rectangle(0, 0, 1)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRectangle2() {
+        Expression e1 = new ExpressionBuilder("rectangle(10, 10, 1)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(1.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRectangle3() {
+        Expression e1 = new ExpressionBuilder("rectangle(0, 10, 5)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testRectangle4() {
+        Expression e1 = new ExpressionBuilder("rectangle(13, 10, 5)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
 }
