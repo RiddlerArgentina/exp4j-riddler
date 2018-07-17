@@ -15,6 +15,8 @@
 */
 package net.objecthunter.exp4j;
 
+import java.util.HashMap;
+import java.util.Map;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
@@ -320,6 +322,72 @@ public class FunctionsMiscTest {
         ValidationResult vr = gcd.validate();
         assertTrue(vr.isValid());
         assertEquals(10.0, gcd.evaluate(), 0d);
+    }
+
+    @Test
+    public void testLcm() {
+        Expression lcm= new ExpressionBuilder("lcm(-10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = lcm.validate();
+        assertTrue(vr.isValid());
+        assertEquals(10.0, lcm.evaluate(), 0d);
+    }
+
+    @Test
+    public void testLcm2() {
+        Expression lcm = new ExpressionBuilder("lcm(10, 2)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = lcm.validate();
+        assertTrue(vr.isValid());
+        assertEquals(10.0, lcm.evaluate(), 0d);
+    }
+
+    @Test
+    public void testLcm3() {
+        Expression lcm = new ExpressionBuilder("lcm(10, lcm(1, 20))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = lcm.validate();
+        assertTrue(vr.isValid());
+        assertEquals(20.0, lcm.evaluate(), 0d);
+    }
+
+    @Test
+    public void testLcm4() {
+        Expression lcm = new ExpressionBuilder("lcm(4, 6)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        ValidationResult vr = lcm.validate();
+        assertTrue(vr.isValid());
+        assertEquals(12.0, lcm.evaluate(), 0d);
+    }
+
+    @Test
+    public void testAbsortion() {
+        Expression e1 = new ExpressionBuilder("lcm(x, gcd(x, y))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y")
+                             .build();
+        Expression e2 = new ExpressionBuilder("gcd(x, lcm(x, y))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variables("x", "y")
+                             .build();
+
+        for (int i = 0; i < 10; i++) {
+            Map<String, Double> vars = new HashMap<>(3);
+            vars.put("x", Math.random() * 70);
+            vars.put("y", Math.random() * 30);
+            double v1 = e1.setVariables(vars).evaluate();
+            double v2 = e2.setVariables(vars).evaluate();
+            assertEquals(v1, Math.round(vars.get("x")), 0d);
+            assertEquals(v2, Math.round(vars.get("x")), 0d);
+        }
     }
 
     @Test
