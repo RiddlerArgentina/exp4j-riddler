@@ -64,9 +64,14 @@ public final class FunctionsMisc {
     public static final Function IS_NAN  = new IsNaN();
 
     /**
-     * Returns the smallest (closest to negative infinity) of two numbers)
+     * Returns the smallest (closest to negative infinity) of two numbers.
      */
     public static final Function MIN  = new Min();
+
+    /**
+     * Returns the largest (closest to positive infinity) of two numbers.
+     */
+    public static final Function MAX  = new Max();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -82,7 +87,7 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN};
+        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX};
     }
 
     /**
@@ -99,6 +104,7 @@ public final class FunctionsMisc {
             case "inf"  : return INFINITY;
             case "isnan": return IS_NAN;
             case "min"  : return MIN;
+            case "max"  : return MAX;
             default:      return null;
         }
     }
@@ -141,7 +147,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Infinity extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
+        private static final long serialVersionUID = 6249177625376818393L;
         Infinity() { super("inf", 0); }
         @Override
         public double apply(double... args) {
@@ -150,7 +156,7 @@ public final class FunctionsMisc {
     }
 
     private static final class IsNaN extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
+        private static final long serialVersionUID = 2987603422726499329L;
         IsNaN() { super("isnan", 1); }
         @Override
         public double apply(double... args) {
@@ -160,13 +166,24 @@ public final class FunctionsMisc {
     }
 
     private static final class Min extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
+        private static final long serialVersionUID = -8343244242397439087L;
         Min() { super("min", 2); }
         @Override
         public double apply(double... args) {
             final double v1 = args[0];
             final double v2 = args[1];
             return Math.min(v1, v2);
+        }
+    }
+
+    private static final class Max extends Function {
+        private static final long serialVersionUID = 426041154853511222L;
+        Max() { super("max", 2); }
+        @Override
+        public double apply(double... args) {
+            final double v1 = args[0];
+            final double v2 = args[1];
+            return Math.max(v1, v2);
         }
     }
 }
