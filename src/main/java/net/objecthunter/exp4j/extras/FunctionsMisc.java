@@ -81,8 +81,19 @@ public final class FunctionsMisc {
      * analysis.
      * @see Functions#FLOOR
      * @see Functions#CEIL
+     * @see FunctionsMisc#LCM
      */
     public static final Function GCD  = new GCD();
+
+    /**
+     * Returns the Least Common Multiple of two numbers.
+     * The numbers WILL be rounded using {@link Math#round(double)} before the
+     * analysis.
+     * @see Functions#FLOOR
+     * @see Functions#CEIL
+     * @see FunctionsMisc#GCD
+     */
+    public static final Function LCM  = new LCM();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -98,7 +109,7 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX, GCD};
+        return new Function[]{EQUAL, IF, SINC, INFINITY, IS_NAN, MIN, MAX, GCD, LCM};
     }
 
     /**
@@ -117,6 +128,7 @@ public final class FunctionsMisc {
             case "min"  : return MIN;
             case "max"  : return MAX;
             case "gcd"  : return GCD;
+            case "lcm"  : return LCM;
             default:      return null;
         }
     }
@@ -207,6 +219,20 @@ public final class FunctionsMisc {
             final BigInteger v1 = BigInteger.valueOf(Math.round(args[0]));
             final BigInteger v2 = BigInteger.valueOf(Math.round(args[1]));
             return v1.gcd(v2).longValueExact();
+        }
+    }
+
+    private static final class LCM extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        LCM() { super("lcm", 2); }
+        @Override
+        public double apply(double... args) {
+            final long a = Math.round(args[0]);
+            final long b = Math.round(args[1]);
+            final BigInteger v1 = BigInteger.valueOf(a);
+            final BigInteger v2 = BigInteger.valueOf(b);
+            final double gcd = v1.gcd(v2).longValueExact();
+            return Math.abs(a * (b / gcd ));
         }
     }
 }
