@@ -35,6 +35,11 @@ public class FunctionsSignal {
     public static final Function HEAVYSIDE  = new HeavySide();
 
     /**
+     * Rectangular Function.
+     */
+    public static final Function RECTANGULAR  = new Rectangular();
+
+    /**
      * Array with all the available functions
      *
      * @return {@link Function} array
@@ -42,7 +47,7 @@ public class FunctionsSignal {
      */
     public static Function[] getFunctions() {
         return new Function[]{
-            SINC, HEAVYSIDE
+            SINC, HEAVYSIDE, RECTANGULAR
         };
     }
 
@@ -54,8 +59,9 @@ public class FunctionsSignal {
      */
     public static Function getFunction(final String name) {
         switch (name) {
-            case "sinc"     : return SINC;
-            case "heavyside": return HEAVYSIDE;
+            case "sinc"      : return SINC;
+            case "rectangle" : return RECTANGULAR;
+            case "heavyside" : return HEAVYSIDE;
             default:      return null;
         }
     }
@@ -81,6 +87,21 @@ public class FunctionsSignal {
         public double apply(double... args) {
             final double a = args[0];
             return a < 0 ? 0.0 : 1.0;
+        }
+    }
+
+    private static final class Rectangular extends Function {
+        private static final long serialVersionUID = -3749047550580483555L;
+        Rectangular() { super("rectangle", 3); }
+        @Override
+        public double apply(double... args) {
+            final double t = args[0];
+            final double X = args[1];
+            final double Y = args[2];
+            return u(t - X + Y / 2) - u(t - X - Y / 2);
+        }
+        private int u(double t) {
+            return t < 0 ? 0 : 1;
         }
     }
 }
