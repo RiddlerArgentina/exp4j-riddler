@@ -15,7 +15,9 @@
 */
 package net.objecthunter.exp4j.extras;
 
+import java.math.BigInteger;
 import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
@@ -30,6 +32,11 @@ public final class FunctionsMisc {
      *
      * The test is performed using a threshold given by
      * {@link Operator#BOOLEAN_THRESHOLD}.
+     * This function has two argument {@code equal(a, b)} where:
+     * <ul>
+     * <li><code><b>a</b></code>: First value to test</li>
+     * <li><code><b>b</b></code>: Second value to test</li>
+     * </ul>
      *
      * @see Operator#BOOLEAN_THRESHOLD
      */
@@ -37,7 +44,15 @@ public final class FunctionsMisc {
 
     /**
      * Branching function.
+     * This function has three argument {@code if(exp, v_true, v_false)} where:
+     * <ul>
+     * <li><code><b>exp</b></code>: Boolean expression</li>
+     * <li><code><b>v_true</b></code>: Value if true</li>
+     * <li><code><b>v_false</b></code>: Value if false</li>
+     * </ul>
      *
+     * @see FunctionsBoolean
+     * @see OperatorsComparison
      * @see Operator#BOOLEAN_THRESHOLD
      * @see OperatorsComparison#OP_EQU
      * @see OperatorsComparison#OP_GOE
@@ -46,12 +61,67 @@ public final class FunctionsMisc {
      * @see OperatorsComparison#OP_LT
      * @see OperatorsComparison#OP_NEQ
      */
-    public static final Function IF    = new If();
+    public static final Function IF = new If();
 
     /**
-     * Cardinal Sin (non-normalized).
+     * Retrieves the value of {@link Double#POSITIVE_INFINITY}.
+     * @see Double#POSITIVE_INFINITY
+     * @see Double#NEGATIVE_INFINITY
      */
-    public static final Function SINC  = new Sinc();
+    public static final Function INFINITY = new Infinity();
+
+    /**
+     * Tells if a number is {@link Double#NaN}.
+     * @see Double#isNaN(double)
+     */
+    public static final Function IS_NAN = new IsNaN();
+
+    /**
+     * Returns the smallest (closest to negative infinity) of two numbers.
+     * @see Math#min(double, double)
+     */
+    public static final Function MIN = new Min();
+
+    /**
+     * Returns the largest (closest to positive infinity) of two numbers.
+     * @see Math#max(double, double)
+     */
+    public static final Function MAX = new Max();
+
+    /**
+     * Returns the Greatest Common Denominator of two numbers.
+     * The numbers WILL be rounded using {@link Math#round(double)} before the
+     * analysis.
+     * If the resulting value is out of the range of the {@code long} type, then
+     * an {@code ArithmeticException} is thrown.
+     * @see Functions#FLOOR
+     * @see Functions#CEIL
+     * @see FunctionsMisc#ROUND
+     * @see FunctionsMisc#LCM
+     */
+    public static final Function GCD = new GCD();
+
+    /**
+     * Returns the Least Common Multiple of two numbers.
+     * The numbers WILL be rounded using {@link Math#round(double)} before the
+     * analysis.
+     * If the resulting value is out of the range of the {@code long} type, then
+     * an {@code ArithmeticException} is thrown.
+     * @see Functions#FLOOR
+     * @see Functions#CEIL
+     * @see FunctionsMisc#ROUND
+     * @see FunctionsMisc#GCD
+     */
+    public static final Function LCM = new LCM();
+
+    /**
+     * Rounds to closest integer.
+     *
+     * @see Functions#FLOOR
+     * @see Functions#CEIL
+     * @see Math#round(double)
+     */
+    public static final Function ROUND = new Round();
 
     /**
      * This is the threshold used to consider values equal, that is, if two values {@code a} and
@@ -67,7 +137,9 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#getFunction(java.lang.String)
      */
     public static Function[] getFunctions() {
-        return new Function[]{EQUAL, IF, SINC};
+        return new Function[]{
+            EQUAL, IF, INFINITY, IS_NAN, MIN, MAX, GCD, LCM, ROUND
+        };
     }
 
     /**
@@ -80,7 +152,13 @@ public final class FunctionsMisc {
         switch (name) {
             case "equal": return EQUAL;
             case "if"   : return IF;
-            case "sinc" : return SINC;
+            case "inf"  : return INFINITY;
+            case "isnan": return IS_NAN;
+            case "min"  : return MIN;
+            case "max"  : return MAX;
+            case "gcd"  : return GCD;
+            case "lcm"  : return LCM;
+            case "round": return ROUND;
             default:      return null;
         }
     }
@@ -112,13 +190,79 @@ public final class FunctionsMisc {
         }
     }
 
-    private static final class Sinc extends Function {
-        private static final long serialVersionUID = -3749047550580483555L;
-        Sinc() { super("sinc", 1); }
+    private static final class Infinity extends Function {
+        private static final long serialVersionUID = 6249177625376818393L;
+        Infinity() { super("inf", 0); }
+        @Override
+        public double apply(double... args) {
+            return Double.POSITIVE_INFINITY;
+        }
+    }
+
+    private static final class IsNaN extends Function {
+        private static final long serialVersionUID = 2987603422726499329L;
+        IsNaN() { super("isnan", 1); }
+        @Override
+        public double apply(double... args) {
+            final double val = args[0];
+            return Double.isNaN(val) ? 1.0 : 0.0;
+        }
+    }
+
+    private static final class Min extends Function {
+        private static final long serialVersionUID = -8343244242397439087L;
+        Min() { super("min", 2); }
+        @Override
+        public double apply(double... args) {
+            final double v1 = args[0];
+            final double v2 = args[1];
+            return Math.min(v1, v2);
+        }
+    }
+
+    private static final class Max extends Function {
+        private static final long serialVersionUID = 426041154853511222L;
+        Max() { super("max", 2); }
+        @Override
+        public double apply(double... args) {
+            final double v1 = args[0];
+            final double v2 = args[1];
+            return Math.max(v1, v2);
+        }
+    }
+
+    private static final class GCD extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        GCD() { super("gcd", 2); }
+        @Override
+        public double apply(double... args) {
+            final BigInteger v1 = BigInteger.valueOf(Math.round(args[0]));
+            final BigInteger v2 = BigInteger.valueOf(Math.round(args[1]));
+            return v1.gcd(v2).longValueExact();
+        }
+    }
+
+    private static final class LCM extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        LCM() { super("lcm", 2); }
+        @Override
+        public double apply(double... args) {
+            final long a = Math.round(args[0]);
+            final long b = Math.round(args[1]);
+            final BigInteger v1 = BigInteger.valueOf(a);
+            final BigInteger v2 = BigInteger.valueOf(b);
+            final double gcd = v1.gcd(v2).longValueExact();
+            return Math.abs(a * (b / gcd ));
+        }
+    }
+
+    private static final class Round extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        Round() { super("round", 1); }
         @Override
         public double apply(double... args) {
             final double a = args[0];
-            return a == 0.0 ? 1 : Math.sin(a) / a;
+            return Math.round(a);
         }
     }
 }
