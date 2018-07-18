@@ -21,30 +21,33 @@ import net.objecthunter.exp4j.function.Functions;
 import net.objecthunter.exp4j.operator.Operator;
 
 /**
- * This class contains a small set of useful functions that don't really fit in the
- * other categories.
+ * This class contains a small set of useful functions that don't really fit in
+ * the other categories.
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
+ * @since 0.6-riddler
  */
 public final class FunctionsMisc {
     /**
      * Equality function.
      *
-     * The test is performed using a threshold given by
-     * {@link Operator#BOOLEAN_THRESHOLD}.
-     * This function has two argument {@code equal(a, b)} where:
+     * <p>The test is performed using a threshold given by
+     * {@link Operator#BOOLEAN_THRESHOLD}.</p>
+     * <p>This function has two argument {@code equal(a, b)} where:</p>
      * <ul>
      * <li><code><b>a</b></code>: First value to test</li>
      * <li><code><b>b</b></code>: Second value to test</li>
      * </ul>
      *
      * @see Operator#BOOLEAN_THRESHOLD
+     * @since 0.6-riddler
      */
     public static final Function EQUAL = new Equals();
 
     /**
      * Branching function.
-     * This function has three argument {@code if(exp, v_true, v_false)} where:
+     * <p>This function has three argument {@code if(exp, v_true, v_false)}
+     * where:</p>
      * <ul>
      * <li><code><b>exp</b></code>: Boolean expression</li>
      * <li><code><b>v_true</b></code>: Value if true</li>
@@ -60,57 +63,72 @@ public final class FunctionsMisc {
      * @see OperatorsComparison#OP_LOE
      * @see OperatorsComparison#OP_LT
      * @see OperatorsComparison#OP_NEQ
+     * @since 0.6-riddler
      */
     public static final Function IF = new If();
 
     /**
      * Retrieves the value of {@link Double#POSITIVE_INFINITY}.
+     *
      * @see Double#POSITIVE_INFINITY
      * @see Double#NEGATIVE_INFINITY
+     * @since 0.8-riddler
      */
     public static final Function INFINITY = new Infinity();
 
     /**
      * Tells if a number is {@link Double#NaN}.
+     *
      * @see Double#isNaN(double)
+     * @since 0.8-riddler
      */
     public static final Function IS_NAN = new IsNaN();
 
     /**
      * Returns the smallest (closest to negative infinity) of two numbers.
+     *
      * @see Math#min(double, double)
+     * @since 0.8-riddler
      */
     public static final Function MIN = new Min();
 
     /**
      * Returns the largest (closest to positive infinity) of two numbers.
+     *
      * @see Math#max(double, double)
+     * @since 0.8-riddler
      */
     public static final Function MAX = new Max();
 
     /**
      * Returns the Greatest Common Denominator of two numbers.
-     * The numbers WILL be rounded using {@link Math#round(double)} before the
-     * analysis.
-     * If the resulting value is out of the range of the {@code long} type, then
-     * an {@code ArithmeticException} is thrown.
+     *
+     * <p>The numbers WILL be rounded using {@link Math#round(double)} before
+     * the analysis.</p>
+     * <p>If the resulting value is out of the range of the {@code long} type,
+     * then an {@code ArithmeticException} is thrown.</p>
+     *
      * @see Functions#FLOOR
      * @see Functions#CEIL
      * @see FunctionsMisc#ROUND
      * @see FunctionsMisc#LCM
+     * @since 0.8-riddler
      */
     public static final Function GCD = new GCD();
 
     /**
      * Returns the Least Common Multiple of two numbers.
-     * The numbers WILL be rounded using {@link Math#round(double)} before the
-     * analysis.
-     * If the resulting value is out of the range of the {@code long} type, then
-     * an {@code ArithmeticException} is thrown.
+     *
+     * <p>The numbers WILL be rounded using {@link Math#round(double)} before
+     * the analysis.</p>
+     * <p>If the resulting value is out of the range of the {@code long} type,
+     * then an {@code ArithmeticException} is thrown.</p>
+     *
      * @see Functions#FLOOR
      * @see Functions#CEIL
      * @see FunctionsMisc#ROUND
      * @see FunctionsMisc#GCD
+     * @since 0.8-riddler
      */
     public static final Function LCM = new LCM();
 
@@ -120,21 +138,32 @@ public final class FunctionsMisc {
      * @see Functions#FLOOR
      * @see Functions#CEIL
      * @see Math#round(double)
+     * @since 0.8-riddler
      */
     public static final Function ROUND = new Round();
 
     /**
-     * This is the threshold used to consider values equal, that is, if two values {@code a} and
-     * {@code b} are separated by less than this threshold they will be considered to be equal, it
-     * has a default value of {@value}
+     * This is the threshold used to consider values equal, that is, if two
+     * values {@code a} and {@code b} are separated by less than this threshold
+     * they will be considered to be equal, it has a default value of {@value}
      */
     public static final double EQUALITY_THRESHOLD = Operator.BOOLEAN_THRESHOLD;
 
     /**
-     * Array with all the available functions
+     * Array with all the available functions.
      *
      * @return {@link Function} array
-     * @see FunctionsMisc#getFunction(java.lang.String)
+     *
+     * @see FunctionsMisc#getFunction(String)
+     * @see FunctionsMisc#EQUAL
+     * @see FunctionsMisc#IF
+     * @see FunctionsMisc#INFINITY
+     * @see FunctionsMisc#IS_NAN
+     * @see FunctionsMisc#MIN
+     * @see FunctionsMisc#MAX
+     * @see FunctionsMisc#GCD
+     * @see FunctionsMisc#LCM
+     * @see FunctionsMisc#ROUND
      */
     public static Function[] getFunctions() {
         return new Function[]{
@@ -143,10 +172,21 @@ public final class FunctionsMisc {
     }
 
     /**
-     * Get the function for a given name
+     * Get the function for a given name.
+     *
      * @param name the name of the function
      * @return a Function instance
+     *
      * @see FunctionsMisc#getFunctions()
+     * @see FunctionsMisc#EQUAL
+     * @see FunctionsMisc#IF
+     * @see FunctionsMisc#INFINITY
+     * @see FunctionsMisc#IS_NAN
+     * @see FunctionsMisc#MIN
+     * @see FunctionsMisc#MAX
+     * @see FunctionsMisc#GCD
+     * @see FunctionsMisc#LCM
+     * @see FunctionsMisc#ROUND
      */
     public static Function getFunction(final String name) {
         switch (name) {

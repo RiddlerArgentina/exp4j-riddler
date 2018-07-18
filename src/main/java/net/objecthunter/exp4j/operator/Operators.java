@@ -20,19 +20,23 @@ import static net.objecthunter.exp4j.operator.Operator.*;
 import static net.objecthunter.exp4j.utils.Text.l10n;
 
 /**
- * This class implements all of the built-in operators both arithmetic and boolean.
- * Boolean values will be treated as follows:<ol>
- * <li>if the absolute value is less than 1e-12 it will be considered {@code false}. About this...
- * I know is not the ideal approach, but we have a LOT of arithmetic "hacks" all around some
- * projects and this behavior is actually expected.</li>
- * <li>if the absolute value is bigger or equal than 1e-12 it will be considered {@code true}</li>
- * <li>the boolean results will <b>always</b> be {@code 1.0} for {@code true} and {@code 0.0} for
- * {@code false}</li>
- * <li>boolean operations will always have lower precedence than arithmetic operations (i.e. they
- * will be evaluated last)</li>
- * <li>The precedence (order) of the boolean operators will always be ¬ &amp; | (in accordance to
- * the analogy with arithmetic operators), so that:<pre>
- *             a &amp; b| b &amp; ¬c -&gt; ((a &amp; b) | (b &amp; (¬c)))</pre></li>
+ * This class implements all of the built-in operators both arithmetic and
+ * boolean.
+ * <p>Boolean values will be treated as follows:</p><ol>
+ * <li>if the absolute value is less than 1e-12 it will be considered
+ * {@code false}. About this... I know is not the ideal approach, but we have a
+ * LOT of arithmetic "hacks" all around some projects and this behavior is
+ * actually expected.</li>
+ * <li>if the absolute value is bigger or equal than 1e-12 it will be considered
+ * {@code true}</li>
+ * <li>the boolean results will <b>always</b> be {@code 1.0} for {@code true}
+ * and {@code 0.0} for {@code false}</li>
+ * <li>boolean operations will always have lower precedence than arithmetic
+ * operations (i.e. they will be evaluated last)</li>
+ * <li>The precedence (order) of the boolean operators will always be ¬ &amp;
+ * | (in accordance to the analogy with arithmetic operators), so that:<pre>
+ *             a &amp; b| b &amp; ¬c -&gt; ((a &amp; b) | (b &amp; (¬c)))</pre>
+ * </li>
  * </ol>
  */
 public final class Operators {

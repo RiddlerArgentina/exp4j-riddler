@@ -17,24 +17,30 @@ package net.objecthunter.exp4j.extras;
 
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
+import net.objecthunter.exp4j.operator.Operators;
 
 import static net.objecthunter.exp4j.operator.Operator.*;
 
 /**
  * This class contains a set of commonly used boolean functions and constants.
- * The boolean value rules are the same the we use in the operators:<ol>
- * <li>if the absolute value is less than {@link Operator#BOOLEAN_THRESHOLD} it will be considered
- * {@code false}.</li>
- * <li>if the absolute value is bigger or equal than {@link Operator#BOOLEAN_THRESHOLD} it will be
- * considered {@code true}</li>
- * <li>the recommended approach is to use functions or operators that return boolean values, like
- * the comparison operators or the {@code true()} and {@code flase} constants</li>
- * <li>the {@code true()} constant will always return 1.0 and {@code false()} will always return
- * 0.0
+ *
+ * <p>The boolean value rules are the same the we use in the operators:</p><ol>
+ * <li>if the absolute value is less than {@link Operator#BOOLEAN_THRESHOLD} it
+ * will be considered {@code false}.</li>
+ * <li>if the absolute value is bigger or equal than
+ * {@link Operator#BOOLEAN_THRESHOLD} it will be considered {@code true}</li>
+ * <li>the recommended approach is to use functions or operators that return
+ * boolean values, like the comparison operators or the
+ * {@link FunctionsBoolean#TRUE} and {@link FunctionsBoolean#FALSE} constants
+ * </li>
+ * <li>the {@link FunctionsBoolean#TRUE} constant will always return 1.0 and
+ * {@link FunctionsBoolean#FALSE} will always return 0.0
  * </ol>
+ *
  * @see Operator#BOOLEAN_THRESHOLD
  * @see OperatorsComparison
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
+ * @since 0.6-riddler
  */
 public final class FunctionsBoolean {
 
@@ -46,6 +52,8 @@ public final class FunctionsBoolean {
      *     0 | <i>1</i>
      *     1 | <i>0</i>
      * </pre>
+     * @see Operators#NOT
+     * @since 0.6-riddler
      */
     public static final Function NOT   = new Not();
 
@@ -59,6 +67,8 @@ public final class FunctionsBoolean {
      *     1 | 0 |  <i>0</i>
      *     1 | 1 |  <i>1</i>
      * </pre>
+     * @see Operators#AND
+     * @since 0.6-riddler
      */
     public static final Function AND   = new And();
 
@@ -72,6 +82,8 @@ public final class FunctionsBoolean {
      *     1 | 0 |  <i>1</i>
      *     1 | 1 |  <i>1</i>
      * </pre>
+     * @see Operators#OR
+     * @since 0.6-riddler
      */
     public static final Function OR    = new Or();
 
@@ -85,6 +97,7 @@ public final class FunctionsBoolean {
      *     1 | 0 |  <i>1</i>
      *     1 | 1 |  <i>0</i>
      * </pre>
+     * @since 0.6-riddler
      */
     public static final Function XOR   = new Xor();
 
@@ -98,6 +111,7 @@ public final class FunctionsBoolean {
      *     1 | 0 |   <i>1</i>
      *     1 | 1 |   <i>0</i>
      * </pre>
+     * @since 0.6-riddler
      */
     public static final Function NAND  = new Nand();
 
@@ -111,6 +125,7 @@ public final class FunctionsBoolean {
      *     1 | 0 |   <i>0</i>
      *     1 | 1 |   <i>1</i>
      * </pre>
+     * @since 0.6-riddler
      */
     public static final Function NOR   = new Nor();
 
@@ -124,16 +139,19 @@ public final class FunctionsBoolean {
      *     1 | 0 |   <i>0</i>
      *     1 | 1 |   <i>1</i>
      * </pre>
+     * @since 0.6-riddler
      */
     public static final Function XNOR  = new Xnor();
 
     /**
-     * Boolean value {@code false} -&gt; {@code 0.0}
+     * Boolean value {@code false} -&gt; {@code 0.0}.
+     * @since 0.6-riddler
      */
     public static final Function FALSE = new False();
 
     /**
-     * Boolean value {@code true} -&gt; {@code 1.0}
+     * Boolean value {@code true} -&gt; {@code 1.0}.
+     * @since 0.6-riddler
      */
     public static final Function TRUE  = new True();
 
@@ -141,7 +159,16 @@ public final class FunctionsBoolean {
      * Array with all the available functions
      *
      * @return {@link Function} array
-     * @see FunctionsBoolean#getFunction(java.lang.String)
+     * @see FunctionsBoolean#getFunction(String)
+     * @see FunctionsBoolean#NOT
+     * @see FunctionsBoolean#AND
+     * @see FunctionsBoolean#OR
+     * @see FunctionsBoolean#XOR
+     * @see FunctionsBoolean#NAND
+     * @see FunctionsBoolean#NOR
+     * @see FunctionsBoolean#XNOR
+     * @see FunctionsBoolean#FALSE
+     * @see FunctionsBoolean#TRUE
      */
     public static Function[] getFunctions() {
         return new Function[] {NOT, AND, OR, XOR, NAND, NOR, XNOR, FALSE, TRUE};
@@ -152,6 +179,15 @@ public final class FunctionsBoolean {
      * @param name the name of the function
      * @return a Function instance
      * @see FunctionsBoolean#getFunctions()
+     * @see FunctionsBoolean#NOT
+     * @see FunctionsBoolean#AND
+     * @see FunctionsBoolean#OR
+     * @see FunctionsBoolean#XOR
+     * @see FunctionsBoolean#NAND
+     * @see FunctionsBoolean#NOR
+     * @see FunctionsBoolean#XNOR
+     * @see FunctionsBoolean#FALSE
+     * @see FunctionsBoolean#TRUE
      */
     public static Function getFunction(final String name) {
         switch (name) {

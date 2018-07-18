@@ -148,7 +148,32 @@ public final class Functions {
      * Array with all the available functions
      *
      * @return {@link Function} array
-     * @see Functions#getBuiltinFunction(java.lang.String)
+     * 
+     * @see Functions#getBuiltinFunction(String)
+     * @see Functions#SIN
+     * @see Functions#COS
+     * @see Functions#TAN
+     * @see Functions#ASIN
+     * @see Functions#ACOS
+     * @see Functions#ATAN
+     * @see Functions#SINH
+     * @see Functions#COSH
+     * @see Functions#TANH
+     * @see Functions#ABS
+     * @see Functions#LOG
+     * @see Functions#LOG10
+     * @see Functions#LOG2
+     * @see Functions#LOG1P
+     * @see Functions#CEIL
+     * @see Functions#FLOOR
+     * @see Functions#SQRT
+     * @see Functions#CBRT
+     * @see Functions#POW
+     * @see Functions#EXP
+     * @see Functions#EXPM1
+     * @see Functions#SGN
+     * @see Functions#PI
+     * @see Functions#E
      */
     public static Function[] getFunctions() {
         return new Function[] {
@@ -163,10 +188,36 @@ public final class Functions {
     }
 
     /**
-     * Get the builtin function for a given name
+     * Get the builtin function for a given name.
+     *
      * @param name the name of the function
      * @return a Function instance
+     *
      * @see Functions#getFunctions()
+     * @see Functions#SIN
+     * @see Functions#COS
+     * @see Functions#TAN
+     * @see Functions#ASIN
+     * @see Functions#ACOS
+     * @see Functions#ATAN
+     * @see Functions#SINH
+     * @see Functions#COSH
+     * @see Functions#TANH
+     * @see Functions#ABS
+     * @see Functions#LOG
+     * @see Functions#LOG10
+     * @see Functions#LOG2
+     * @see Functions#LOG1P
+     * @see Functions#CEIL
+     * @see Functions#FLOOR
+     * @see Functions#SQRT
+     * @see Functions#CBRT
+     * @see Functions#POW
+     * @see Functions#EXP
+     * @see Functions#EXPM1
+     * @see Functions#SGN
+     * @see Functions#PI
+     * @see Functions#E
      */
     public static Function getBuiltinFunction(final String name) {
         switch (name) {

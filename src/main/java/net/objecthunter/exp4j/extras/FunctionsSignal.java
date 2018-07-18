@@ -21,6 +21,7 @@ import net.objecthunter.exp4j.function.Function;
  * This class contains some additional functions related with signal processing.
  *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
+ * @since 0.8-riddler
  */
 public class FunctionsSignal {
 
@@ -30,6 +31,7 @@ public class FunctionsSignal {
      * <ul>
      * <li><code><b>t</b></code>: Current point</li>
      * </ul>
+     * @since 0.7-riddler
      */
     public static final Function SINC  = new Sinc();
 
@@ -39,6 +41,7 @@ public class FunctionsSignal {
      * <ul>
      * <li><code><b>t</b></code>: Current point</li>
      * </ul>
+     * @since 0.8-riddler
      */
     public static final Function HEAVYSIDE  = new HeavySide();
 
@@ -50,6 +53,7 @@ public class FunctionsSignal {
      * <li><code><b>X</b></code>: Center of the rectangle</li>
      * <li><code><b>Y</b></code>: Length of the rectangle</li>
      * </ul>
+     * @since 0.8-riddler
      */
     public static final Function RECTANGULAR  = new Rectangular();
 
@@ -57,7 +61,10 @@ public class FunctionsSignal {
      * Array with all the available functions
      *
      * @return {@link Function} array
-     * @see FunctionsSignal#getFunction(java.lang.String)
+     * @see FunctionsSignal#getFunction(String)
+     * @see FunctionsSignal#HEAVYSIDE
+     * @see FunctionsSignal#RECTANGULAR
+     * @see FunctionsSignal#SINC
      */
     public static Function[] getFunctions() {
         return new Function[]{
@@ -66,10 +73,14 @@ public class FunctionsSignal {
     }
 
     /**
-     * Get the function for a given name
+     * Get the function for a given name.
+     *
      * @param name the name of the function
      * @return a Function instance
      * @see FunctionsSignal#getFunctions()
+     * @see FunctionsSignal#HEAVYSIDE
+     * @see FunctionsSignal#RECTANGULAR
+     * @see FunctionsSignal#SINC
      */
     public static Function getFunction(final String name) {
         switch (name) {
@@ -114,7 +125,7 @@ public class FunctionsSignal {
             final double Y = args[2];
             return u(t - X + Y / 2) - u(t - X - Y / 2);
         }
-        
+
         private static int u(double t) {
             return t < 0 ? 0 : 1;
         }
