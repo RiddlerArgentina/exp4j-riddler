@@ -1,4 +1,5 @@
-This `exp4j` [![Build Status](https://gitlab.com/riddler_arg/exp4j/badges/master/build.svg)](https://travis-ci.org/RiddlerArgentina/exp4j) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/495a331f23354727a39260bddb665bd9)](https://www.codacy.com/app/RiddlerArgentina/exp4j?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=RiddlerArgentina/exp4j&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/495a331f23354727a39260bddb665bd9)](https://www.codacy.com/app/RiddlerArgentina/exp4j?utm_source=github.com&utm_medium=referral&utm_content=RiddlerArgentina/exp4j&utm_campaign=Badge_Coverage)
+This `exp4j` ![](https://gitlab.com/riddler_arg/exp4j/badges/master/build.svg) ![coverage](https://gitlab.com/riddler_arg/exp4j/badges/master/coverage.svg) ![Codacy Badge](https://api.codacy.com/project/badge/Grade/495a331f23354727a39260bddb665bd9)
+
 ----------
 > # ⚠️ Disclaimer
 > This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 

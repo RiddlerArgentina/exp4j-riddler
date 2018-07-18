@@ -43,7 +43,9 @@ cache:
 .verify: &verify
   stage: test
   script:
-    - 'mvn $MAVEN_CLI_OPTS verify'
+    - 'mvn $MAVEN_CLI_OPTS install -B'
+    - 'cat target/site/jacoco/index.html'
+
 
 # Validate merge requests using JDK7
 # validate:jdk7:
