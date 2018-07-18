@@ -114,7 +114,8 @@ public class FunctionsSignal {
             final double Y = args[2];
             return u(t - X + Y / 2) - u(t - X - Y / 2);
         }
-        private int u(double t) {
+        
+        private static int u(double t) {
             return t < 0 ? 0 : 1;
         }
     }
