@@ -1,4 +1,5 @@
-This `exp4j` ![](https://gitlab.com/riddler_arg/exp4j/badges/master/build.svg) ![coverage](https://gitlab.com/riddler_arg/exp4j/badges/master/coverage.svg) ![Codacy Badge](https://api.codacy.com/project/badge/Grade/495a331f23354727a39260bddb665bd9)
+This `exp4j` [![](https://gitlab.com/riddler_arg/exp4j/badges/master/build.svg)]() [![coverage](https://gitlab.com/riddler_arg/exp4j/badges/master/coverage.svg)](https://docs.riddler.com.ar/exp4j/jacoco/)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad8fa724765e4d7ba58400d070c5c868)](https://www.codacy.com/app/RiddlerArgentina/exp4j-riddler?utm_source=gitlab.com&amp;utm_medium=referral&amp;utm_content=riddler_arg/exp4j&amp;utm_campaign=Badge_Grade)
 
 ----------
 > # ⚠️ Disclaimer
