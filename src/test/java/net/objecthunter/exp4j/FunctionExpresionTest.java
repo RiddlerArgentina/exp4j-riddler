@@ -113,4 +113,16 @@ public class FunctionExpresionTest {
                             .build(true);
         assertEquals(45, e.evaluate(), 0d);
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testFunctionExpression8() {
+        FunctionExpresion fe = new FunctionExpresion(
+                "foo", 27,
+                "a * lcm(a, b)",
+                FunctionsMisc.getFunctions()
+        );
+        Expression e = new ExpressionBuilder("foo(3, 5)")
+                            .function(fe)
+                            .build(true);
+    }
 }
