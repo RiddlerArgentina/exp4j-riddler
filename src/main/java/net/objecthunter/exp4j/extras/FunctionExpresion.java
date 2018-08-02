@@ -111,8 +111,8 @@ public class FunctionExpresion extends Function {
         ExpressionBuilder builder = new ExpressionBuilder(expr);
         vars = new String[nargs];
 
-        for (char i = 'a', n = 0; i < ('a' + nargs); i++, n++) {
-            vars[n] = Character.toString(i);
+        for (char i = 'a'; i < ('a' + nargs); i++) {
+            vars[i - 'a'] = Character.toString(i);
         }
 
         if (functions != null) {
