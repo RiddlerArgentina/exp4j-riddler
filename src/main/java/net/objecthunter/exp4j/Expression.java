@@ -214,15 +214,7 @@ public class Expression implements Serializable {
                 case FUNCTION:
                     final Function func = ((FunctionToken) tok).getFunction();
                     final int argsNum = func.getNumArguments();
-                    if (argsNum > count) {
-                        errors.add(l10n("Not enough arguments for '%s'", func.getName()));
-                    }
-                    if (argsNum > 1) {
-                        count -= argsNum - 1;
-                    } else if (argsNum == 0) {
-                        // see https://github.com/fasseg/exp4j/issues/59
-                        count++;
-                    }
+                    count = validateFunction(argsNum, count, errors, func);
                     break;
                 case OPERATOR:
                     final Operator op = ((OperatorToken) tok).getOperator();
@@ -242,8 +234,23 @@ public class Expression implements Serializable {
         if (count > 1) {
             errors.add(l10n("Too many operands"));
         }
-        return errors.isEmpty() ? ValidationResult.SUCCESS : new ValidationResult(errors);
 
+        return errors.isEmpty() ? ValidationResult.SUCCESS : new ValidationResult(errors);
+    }
+
+    private int validateFunction(int argsNum, int count, List<String> errors, Function func) {
+        if (argsNum > count) {
+            errors.add(l10n("Not enough arguments for '%s'", func.getName()));
+        }
+
+        if (argsNum > 1) {
+            count -= argsNum - 1;
+        } else if (argsNum == 0) {
+            // see https://github.com/fasseg/exp4j/issues/59
+            count++;
+        }
+
+        return count;
     }
 
     /**
@@ -286,58 +293,70 @@ public class Expression implements Serializable {
     public double evaluate() {
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
-            if (t.getType() == NUMBER) {
-                output.push(((NumberToken) t).getValue());
-            } else if (t.getType() == VARIABLE) {
-                final VariableToken vt = (VariableToken)t;
-                if (!vt.isValueSet()) {
-                    throw new IllegalArgumentException(l10n(
+            if (null != t.getType()) switch (t.getType()) {
+                case NUMBER:
+                    output.push(((NumberToken) t).getValue());
+                    break;
+                case VARIABLE:
+                    final VariableToken vt = (VariableToken)t;
+
+                    if (!vt.isValueSet()) {
+                        throw new IllegalArgumentException(l10n(
                             "No value has been set for variable '%s'", vt.getName()
-                    ));
-                }
-                output.push(vt.getValue());
-            } else if (t.getType() == OPERATOR) {
-                final Operator op = ((OperatorToken) t).getOperator();
-                if (output.size() < op.getNumOperands()) {
-                    throw new IllegalArgumentException(l10n(
-                        "Invalid number of operands available for '%s' operator", op.getSymbol()
-                    ));
-                }
+                        ));
+                    }
 
-                if (op.getNumOperands() == 2) {
-                    /* pop the operands and push the result of the operation */
-                    double rightArg = output.pop();
-                    double leftArg = output.pop();
-                    output.push(op.apply(leftArg, rightArg));
-                } else if (op.getNumOperands() == 1) {
-                    /* pop the operand and push the result of the operation */
-                    double arg = output.pop();
-                    output.push(op.apply(arg));
-                }
-            } else if (t.getType() == FUNCTION) {
-                final Function func = ((FunctionToken) t).getFunction();
-                final int numArguments = func.getNumArguments();
+                    output.push(vt.getValue());
+                    break;
+                case OPERATOR:
+                    final Operator op = ((OperatorToken) t).getOperator();
 
-                if (output.size() < numArguments) {
-                    throw new IllegalArgumentException(l10n(
-                        "Invalid number of arguments available for '%s' function", func.getName()
-                    ));
-                }
+                    if (output.size() < op.getNumOperands()) {
+                        throw new IllegalArgumentException(l10n(
+                            "Invalid number of operands available for '%s' operator",
+                            op.getSymbol()
+                        ));
+                    }
 
-                /* collect the arguments from the stack */
-                final double[] args = new double[numArguments];
-                for (int j = numArguments - 1; j >= 0; j--) {
-                    args[j] = output.pop();
-                }
+                    if (op.getNumOperands() == 2) {
+                        /* pop the operands and push the result of the operation */
+                        final double rightArg = output.pop();
+                        final double leftArg = output.pop();
+                        output.push(op.apply(leftArg, rightArg));
+                    } else if (op.getNumOperands() == 1) {
+                        /* pop the operand and push the result of the operation */
+                        final double arg = output.pop();
+                        output.push(op.apply(arg));
+                    }
+                    break;
+                case FUNCTION:
+                    final Function func = ((FunctionToken) t).getFunction();
+                    final int numArguments = func.getNumArguments();
 
-                output.push(func.apply(args));
+                    if (output.size() < numArguments) {
+                        throw new IllegalArgumentException(l10n(
+                            "Invalid number of arguments available for '%s' function",
+                            func.getName()
+                        ));
+                    }
+                    /* collect the arguments from the stack */
+                    final double[] args = new double[numArguments];
+
+                    for (int j = numArguments - 1; j >= 0; j--) {
+                        args[j] = output.pop();
+                    }
+
+                    output.push(func.apply(args));
+                    break;
+                default:
+                    break;
             }
         }
 
         if (output.size() > 1) {
             throw new IllegalArgumentException(l10n(
-                    "Invalid number of items on the output queue. "
-                  + "Might be caused by an invalid number of arguments for a function."
+                "Invalid number of items on the output queue. "
+              + "Might be caused by an invalid number of arguments for a function."
             ));
         }
 
