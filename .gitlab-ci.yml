@@ -45,6 +45,8 @@ cache:
   script:
     - 'mvn $MAVEN_CLI_OPTS install -B'
     - 'cat target/site/jacoco/index.html'
+    - 'wget https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.2/codacy-coverage-reporter-4.0.2-assembly.jar'
+    - 'java -jar codacy-coverage-reporter-4.0.2-assembly.jar report -l Java -r target/site/jacoco/jacoco.xml'
 
 
 # Validate merge requests using JDK7
