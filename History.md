@@ -1,3 +1,41 @@
+0.9-riddler / 2018-08-02
+========================
+
+  * Merge branch 'funciones-adicionales-2' into 'master'
+  * Bump to version 0.9-riddler
+  * Add horribly superflous default labels (Codacy)
+  * Declare one variable per line (Codacy)
+  * Implement tests for d2r & r2d (Task #795)
+  * Implement d2r & r2d (Task #795)
+  * Add tests for Triangle Wave (Task #769)
+  * Implement Triangle Wave (Task #769)
+  * Implement tests for Sawtooth wave (Task #771)
+  * Implement Sawtooth wave (Task #771)
+  * Remove inline variable to appease the Codacy gods...
+  * Update README.md
+  * Merge branch 'add-coverage-results' into 'master'
+  * Change badges paths
+  * Add coverage results to GitLab CI
+  * Merge branch 'master' of gitlab.com:riddler_arg/exp4j
+  * Bump to version 0.8.1-riddler to check if Codacy trigger works
+  * Update README.md
+
+0.8.1-riddler / 2018-07-18
+==========================
+
+  * Improve JavaDoc
+  * Make internal function u() static
+  * Remove invalid html tag
+  * Add warning about concatenating comparison operators
+  * Merge branch 'expression-based-functions' into 'master'
+  * Add missing translation
+  * Improve performance tests (Task #798)
+  * Add tests for expression based functions (Task #784)
+  * Implement expression based Functions (Task #784)
+  * Cleanup History.md
+  * Merge branch 'add-some-extra-functions' into 'master'
+  * Update Changelog
+
 0.8-riddler / 2018-07-17
 ========================
 
