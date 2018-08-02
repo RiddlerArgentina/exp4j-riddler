@@ -243,14 +243,15 @@ public class Expression implements Serializable {
             errors.add(l10n("Not enough arguments for '%s'", func.getName()));
         }
 
+        int res = count;
         if (argsNum > 1) {
-            count -= argsNum - 1;
+            res -= argsNum - 1;
         } else if (argsNum == 0) {
             // see https://github.com/fasseg/exp4j/issues/59
-            count++;
+            res++;
         }
 
-        return count;
+        return res;
     }
 
     /**
