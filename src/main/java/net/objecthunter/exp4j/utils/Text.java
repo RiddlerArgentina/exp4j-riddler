@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
  * Small wrapper for {@code ResourceBundle}
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
-public class Text {
+public final class Text {
     private final static ResourceBundle L10N = ResourceBundle.getBundle("net.objecthunter.exp4j.utils.Bundle");
 
     private Text() {
