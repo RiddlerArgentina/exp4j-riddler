@@ -454,6 +454,68 @@ public class FunctionsMiscTest {
     }
 
     @Test
+    public void testd2r() {
+        Expression e1 = new ExpressionBuilder("degtorad(0)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testd2r2() {
+        Expression e1 = new ExpressionBuilder("degtorad(90)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(Math.PI / 2, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testr2d() {
+        Expression e1 = new ExpressionBuilder("radtodeg(0)")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testr2d2() {
+        Expression e1 = new ExpressionBuilder("radtodeg(pi())")
+                             .functions(FunctionsMisc.getFunctions())
+                             .build();
+
+        assertEquals(180.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testr2d2r() {
+        Expression e1 = new ExpressionBuilder("degtorad(radtodeg(x))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variable("x")
+                             .build();
+
+        for (int i = 0; i < 50; i++) {
+            double x = Math.random() * 20 - 10;
+            assertEquals(x, e1.setVariable("x", x).evaluate(), 1e-8d);
+        }
+    }
+
+    @Test
+    public void testr2d2r2() {
+        Expression e1 = new ExpressionBuilder("radtodeg(degtorad(x))")
+                             .functions(FunctionsMisc.getFunctions())
+                             .variable("x")
+                             .build();
+
+        for (int i = 0; i < 50; i++) {
+            double x = Math.random() * 20 - 10;
+            assertEquals(x, e1.setVariable("x", x).evaluate(), 1e-8d);
+        }
+    }
+
+    @Test
     public void testGetFunctionNonExistent() {
         assertNull(FunctionsMisc.getFunction("foo"));
     }
