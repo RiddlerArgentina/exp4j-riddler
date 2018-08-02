@@ -41,15 +41,29 @@ public class TextTest {
         }
     }
 
+    @Test
     public void testText2() {
         String foo = "Unexistent String ofhaiwogheowihgoih;";
         String bar = Text.l10n(foo);
         Assert.assertEquals(foo, bar);
     }
 
+    @Test
     public void testText3() {
         String foo = "Unexistent String ofhaiwogheowihgoih;";
         String bar = Text.l10n(foo, 10);
         Assert.assertEquals(foo, bar);
+    }
+
+    @Test
+    public void testText4() {
+        String bar = Text.l10n(null);
+        Assert.assertNull(bar);
+    }
+
+    @Test
+    public void testText5() {
+        String bar = Text.l10n(null, 10);
+        Assert.assertNull(bar);
     }
 }
