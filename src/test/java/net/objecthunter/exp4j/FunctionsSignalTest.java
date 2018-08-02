@@ -16,6 +16,7 @@
 package net.objecthunter.exp4j;
 
 import net.objecthunter.exp4j.extras.FunctionsSignal;
+import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -26,6 +27,14 @@ import static org.junit.Assert.assertTrue;
  * @author Federico Vera {@literal <fede [at] riddler.com.ar>}
  */
 public class FunctionsSignalTest {
+
+    @Test
+    public void testNames() {
+        for (Function f : FunctionsSignal.getFunctions()) {
+            Function f2 = FunctionsSignal.getFunction(f.getName());
+            assertEquals(f, f2);
+        }
+    }
 
     @Test
     public void testSinc() {

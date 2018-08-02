@@ -16,6 +16,7 @@
 package net.objecthunter.exp4j;
 
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
+import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -26,6 +27,14 @@ import static org.junit.Assert.*;
  */
 public class FunctionBooleanTest {
     private static final int[] VALUES = {0, 1};
+
+    @Test
+    public void testNames() {
+        for (Function f : FunctionsBoolean.getFunctions()) {
+            Function f2 = FunctionsBoolean.getFunction(f.getName());
+            assertEquals(f, f2);
+        }
+    }
 
     @Test
     public void testNot1() {

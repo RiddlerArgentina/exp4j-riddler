@@ -20,6 +20,7 @@ import java.util.Map;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
+import net.objecthunter.exp4j.function.Function;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -32,6 +33,14 @@ import static org.junit.Assert.assertNull;
  * @author Federico Vera {@literal <dktcoding [at] gmail>}
  */
 public class FunctionsMiscTest {
+
+    @Test
+    public void testNames() {
+        for (Function f : FunctionsMisc.getFunctions()) {
+            Function f2 = FunctionsMisc.getFunction(f.getName());
+            assertEquals(f, f2);
+        }
+    }
 
     @Test
     public void testFuncIf1() {
