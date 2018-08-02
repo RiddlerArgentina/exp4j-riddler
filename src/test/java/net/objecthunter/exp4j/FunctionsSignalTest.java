@@ -19,6 +19,7 @@ import net.objecthunter.exp4j.extras.FunctionsSignal;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  *
@@ -104,5 +105,51 @@ public class FunctionsSignalTest {
                              .build();
 
         assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testSawtooth() {
+        Expression e1 = new ExpressionBuilder("sawtooth(1)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testSawtooth1() {
+        Expression e1 = new ExpressionBuilder("sawtooth(0)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .build();
+
+        assertEquals(0.0, e1.evaluate(), 0d);
+    }
+
+    @Test
+    public void testSawtooth2() {
+        Expression e1 = new ExpressionBuilder("sawtooth(x)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .variable("x")
+                             .build();
+
+        for (double x = -10; x < 10; x += 0.02) {
+            double res = e1.setVariable("x", x).evaluate();
+            assertTrue(res <= 1);
+            assertTrue(res >= 0);
+        }
+    }
+
+    @Test
+    public void testSawtooth3() {
+        Expression e1 = new ExpressionBuilder("sawtooth(x)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .variable("x")
+                             .build();
+        double x = Math.random() * 5 - 10;
+        double r = e1.setVariable("x", x).evaluate();
+        for (; x < 10; x += 1) {
+            double res = e1.setVariable("x", x).evaluate();
+            assertEquals(r, res, 1e-12);
+        }
     }
 }
