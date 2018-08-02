@@ -58,6 +58,16 @@ public class FunctionsSignal {
     public static final Function RECTANGULAR  = new Rectangular();
 
     /**
+     * Sawtooth Wave.
+     * This function has three arguments {@code sawtooth(t)} where:
+     * <ul>
+     * <li><code><b>t</b></code>: Current point</li>
+     * </ul>
+     * @since 0.9-riddler
+     */
+    public static final Function SAWTOOTH  = new Sawtooth();
+
+    /**
      * Array with all the available functions
      *
      * @return {@link Function} array
@@ -65,10 +75,11 @@ public class FunctionsSignal {
      * @see FunctionsSignal#HEAVYSIDE
      * @see FunctionsSignal#RECTANGULAR
      * @see FunctionsSignal#SINC
+     * @see FunctionsSignal#SAWTOOTH
      */
     public static Function[] getFunctions() {
         return new Function[]{
-            SINC, HEAVYSIDE, RECTANGULAR
+            SINC, HEAVYSIDE, RECTANGULAR, SAWTOOTH
         };
     }
 
@@ -81,12 +92,14 @@ public class FunctionsSignal {
      * @see FunctionsSignal#HEAVYSIDE
      * @see FunctionsSignal#RECTANGULAR
      * @see FunctionsSignal#SINC
+     * @see FunctionsSignal#SAWTOOTH
      */
     public static Function getFunction(final String name) {
         switch (name) {
             case "sinc"      : return SINC;
             case "rectangle" : return RECTANGULAR;
             case "heavyside" : return HEAVYSIDE;
+            case "sawtooth"  : return SAWTOOTH;
             default:      return null;
         }
     }
@@ -128,6 +141,16 @@ public class FunctionsSignal {
 
         private static int u(double t) {
             return t < 0 ? 0 : 1;
+        }
+    }
+
+    private static final class Sawtooth extends Function {
+        private static final long serialVersionUID = 555335310381844968L;
+        Sawtooth() { super("sawtooth", 1); }
+        @Override
+        public double apply(double... args) {
+            final double x = args[0];
+            return x >= 0 ? x % 1 : 1 + (x % 1);
         }
     }
 }
