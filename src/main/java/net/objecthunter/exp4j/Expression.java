@@ -230,6 +230,8 @@ public class Expression implements Serializable {
                         count--;
                     }
                     break;
+                default:
+                    //Do nothing
             }
             if (count < 1) {
                 errors.add(l10n("Too many operators"));
