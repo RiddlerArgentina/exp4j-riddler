@@ -152,4 +152,31 @@ public class FunctionsSignalTest {
             assertEquals(r, res, 1e-12);
         }
     }
+
+    @Test
+    public void testTriangle1() {
+        Expression e1 = new ExpressionBuilder("triangle(x)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .variable("x")
+                             .build();
+        for (double x = -10; x < 10; x += 0.01) {
+            double res = e1.setVariable("x", x).evaluate();
+            assertTrue(res <=  1);
+            assertTrue(res >= -1);
+        }
+    }
+
+    @Test
+    public void testTriangle2() {
+        Expression e1 = new ExpressionBuilder("triangle(x)")
+                             .functions(FunctionsSignal.getFunctions())
+                             .variable("x")
+                             .build();
+        double x = Math.random() * 5 - 10;
+        double r = e1.setVariable("x", x).evaluate();
+        for (; x < 10; x += 1) {
+            double res = e1.setVariable("x", x).evaluate();
+            assertEquals(r, res, 1e-12);
+        }
+    }
 }
