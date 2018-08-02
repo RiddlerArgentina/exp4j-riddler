@@ -143,6 +143,24 @@ public final class FunctionsMisc {
     public static final Function ROUND = new Round();
 
     /**
+     * Converts from degrees to radians.
+     *
+     * @see Functions#RAD2DEG
+     * @see Math#toRadians(double)
+     * @since 0.9-riddler
+     */
+    public static final Function DEG2RAD = new Deg2Rad();
+
+    /**
+     * Converts from radians to degrees.
+     *
+     * @see Functions#DEG2RAD
+     * @see Math#toDegrees(double)
+     * @since 0.9-riddler
+     */
+    public static final Function RAD2DEG = new Rad2Deg();
+
+    /**
      * This is the threshold used to consider values equal, that is, if two
      * values {@code a} and {@code b} are separated by less than this threshold
      * they will be considered to be equal, it has a default value of {@value}
@@ -164,10 +182,12 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#GCD
      * @see FunctionsMisc#LCM
      * @see FunctionsMisc#ROUND
+     * @see FunctionsMisc#DEG2RAD
+     * @see FunctionsMisc#RAD2DEG
      */
     public static Function[] getFunctions() {
         return new Function[]{
-            EQUAL, IF, INFINITY, IS_NAN, MIN, MAX, GCD, LCM, ROUND
+            EQUAL, IF, INFINITY, IS_NAN, MIN, MAX, GCD, LCM, ROUND, DEG2RAD, RAD2DEG
         };
     }
 
@@ -187,19 +207,23 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#GCD
      * @see FunctionsMisc#LCM
      * @see FunctionsMisc#ROUND
+     * @see FunctionsMisc#DEG2RAD
+     * @see FunctionsMisc#RAD2DEG
      */
     public static Function getFunction(final String name) {
         switch (name) {
-            case "equal": return EQUAL;
-            case "if"   : return IF;
-            case "inf"  : return INFINITY;
-            case "isnan": return IS_NAN;
-            case "min"  : return MIN;
-            case "max"  : return MAX;
-            case "gcd"  : return GCD;
-            case "lcm"  : return LCM;
-            case "round": return ROUND;
-            default:      return null;
+            case "equal"   : return EQUAL;
+            case "if"      : return IF;
+            case "inf"     : return INFINITY;
+            case "isnan"   : return IS_NAN;
+            case "min"     : return MIN;
+            case "max"     : return MAX;
+            case "gcd"     : return GCD;
+            case "lcm"     : return LCM;
+            case "round"   : return ROUND;
+            case "degtorad": return DEG2RAD;
+            case "radtodeg": return RAD2DEG;
+            default:         return null;
         }
     }
 
@@ -303,6 +327,26 @@ public final class FunctionsMisc {
         public double apply(double... args) {
             final double a = args[0];
             return Math.round(a);
+        }
+    }
+
+    private static final class Deg2Rad extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        Deg2Rad() { super("degtorad", 1); }
+        @Override
+        public double apply(double... args) {
+            final double x = args[0];
+            return Math.toRadians(x);
+        }
+    }
+
+    private static final class Rad2Deg extends Function {
+        private static final long serialVersionUID = -6539620489548306830L;
+        Rad2Deg() { super("radtodeg", 1); }
+        @Override
+        public double apply(double... args) {
+            final double x = args[0];
+            return Math.toDegrees(x);
         }
     }
 }
