@@ -114,8 +114,9 @@ final class Simplifier {
     private static double[] reverseInPlace(Token[] args) {
         final double[] nargs = new double[args.length];
 
-        for (int i = args.length - 1, j = 0; i >= 0; i--, j++) {
-            nargs[j] = ((NumberToken)args[i]).getValue();
+        final int sz = args.length - 1;
+        for (int j = 0; j <= sz; j++) {
+            nargs[j] = ((NumberToken)args[sz - j]).getValue();
         }
 
         return nargs;
