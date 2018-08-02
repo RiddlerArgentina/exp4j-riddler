@@ -24,6 +24,10 @@ import java.util.ResourceBundle;
 public class Text {
     private final static ResourceBundle L10N = ResourceBundle.getBundle("net.objecthunter.exp4j.utils.Bundle");
 
+    private Text() {
+        // Don't let anyone initialize this class
+    }
+
     /**
      * Retrieves the localized version of the string.
      *
