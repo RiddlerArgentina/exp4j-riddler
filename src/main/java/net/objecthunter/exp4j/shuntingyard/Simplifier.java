@@ -105,6 +105,8 @@ final class Simplifier {
                         }
                         output.push(t);
                     }
+                default:
+                    //Do nothing
             }
         }
 

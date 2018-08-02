@@ -90,6 +90,8 @@ public final class ShuntingYard {
                     output.push(stack.pop());
                 }
                 break;
+            default:
+                //Do nothing
             }
         }
 
