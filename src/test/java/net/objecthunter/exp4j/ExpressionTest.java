@@ -32,7 +32,7 @@ public class ExpressionTest {
             new NumberToken(2d),
             new OperatorToken(Operators.getBuiltinOperator('+', 2))
         };
-        Expression exp = new Expression(tokens);
+        Expression exp = new Expression(tokens, new String[0]);
         assertEquals(5d, exp.evaluate(), 0d);
     }
 
@@ -42,7 +42,7 @@ public class ExpressionTest {
                 new NumberToken(1d),
                 new FunctionToken(Functions.getBuiltinFunction("log")),
         };
-        Expression exp = new Expression(tokens);
+        Expression exp = new Expression(tokens, new String[0]);
         assertEquals(0d, exp.evaluate(), 0d);
     }
 
@@ -53,7 +53,7 @@ public class ExpressionTest {
                 new VariableToken("b"),
                 new OperatorToken(Operators.getBuiltinOperator('+', 2))
         };
-        Expression exp = new Expression(tokens);
+        Expression exp = new Expression(tokens, new String[0]);
 
         assertEquals(2, exp.getVariableNames().size());
     }
