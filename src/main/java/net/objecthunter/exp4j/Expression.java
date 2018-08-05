@@ -94,6 +94,16 @@ public class Expression implements Serializable {
         cacheResult = checkNonDeterministic(tokens, userFunctionNames.length);
     }
 
+    /**
+     * Tells if the result is being cached.
+     *
+     * @return {@code true} if the result will be cached and {@code false}
+     * otherwise
+     */
+    boolean isCachingResult() {
+        return cacheResult;
+    }
+
     private boolean checkNonDeterministic(Token[] tokens, int userFuncs) {
         if (userFuncs == 0) {
             return true;
