@@ -87,10 +87,6 @@ public class Expression implements Serializable {
         return exp;
     }
 
-    Expression(final Token[] tokens) {
-        this(tokens, new String[0]);
-    }
-
     Expression(final Token[] tokens, String[] userFunctionNames) {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
