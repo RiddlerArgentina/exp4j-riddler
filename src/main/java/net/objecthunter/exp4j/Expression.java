@@ -56,6 +56,10 @@ public class Expression implements Serializable {
 
     private final Map<String, VariableToken> variables = new TreeMap<>();
 
+    public final boolean cacheResult;
+
+    private Double result;
+
     /**
      * Creates a new expression that is a copy of the existing one.
      *
@@ -84,15 +88,23 @@ public class Expression implements Serializable {
     }
 
     Expression(final Token[] tokens) {
-        this.tokens = tokens;
-        this.userFunctionNames = new String[0];
-        populateVariablesMap();
+        this(tokens, new String[0]);
     }
 
     Expression(final Token[] tokens, String[] userFunctionNames) {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
         populateVariablesMap();
+        cacheResult = checkNonDeterministic(tokens);
+    }
+
+    private boolean checkNonDeterministic(Token[] tokens) {
+        boolean status = false;
+        for (Token t : tokens) {
+            status |= (t.getType() == FUNCTION &&
+                    !((FunctionToken)t).getFunction().isDeterministic());
+        }
+        return !status;
     }
 
     private void populateVariablesMap() {
@@ -114,12 +126,13 @@ public class Expression implements Serializable {
      * @throws IllegalArgumentException if the variable name is a function name or if the variable
      * doesn't exist at build time.
      * @see ExpressionBuilder#build()
-     * @see Expression#containsVariable(java.lang.String)
+     * @see Expression#containsVariable(String)
      * @see Expression#getVariableNames()
      */
     public Expression setVariable(final String name, final double value) {
-        this.checkVariableName(name);
+        checkVariableName(name);
         variables.get(name).setValue(value);
+        result = null;
         return this;
     }
 
@@ -153,13 +166,13 @@ public class Expression implements Serializable {
      * @throws IllegalArgumentException if the variable name is a function name or if the variable
      * doesn't exist at build time.
      * @see ExpressionBuilder#build()
-     * @see Expression#containsVariable(java.lang.String)
+     * @see Expression#containsVariable(String)
      * @see Expression#getVariableNames()
-     * @see Expression#setVariable(java.lang.String, double)
+     * @see Expression#setVariable(String, double)
      */
     public Expression setVariables(Map<String, Double> variables) {
         for (Map.Entry<String, Double> v : variables.entrySet()) {
-            this.setVariable(v.getKey(), v.getValue());
+            setVariable(v.getKey(), v.getValue());
         }
         return this;
     }
@@ -205,7 +218,7 @@ public class Expression implements Serializable {
            The count has to be larger than 1 at all times and exactly 1 after all tokens
            have been processed */
         int count = 0;
-        for (Token tok : this.tokens) {
+        for (Token tok : tokens) {
             switch (tok.getType()) {
                 case NUMBER:
                 case VARIABLE:
@@ -282,16 +295,20 @@ public class Expression implements Serializable {
 
     /**
      * Evaluates the expression with the given values, this method will fail if
-     * {@link Expression#validate()} returns a {@link ValidationResult} different that
-     * {@link ValidationResult#SUCCESS}.<br><br>
-     * <i><b>Note:</b></i> future version will most likely fail on build, and not at this stage,
-     * this method will only fail if variables aren't set.
+     * {@link Expression#validate()} returns a {@link ValidationResult}
+     * different that {@link ValidationResult#SUCCESS}.<br><br>
+     * <i><b>Note:</b></i> future version will most likely fail on build, and
+     * not at this stage, this method will only fail if variables aren't set.
      *
      * @return result of the evaluation
      * @throws IllegalArgumentException if the expression isn't valid
      * @see Expression#validate()
      */
     public double evaluate() {
+        if (cacheResult && result != null) {
+            return result;
+        }
+
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
             if (null != t.getType()) switch (t.getType()) {
@@ -361,7 +378,7 @@ public class Expression implements Serializable {
             ));
         }
 
-        return output.pop();
+        return result = output.pop();
     }
 
     @Override
