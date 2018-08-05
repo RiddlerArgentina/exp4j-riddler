@@ -46,7 +46,7 @@ import static net.objecthunter.exp4j.utils.Text.l10n;
  * @author Frank Asseg
  * @see ExpressionBuilder#build()
  */
-public class Expression implements Serializable {
+public final class Expression implements Serializable {
 
     private static final long serialVersionUID = -2510794384846712749L;
 
