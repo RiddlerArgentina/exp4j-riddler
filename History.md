@@ -1,8 +1,38 @@
+1.0-riddler / 2018-08-05
+========================
+
+  * Use explicit visibility
+  * Add some extra tests
+  * Make Expression final
+  * Add a debugging method
+  * Improve cacheResult detection
+  * Change attribute visibility
+  * Fix test
+  * Remove unused constructor
+  * Clean unused call in SimplifierTest
+  * Implement evaluation cache
+  * Fix async test
+  * Reduce indentation level
+  * Add missing @Test annotations
+  * Set coverage in Codacy
+  * Don't reassign parameter (Codacy)
+  * Minor improvements in Expression class
+  * Add some consistency tests
+  * Add test for excesive arguments in FunctionExpression
+  * Add a small test for the text class
+  * Make text class final
+  * Add private constructor to Text class
+  * Update changelog
+
 0.9-riddler / 2018-08-02
 ========================
 
   * Merge branch 'funciones-adicionales-2' into 'master'
-  * Bump to version 0.9-riddler
+
+v0.9-riddler / 2018-08-02
+=========================
+
+  * Bump to version 0.9-RIDDLER
   * Add horribly superflous default labels (Codacy)
   * Declare one variable per line (Codacy)
   * Implement tests for d2r & r2d (Task #795)
