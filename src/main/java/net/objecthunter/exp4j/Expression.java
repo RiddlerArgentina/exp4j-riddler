@@ -46,7 +46,7 @@ import static net.objecthunter.exp4j.utils.Text.l10n;
  * @author Frank Asseg
  * @see ExpressionBuilder#build()
  */
-public class Expression implements Serializable {
+public final class Expression implements Serializable {
 
     private static final long serialVersionUID = -2510794384846712749L;
 
@@ -55,6 +55,10 @@ public class Expression implements Serializable {
     private final String[] userFunctionNames;
 
     private final Map<String, VariableToken> variables = new TreeMap<>();
+
+    private final boolean cacheResult;
+
+    private Double result;
 
     /**
      * Creates a new expression that is a copy of the existing one.
@@ -83,16 +87,34 @@ public class Expression implements Serializable {
         return exp;
     }
 
-    Expression(final Token[] tokens) {
-        this.tokens = tokens;
-        this.userFunctionNames = new String[0];
-        populateVariablesMap();
-    }
-
     Expression(final Token[] tokens, String[] userFunctionNames) {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
         populateVariablesMap();
+        cacheResult = checkNonDeterministic(tokens, userFunctionNames.length);
+    }
+
+    /**
+     * Tells if the result is being cached.
+     *
+     * @return {@code true} if the result will be cached and {@code false}
+     * otherwise
+     */
+    protected boolean isCachingResult() {
+        return cacheResult;
+    }
+
+    private boolean checkNonDeterministic(Token[] tokens, int userFuncs) {
+        if (userFuncs == 0) {
+            return true;
+        }
+
+        boolean status = false;
+        for (Token t : tokens) {
+            status |= (t.getType() == FUNCTION &&
+                    !((FunctionToken)t).getFunction().isDeterministic());
+        }
+        return !status;
     }
 
     private void populateVariablesMap() {
@@ -114,12 +136,13 @@ public class Expression implements Serializable {
      * @throws IllegalArgumentException if the variable name is a function name or if the variable
      * doesn't exist at build time.
      * @see ExpressionBuilder#build()
-     * @see Expression#containsVariable(java.lang.String)
+     * @see Expression#containsVariable(String)
      * @see Expression#getVariableNames()
      */
     public Expression setVariable(final String name, final double value) {
-        this.checkVariableName(name);
+        checkVariableName(name);
         variables.get(name).setValue(value);
+        result = null;
         return this;
     }
 
@@ -153,13 +176,13 @@ public class Expression implements Serializable {
      * @throws IllegalArgumentException if the variable name is a function name or if the variable
      * doesn't exist at build time.
      * @see ExpressionBuilder#build()
-     * @see Expression#containsVariable(java.lang.String)
+     * @see Expression#containsVariable(String)
      * @see Expression#getVariableNames()
-     * @see Expression#setVariable(java.lang.String, double)
+     * @see Expression#setVariable(String, double)
      */
     public Expression setVariables(Map<String, Double> variables) {
         for (Map.Entry<String, Double> v : variables.entrySet()) {
-            this.setVariable(v.getKey(), v.getValue());
+            setVariable(v.getKey(), v.getValue());
         }
         return this;
     }
@@ -205,7 +228,7 @@ public class Expression implements Serializable {
            The count has to be larger than 1 at all times and exactly 1 after all tokens
            have been processed */
         int count = 0;
-        for (Token tok : this.tokens) {
+        for (Token tok : tokens) {
             switch (tok.getType()) {
                 case NUMBER:
                 case VARIABLE:
@@ -282,16 +305,20 @@ public class Expression implements Serializable {
 
     /**
      * Evaluates the expression with the given values, this method will fail if
-     * {@link Expression#validate()} returns a {@link ValidationResult} different that
-     * {@link ValidationResult#SUCCESS}.<br><br>
-     * <i><b>Note:</b></i> future version will most likely fail on build, and not at this stage,
-     * this method will only fail if variables aren't set.
+     * {@link Expression#validate()} returns a {@link ValidationResult}
+     * different that {@link ValidationResult#SUCCESS}.<br><br>
+     * <i><b>Note:</b></i> future version will most likely fail on build, and
+     * not at this stage, this method will only fail if variables aren't set.
      *
      * @return result of the evaluation
      * @throws IllegalArgumentException if the expression isn't valid
      * @see Expression#validate()
      */
     public double evaluate() {
+        if (cacheResult && result != null) {
+            return result;
+        }
+
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
             if (null != t.getType()) switch (t.getType()) {
@@ -361,7 +388,7 @@ public class Expression implements Serializable {
             ));
         }
 
-        return output.pop();
+        return result = output.pop();
     }
 
     @Override
@@ -392,15 +419,14 @@ public class Expression implements Serializable {
     }
 
     private void checkVariablesSet(boolean checkVariablesSet, List<String> errors) {
-        if (checkVariablesSet) {
-            /* check that all vars have a value set */
-            for (VariableToken vt : variables.values()) {
-                if (!vt.isValueSet()) {
-                    errors.add(l10n(
-                            "The variable '%s' has not been set",
-                            vt.getName())
-                    );
-                }
+        if (!checkVariablesSet) {
+            return;
+        }
+
+        /* check that all vars have a value set */
+        for (VariableToken vt : variables.values()) {
+            if (!vt.isValueSet()) {
+                errors.add(l10n("The variable '%s' has not been set", vt.getName()));
             }
         }
     }

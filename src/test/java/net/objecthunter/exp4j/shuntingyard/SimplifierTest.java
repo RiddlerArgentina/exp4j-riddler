@@ -686,8 +686,6 @@ public class SimplifierTest {
 
     @Test
     public void testDeterministic2() {
-        System.setProperty("exp4j.simplify_enabled", "true");
-
         final String expression = "randd()";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);

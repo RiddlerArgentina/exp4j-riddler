@@ -1,4 +1,4 @@
-/* 
+/*
 * Copyright 2014 Frank Asseg
 *
 * Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,7 +11,7 @@
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
-* limitations under the License. 
+* limitations under the License.
 */
 package net.objecthunter.exp4j;
 
@@ -37,19 +37,16 @@ public class AsyncTests {
 
         for (int i = 0; i < numTests;i++) {
             correct1[i] = Math.sin(2*Math.PI/(i+1));
-            results1[i] = new ExpressionBuilder("sin(2pi/(n+1))")
-                    .variables("pi", "n")
+            results1[i] = new ExpressionBuilder("sin(2pi()/(n+1))")
+                    .variables("n")
                     .build()
-                    .setVariable("pi",Math.PI)
                     .setVariable("n", i)
                     .evaluateAsync(exec);
 
             correct2[i] = Math.log(Math.E * Math.PI * (i+1));
-            results2[i] = new ExpressionBuilder("log(epi(n+1))")
-                    .variables("pi", "n", "e")
+            results2[i] = new ExpressionBuilder("log(e()pi()(n+1))")
+                    .variables("n")
                     .build()
-                    .setVariable("pi",Math.PI)
-                    .setVariable("e", Math.E)
                     .setVariable("n", i)
                     .evaluateAsync(exec);
         }
