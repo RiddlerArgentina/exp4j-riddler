@@ -100,7 +100,7 @@ public final class Expression implements Serializable {
      * @return {@code true} if the result will be cached and {@code false}
      * otherwise
      */
-    boolean isCachingResult() {
+    protected boolean isCachingResult() {
         return cacheResult;
     }
 
