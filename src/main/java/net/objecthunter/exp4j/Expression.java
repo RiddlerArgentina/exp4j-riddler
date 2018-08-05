@@ -91,10 +91,14 @@ public class Expression implements Serializable {
         this.tokens = tokens;
         this.userFunctionNames = userFunctionNames;
         populateVariablesMap();
-        cacheResult = checkNonDeterministic(tokens);
+        cacheResult = checkNonDeterministic(tokens, userFunctionNames.length);
     }
 
-    private boolean checkNonDeterministic(Token[] tokens) {
+    private boolean checkNonDeterministic(Token[] tokens, int userFuncs) {
+        if (userFuncs == 0) {
+            return true;
+        }
+
         boolean status = false;
         for (Token t : tokens) {
             status |= (t.getType() == FUNCTION &&
