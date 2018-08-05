@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>net.objecthunter</groupId>
     <artifactId>exp4j</artifactId>
-    <version>0.9-riddler</version>
+    <version>1.0-riddler</version>
     <name>exp4j</name>
     <description>A fork of the original exp4j. A simple mathematical expression
                  evaluator for java.</description>
