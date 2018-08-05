@@ -392,15 +392,14 @@ public class Expression implements Serializable {
     }
 
     private void checkVariablesSet(boolean checkVariablesSet, List<String> errors) {
-        if (checkVariablesSet) {
-            /* check that all vars have a value set */
-            for (VariableToken vt : variables.values()) {
-                if (!vt.isValueSet()) {
-                    errors.add(l10n(
-                            "The variable '%s' has not been set",
-                            vt.getName())
-                    );
-                }
+        if (!checkVariablesSet) {
+            return;
+        }
+
+        /* check that all vars have a value set */
+        for (VariableToken vt : variables.values()) {
+            if (!vt.isValueSet()) {
+                errors.add(l10n("The variable '%s' has not been set", vt.getName()));
             }
         }
     }
