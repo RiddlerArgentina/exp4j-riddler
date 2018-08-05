@@ -200,4 +200,78 @@ public class ExpressionTest {
         Expression exp = new ExpressionBuilder("3 * ").variable("foo").build(true);
         exp.evaluate();
     }
+
+    @Test
+    public void testExpressions1() {
+        Expression res = new ExpressionBuilder("xxx")
+                            .variable("x").build(true);
+        for (int i = 0; i < 10; i++) {
+            double x = Math.random() * 20 - 10;
+            res.setVariable("x", x);
+            assertEquals(x*x*x, res.evaluate(), 0d);
+        }
+        assertTrue(res.isCachingResult());
+    }
+
+    @Test
+    public void testExpressions2() {
+        Expression res = new ExpressionBuilder("xyxy")
+                        .variables("x", "y").build(true);
+        for (int i = 0; i < 10; i++) {
+            double x = Math.random() * 20 - 10;
+            double y = Math.random() * 20 - 10;
+            res.setVariable("x", x);
+            res.setVariable("y", y);
+            assertEquals(x*y*x*y, res.evaluate(), 0d);
+        }
+        assertTrue(res.isCachingResult());
+    }
+
+    @Test
+    public void testCacheOn() {
+        Expression e1 = new ExpressionBuilder("xyxy").variables("xy").build();
+        Expression e2 = new ExpressionBuilder("xyxy").variables("xy").build(true);
+        Expression e3 = new ExpressionBuilder("xyxy").variables("x", "y").build();
+        Expression e4 = new ExpressionBuilder("xyxy").variables("x", "y").build(true);
+        Expression e5 = new ExpressionBuilder("sin(2)").build();
+        Expression e6 = new ExpressionBuilder("sin(x)").variables("x", "y").build();
+        assertTrue(e1.isCachingResult());
+        assertTrue(e2.isCachingResult());
+        assertTrue(e3.isCachingResult());
+        assertTrue(e4.isCachingResult());
+        assertTrue(e5.isCachingResult());
+        assertTrue(e6.isCachingResult());
+    }
+
+    @Test
+    public void testCacheOff() {
+        Expression e1 = new ExpressionBuilder("xyxy()").function(new Function("xyxy", 0) {
+            @Override
+            public double apply(double... args) {
+                return 0;
+            }
+        }).build();
+        Expression e2 = new ExpressionBuilder("xyxy()").function(new Function("xyxy", 0, false) {
+            @Override
+            public double apply(double... args) {
+                return 0;
+            }
+        }).build();
+        Expression e3 = new ExpressionBuilder("xyxy()").function(new Function("xyxy", 0) {
+            @Override
+            public double apply(double... args) {
+                return 0;
+            }
+        }).build(true);
+        Expression e4 = new ExpressionBuilder("xyxy()").function(new Function("xyxy", 0, false) {
+            @Override
+            public double apply(double... args) {
+                return 0;
+            }
+        }).build(true);
+        assertTrue (e1.isCachingResult());
+        assertFalse(e2.isCachingResult());
+        assertTrue (e3.isCachingResult());
+        assertFalse(e4.isCachingResult());
+    }
 }
