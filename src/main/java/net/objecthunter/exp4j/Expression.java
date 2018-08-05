@@ -56,7 +56,7 @@ public class Expression implements Serializable {
 
     private final Map<String, VariableToken> variables = new TreeMap<>();
 
-    public final boolean cacheResult;
+    private final boolean cacheResult;
 
     private Double result;
 
