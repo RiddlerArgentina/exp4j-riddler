@@ -116,7 +116,7 @@ public abstract class Function implements Serializable {
 
     /**
      * Tells if a function name is valid in the context of the expression.
-     * This means that it's not {@code null} or empty and it only contains
+     * This means that it's not {@code null} or empty, and it only contains
      * {@code ASCII} chars, {@code _} or digits.
      *
      * @param name name to test

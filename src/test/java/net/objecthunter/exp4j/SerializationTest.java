@@ -15,13 +15,8 @@
 */
 package net.objecthunter.exp4j;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectInput;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import java.io.*;
+
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 import org.junit.Test;
@@ -40,7 +35,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
     }
 
@@ -50,7 +45,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
         assertEquals(exp.evaluate(), 4, 1e-12);
     }
@@ -61,7 +56,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
         assertEquals(exp.evaluate(), 4, 1e-12);
     }
@@ -72,7 +67,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
     }
 
@@ -82,7 +77,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
     }
 
@@ -92,7 +87,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
         assertEquals(exp.evaluate(), 4, 1e-12);
     }
@@ -103,7 +98,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
         assertEquals(exp.evaluate(), 4, 1e-12);
     }
@@ -114,7 +109,7 @@ public class SerializationTest {
         byte[] bytes = toByteArray(exp);
         Expression exp1 = fromByteArray(bytes);
         assertNotNull(exp1);
-        assertFalse(exp == exp1);
+        assertNotSame(exp, exp1);
         assertEquals(exp.evaluate(), exp1.evaluate(), 1e-12);
         assertEquals(exp.evaluate(), 4, 1e-12);
     }
@@ -124,8 +119,6 @@ public class SerializationTest {
              ObjectOutput out = new ObjectOutputStream(bos)){
           out.writeObject(exp);
           return bos.toByteArray();
-        } catch (Exception e) {
-            throw e;
         }
     }
 
@@ -137,6 +130,7 @@ public class SerializationTest {
     }
 
     private static class OpCustom extends Operator {
+        @Serial
         private static final long serialVersionUID = -1761106184622718383L;
         public OpCustom() {
             super(":", 2, false, Operator.PRECEDENCE_ADDITION);
@@ -150,6 +144,7 @@ public class SerializationTest {
     }
 
     private static class FuncCustom extends Function {
+        @Serial
         private static final long serialVersionUID = -564878091215141197L;
         public FuncCustom() {
             super("myFunc", 2);

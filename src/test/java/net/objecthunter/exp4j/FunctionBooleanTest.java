@@ -562,6 +562,7 @@ public class FunctionBooleanTest {
         }
     }
 
+    @Test
     public void testOpAnd2() {
         String expr = "a && b";
 

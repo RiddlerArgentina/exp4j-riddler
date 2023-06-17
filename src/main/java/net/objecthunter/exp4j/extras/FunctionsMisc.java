@@ -134,7 +134,7 @@ public final class FunctionsMisc {
     public static final Function LCM = new LCM();
 
     /**
-     * Rounds to closest integer.
+     * Rounds to the closest integer.
      *
      * @see Functions#FLOOR
      * @see Functions#CEIL

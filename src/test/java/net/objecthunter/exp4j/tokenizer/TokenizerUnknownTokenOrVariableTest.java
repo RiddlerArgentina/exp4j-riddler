@@ -13,7 +13,7 @@ import org.junit.Test;
 public class TokenizerUnknownTokenOrVariableTest {
 
     @Test(expected = UnknownFunctionOrVariableException.class)
-    public void testTokenizationOfUnknownVariable() throws Exception {
+    public void testTokenizationOfUnknownVariable() {
         final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
         while (tokenizer.hasNext()) {
             tokenizer.nextToken();
@@ -21,7 +21,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test
-    public void testTokenizationOfUnknownVariable2() throws Exception {
+    public void testTokenizationOfUnknownVariable2() {
         try {
             final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
             while (tokenizer.hasNext()) {
@@ -35,7 +35,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test
-    public void testTokenizationOfUnknownVariable1Details() throws Exception {
+    public void testTokenizationOfUnknownVariable1Details() {
         final Tokenizer tokenizer = new Tokenizer("3 + x", null, null, null, true);
         tokenizer.nextToken(); // 3
         tokenizer.nextToken(); // +
@@ -51,7 +51,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test
-    public void testTokenizationOfUnknownVariable2Details() throws Exception {
+    public void testTokenizationOfUnknownVariable2Details() {
         final Tokenizer tokenizer = new Tokenizer("x + 3", null, null, null, true);
 
         try {
@@ -65,7 +65,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test(expected = UnknownFunctionOrVariableException.class)
-    public void testTokenizationOfUnknownFunction() throws Exception {
+    public void testTokenizationOfUnknownFunction() {
         final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null, true);
         while (tokenizer.hasNext()) {
             tokenizer.nextToken();
@@ -73,7 +73,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test
-    public void testTokenizationOfUnknownFunction1Details() throws Exception {
+    public void testTokenizationOfUnknownFunction1Details() {
 
         final Tokenizer tokenizer = new Tokenizer("3 + p(1)", null, null, null, true);
         tokenizer.nextToken(); // 3
@@ -90,7 +90,7 @@ public class TokenizerUnknownTokenOrVariableTest {
     }
 
     @Test
-    public void testTokenizationOfUnknownFunction2Details() throws Exception {
+    public void testTokenizationOfUnknownFunction2Details() {
 
         final Tokenizer tokenizer = new Tokenizer("p(1) + 3", null, null, null, true);
 

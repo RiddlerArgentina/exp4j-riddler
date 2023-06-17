@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 
 public class FunctionsTest {
     @Test(expected = IllegalArgumentException.class)
-    public void testFunctionNameNull() throws Exception {
+    public void testFunctionNameNull() {
         new Function(null) {
             @Override
             public double apply(double... args) {
@@ -36,7 +36,7 @@ public class FunctionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFunctionNameEmpty() throws Exception {
+    public void testFunctionNameEmpty() {
         new Function("") {
             @Override
             public double apply(double... args) {
@@ -46,7 +46,7 @@ public class FunctionsTest {
     }
 
     @Test
-    public void testFunctionNameZeroArgs() throws Exception {
+    public void testFunctionNameZeroArgs() {
         Function f = new Function("foo", 0) {
             @Override
             public double apply(double... args) {
@@ -57,7 +57,7 @@ public class FunctionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testFunctionNameNegativeArgs() throws Exception {
+    public void testFunctionNameNegativeArgs() {
         new Function("foo", -1) {
             @Override
             public double apply(double... args) {
@@ -67,7 +67,7 @@ public class FunctionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIllegalFunctionName1() throws Exception {
+    public void testIllegalFunctionName1() {
         new Function("1foo") {
             @Override
             public double apply(double... args) {
@@ -77,7 +77,7 @@ public class FunctionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIllegalFunctionName2() throws Exception {
+    public void testIllegalFunctionName2() {
         new Function("_&oo") {
             @Override
             public double apply(double... args) {
@@ -87,7 +87,7 @@ public class FunctionsTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testIllegalFunctionName3() throws Exception {
+    public void testIllegalFunctionName3() {
         new Function("o+o") {
             @Override
             public double apply(double... args) {

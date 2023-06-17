@@ -403,18 +403,18 @@ public class SimplifierTest {
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testOptimization9() throws Exception {
+    public void testOptimization9() {
         new ExpressionBuilder("1/0").build(true);
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testOptimization10() throws Exception {
+    public void testOptimization10() {
         Expression exp = new ExpressionBuilder("1/0").build();
         exp.evaluate();
     }
 
     @Test
-    public void testOptimization11() throws Exception {
+    public void testOptimization11() {
         final String expression = "log(0)";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -435,7 +435,7 @@ public class SimplifierTest {
     }
 
     @Test(expected = ArithmeticException.class)
-    public void testOptimization12() throws Exception {
+    public void testOptimization12() {
         final String expression = "1/0";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -454,29 +454,29 @@ public class SimplifierTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testOptimization13() throws Exception {
+    public void testOptimization13() {
         new ExpressionBuilder("pow(3,2,5)").build().evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testOptimization14() throws Exception {
+    public void testOptimization14() {
         Expression exp = new ExpressionBuilder("pow(3,2,5)").build();
         exp.evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testOptimization15() throws Exception {
+    public void testOptimization15() {
         new ExpressionBuilder("pow(3,2,5)").build(true).evaluate();
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testOptimization16() throws Exception {
+    public void testOptimization16() {
         Expression exp = new ExpressionBuilder("pow(3,2,5)").build(true);
         exp.evaluate();
     }
 
     @Test
-    public void testOptimization17() throws Exception {
+    public void testOptimization17() {
         final String expression = "1 > 2 & 3 < 4";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -515,7 +515,7 @@ public class SimplifierTest {
     }
 
     @Test
-    public void testOptimization18() throws Exception {
+    public void testOptimization18() {
         final String expression = "if(1 > 2 & 3 < 4, pi(), e())";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -556,7 +556,7 @@ public class SimplifierTest {
     }
 
     @Test
-    public void testOptimization19() throws Exception {
+    public void testOptimization19() {
         final String expression = "if(1 > a & 3 < 4, pi(), e())";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -601,7 +601,7 @@ public class SimplifierTest {
     }
 
     @Test
-    public void testOptimization20() throws Exception {
+    public void testOptimization20() {
         final String expression = "if(1 > 0 & 3 < 4, a * pi(), e())";
         final Map<String, Function> userFunctions = new HashMap<>(4);
         final Map<String, Operator> userOperators = new HashMap<>(4);
@@ -716,7 +716,7 @@ public class SimplifierTest {
         final double actual3  = exp2.evaluate();
 
         //Since the function is marked as 'deterministic' the optimization will
-        //replace it with it's value, so every time it's evaluated it should
+        //replace it with its value, so every time it's evaluated it should
         //return the same numeric value (This will not apply for different calls
         //in the same expression)
         assertNotEquals(expected, actual, 0d);

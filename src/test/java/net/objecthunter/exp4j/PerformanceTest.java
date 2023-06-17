@@ -26,38 +26,38 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public final class PerformanceTest {
-    private static final long BENCH_TIME = 2l;
+    private static final long BENCH_TIME = 2L;
     private static final String EXPRESSION = "log(x + y) - (2 + 1 - 1) * y * (sqrt(pow(x,cos(y))))";
 
     @Test
-    public void testBenches() throws Exception {
+    public void testBenches() {
         StringBuffer sb = new StringBuffer();
         Formatter fmt = new Formatter(sb);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
         fmt.format("| %-22s | %-25s | %-24s |%n", "Implementation", "Calculations per Second", "Percentage of Math");
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
-        System.out.print(sb.toString());
+        System.out.print(sb);
         sb.setLength(0);
 
         int math = benchJavaMath();
         math = benchJavaMath();
         double mathRate = (double) math / (double) BENCH_TIME;
         fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "Java Math", mathRate, 100f);
-        System.out.print(sb.toString());
+        System.out.print(sb);
         sb.setLength(0);
 
         int db = benchDouble();
         db = benchDouble();
         double dbRate = (double) db / (double) BENCH_TIME;
         fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "exp4j", dbRate, dbRate * 100 / mathRate);
-        System.out.print(sb.toString());
+        System.out.print(sb);
         sb.setLength(0);
 
         int sd = benchDoubleSimplify();
         sd = benchDoubleSimplify();
         double sdRate = (double) sd / (double) BENCH_TIME;
         fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "exp4j simplified", sdRate, sdRate * 100 / mathRate);
-        System.out.print(sb.toString());
+        System.out.print(sb);
         sb.setLength(0);
 
 //        int js = benchJavaScript();
@@ -66,7 +66,7 @@ public final class PerformanceTest {
 //        fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
         Assert.assertNotNull(sb.toString()); //Silence warning
-        System.out.print(sb.toString());
+        System.out.print(sb);
     }
 
     private int benchDoubleSimplify() {
@@ -75,8 +75,7 @@ public final class PerformanceTest {
                 .build(true);
         double val = 0;
         Random rnd = new Random();
-        long timeout = BENCH_TIME;
-        long time = System.nanoTime() + (1000000000 * timeout);
+        long time = System.nanoTime() + (1000000000 * BENCH_TIME);
         int count = 0;
         while (time > System.nanoTime()) {
             expression.setVariable("x", rnd.nextDouble());
@@ -94,8 +93,7 @@ public final class PerformanceTest {
                 .build();
         double val = 0;
         Random rnd = new Random();
-        long timeout = BENCH_TIME;
-        long time = System.nanoTime() + (1000000000 * timeout);
+        long time = System.nanoTime() + (1000000000 * BENCH_TIME);
         int count = 0;
         while (time > System.nanoTime()) {
             expression.setVariable("x", rnd.nextDouble());
@@ -107,8 +105,7 @@ public final class PerformanceTest {
     }
 
     private int benchJavaMath() {
-        long timeout = BENCH_TIME;
-        long time = System.nanoTime() + (1000000000 * timeout);
+        long time = System.nanoTime() + (1000000000 * BENCH_TIME);
         double x;
         double y;
         double val = 0;
@@ -126,7 +123,6 @@ public final class PerformanceTest {
     private int benchJavaScript() throws Exception {
         ScriptEngineManager mgr = new ScriptEngineManager();
         ScriptEngine engine = mgr.getEngineByName("JavaScript");
-        long timeout = BENCH_TIME;
         double x;
         double y;
         double val = 0;
@@ -136,8 +132,7 @@ public final class PerformanceTest {
             System.err.println("Unable to instantiate javascript engine. skipping naive JS bench.");
             return -1;
         } else {
-            long time = System.nanoTime() + (1000000000 * timeout);
-            count = 0;
+            long time = System.nanoTime() + (1000000000 * BENCH_TIME);
             engine.eval("function f(x, y) {return Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))))}");
             Invocable inv = (Invocable) engine;
             while (time > System.nanoTime()) {

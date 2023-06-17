@@ -110,7 +110,7 @@ public abstract class Operator implements Serializable {
     /**
      * Check if a character is an allowed operator char
      * @param ch the char to check
-     * @return true if the char is allowed an an operator symbol, false otherwise
+     * @return true if the char is allowed an operator symbol, false otherwise
      */
     public static boolean isAllowedOperatorChar(char ch) {
         for (char allowed: ALLOWED_OPERATOR_CHARS) {

@@ -46,7 +46,7 @@ public class DisableBuiltInTest {
     }
 
     @Test
-    public void testImplicitMulitplicationOnNumber() throws Exception {
+    public void testImplicitMultiplicationOnNumber() {
         Expression e = new ExpressionBuilder("var_12")
                 .variable("var_1")
                 .build()
@@ -55,7 +55,7 @@ public class DisableBuiltInTest {
     }
 
     @Test
-    public void testImplicitMulitplicationOnVariable() throws Exception {
+    public void testImplicitMultiplicationOnVariable() {
         Expression e = new ExpressionBuilder("var_1var_1")
                 .variable("var_1")
                 .build()
@@ -64,7 +64,7 @@ public class DisableBuiltInTest {
     }
 
     @Test
-    public void testImplicitMulitplicationOnParantheses() throws Exception {
+    public void testImplicitMultiplicationOnParentheses() {
         Expression e = new ExpressionBuilder("var_1(2)")
                 .variable("var_1")
                 .build()
@@ -73,7 +73,7 @@ public class DisableBuiltInTest {
     }
 
     @Test
-    public void testImplicitMulitplicationOnParantheses2() throws Exception {
+    public void testImplicitMultiplicationOnParentheses2() {
         Expression e = new ExpressionBuilder("(2)var_1")
                 .variable("var_1")
                 .build()
@@ -82,7 +82,7 @@ public class DisableBuiltInTest {
     }
 
     @Test
-    public void testImplicitMulitplicationOnFunction() throws Exception {
+    public void testImplicitMultiplicationOnFunction() {
         Expression e = new ExpressionBuilder("var_1log(2)")
                 .variable("var_1")
                 .build()

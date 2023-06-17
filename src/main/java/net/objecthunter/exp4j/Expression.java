@@ -172,7 +172,7 @@ public final class Expression implements Serializable {
      * be the name of a function.
      * All variables must be set before calling {@link Expression#evaluate()}
      *
-     * @param variables a {@code Map<String,Double>} containing all of the (name, value) pairs.
+     * @param variables a {@code Map<String,Double>} containing all the (name, value) pairs.
      * @return {@code this}
      * @throws IllegalArgumentException if the variable name is a function name or if the variable
      * doesn't exist at build time.

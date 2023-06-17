@@ -22,7 +22,7 @@ import static net.objecthunter.exp4j.operator.Operator.*;
 import static net.objecthunter.exp4j.utils.Text.l10n;
 
 /**
- * This class implements all of the built-in operators both arithmetic and
+ * This class implements all the built-in operators both arithmetic and
  * boolean.
  * <p>Boolean values will be treated as follows:</p><ol>
  * <li>if the absolute value is less than 1e-12 it will be considered

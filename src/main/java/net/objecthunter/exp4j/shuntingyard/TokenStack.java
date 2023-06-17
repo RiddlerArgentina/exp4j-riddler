@@ -51,7 +51,7 @@ final class TokenStack implements Serializable {
 
     void push(Token value) {
         if (idx + 1 == data.length) {
-            Token[] temp = new Token[(int) (data.length * 2) + 1];
+            Token[] temp = new Token[(data.length * 2) + 1];
             System.arraycopy(data, 0, temp, 0, data.length);
             data = temp;
         }

@@ -54,5 +54,5 @@ public enum TokenType {
     /**
      * Represents a function parameter delimiter
      */
-    SEPARATOR;
+    SEPARATOR
 }

@@ -26,7 +26,7 @@ import static net.objecthunter.exp4j.operator.Operator.PRECEDENCE_OR;
  * This class contains the implementation of comparison and equality operators.
  * <p>The returned values will always be 1.0 for {@code true} and 0.0 for
  * {@code false}.</p>
- * The precedence of this operators is as follows:<ul>
+ * The precedence of these operators is as follows:<ul>
  * <li>All comparison operators have the same precedence</li>
  * <li>Comparison operators have higher precedence than boolean operators</li>
  * <li>Comparison operators have lower precedence than arithmetic operators</li>
