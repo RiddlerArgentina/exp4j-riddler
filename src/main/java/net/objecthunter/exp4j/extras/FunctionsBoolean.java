@@ -19,6 +19,8 @@ import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.operator.Operators;
 
+import java.io.Serial;
+
 import static net.objecthunter.exp4j.operator.Operator.*;
 
 /**
@@ -190,18 +192,18 @@ public final class FunctionsBoolean {
      * @see FunctionsBoolean#TRUE
      */
     public static Function getFunction(final String name) {
-        switch (name) {
-            case "not"  : return NOT;
-            case "and"  : return AND;
-            case "or"   : return OR;
-            case "xor"  : return XOR;
-            case "nand" : return NAND;
-            case "nor"  : return NOR;
-            case "xnor" : return XNOR;
-            case "false": return FALSE;
-            case "true" : return TRUE;
-            default:      return null;
-        }
+        return switch (name) {
+            case "not"   -> NOT;
+            case "and"   -> AND;
+            case "or"    -> OR;
+            case "xor"   -> XOR;
+            case "nand"  -> NAND;
+            case "nor"   -> NOR;
+            case "xnor"  -> XNOR;
+            case "false" -> FALSE;
+            case "true"  -> TRUE;
+            default      -> null;
+        };
     }
 
     private FunctionsBoolean() {
@@ -209,6 +211,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Not extends Function {
+        @Serial
         private static final long serialVersionUID = 5548754689040328198L;
         Not() { super("not", 1); }
         @Override
@@ -218,6 +221,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class And extends Function {
+        @Serial
         private static final long serialVersionUID = 610825426695578129L;
         And() { super("and", 2); }
         @Override
@@ -229,6 +233,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Or extends Function {
+        @Serial
         private static final long serialVersionUID = -6688682627798315082L;
         Or() { super("or", 2); }
         @Override
@@ -240,6 +245,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Xor extends Function {
+        @Serial
         private static final long serialVersionUID = 9162299011098408477L;
         Xor() { super("xor", 2); }
         @Override
@@ -251,6 +257,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Nand extends Function {
+        @Serial
         private static final long serialVersionUID = -5696690796736889084L;
         Nand() { super("nand", 2); }
         @Override
@@ -262,6 +269,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Nor extends Function {
+        @Serial
         private static final long serialVersionUID = 7443039549525626711L;
         Nor() { super("nor", 2); }
         @Override
@@ -273,6 +281,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class Xnor extends Function {
+        @Serial
         private static final long serialVersionUID = -7602049045810375102L;
         Xnor() { super("xnor", 2); }
         @Override
@@ -284,6 +293,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class False extends Function {
+        @Serial
         private static final long serialVersionUID = 8888653636237556280L;
         False() { super("false", 0); }
         @Override
@@ -293,6 +303,7 @@ public final class FunctionsBoolean {
     }
 
     private static final class True extends Function {
+        @Serial
         private static final long serialVersionUID = -5934349523714582684L;
         True() { super("true", 0); }
         @Override

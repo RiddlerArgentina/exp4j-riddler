@@ -21,6 +21,8 @@ import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.utils.Text;
 
+import java.io.Serial;
+
 /**
  * This class contains a wrapper that allows creating expression based functions.
  *
@@ -35,6 +37,7 @@ import net.objecthunter.exp4j.utils.Text;
  * @since 0.8-riddler
  */
 public class FunctionExpresion extends Function {
+    @Serial
     private static final long serialVersionUID = -7343720821425746432L;
     private final Expression exp;
     private final String[] vars;

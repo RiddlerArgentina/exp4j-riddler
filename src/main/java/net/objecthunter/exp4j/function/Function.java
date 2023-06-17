@@ -16,6 +16,7 @@
 
 package net.objecthunter.exp4j.function;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import static net.objecthunter.exp4j.utils.Text.l10n;
@@ -24,6 +25,7 @@ import static net.objecthunter.exp4j.utils.Text.l10n;
  * A class representing a Function which can be used in an expression
  */
 public abstract class Function implements Serializable {
+    @Serial
     private static final long serialVersionUID = -4027601306719396290L;
 
     private final String name;
@@ -140,7 +142,7 @@ public abstract class Function implements Serializable {
             } else if (Character.isDigit(c) && i > 0) {
                 continue;
             }
-            status &= false;
+            status = false;
         }
         return status;
     }

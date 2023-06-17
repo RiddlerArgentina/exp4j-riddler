@@ -2,12 +2,15 @@ package net.objecthunter.exp4j.tokenizer;
 
 import net.objecthunter.exp4j.utils.Text;
 
+import java.io.Serial;
+
 /**
  * This exception is being thrown whenever {@link Tokenizer} finds unknown function or variable.
  *
  * @author Bartosz Firyn (sarxos)
  */
 public class UnknownFunctionOrVariableException extends IllegalArgumentException {
+    @Serial
     private static final long serialVersionUID = -8676624650883157470L;
 
     private final String message;

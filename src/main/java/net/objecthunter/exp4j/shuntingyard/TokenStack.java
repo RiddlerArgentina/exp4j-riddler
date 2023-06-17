@@ -15,6 +15,7 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.EmptyStackException;
 import net.objecthunter.exp4j.tokenizer.Token;
@@ -26,17 +27,18 @@ import net.objecthunter.exp4j.utils.Text;
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 final class TokenStack implements Serializable {
+    @Serial
     private static final long serialVersionUID = -511763000103618441L;
 
     private Token[] data;
 
     private int idx;
 
-    protected TokenStack() {
+    TokenStack() {
         this(32);
     }
 
-    protected TokenStack(int initialCapacity) {
+    TokenStack(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException(Text.l10n(
                     "Stack's capacity must be positive"
@@ -47,7 +49,7 @@ final class TokenStack implements Serializable {
         idx = -1;
     }
 
-    protected void push(Token value) {
+    void push(Token value) {
         if (idx + 1 == data.length) {
             Token[] temp = new Token[(int) (data.length * 2) + 1];
             System.arraycopy(data, 0, temp, 0, data.length);
@@ -57,29 +59,29 @@ final class TokenStack implements Serializable {
         data[++idx] = value;
     }
 
-    protected Token peek() {
+    Token peek() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx];
     }
 
-    protected Token pop() {
+    Token pop() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx--];
     }
 
-    protected boolean isEmpty() {
+    boolean isEmpty() {
         return idx == -1;
     }
 
-    protected int size() {
+    int size() {
         return idx + 1;
     }
 
-    protected Token[] toArray() {
+    Token[] toArray() {
         Token[] ret = new Token[idx + 1];
         System.arraycopy(data, 0, ret, 0, ret.length);
         return ret;

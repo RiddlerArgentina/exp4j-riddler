@@ -15,12 +15,14 @@
 */
 package net.objecthunter.exp4j.operator;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Class representing operators that can be used in an expression
  */
 public abstract class Operator implements Serializable {
+    @Serial
     private static final long serialVersionUID = -2212179357073818713L;
 
     /**

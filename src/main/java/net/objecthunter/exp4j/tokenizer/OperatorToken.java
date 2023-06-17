@@ -18,10 +18,13 @@ package net.objecthunter.exp4j.tokenizer;
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.utils.Text;
 
+import java.io.Serial;
+
 /**
  * Represents an {@link Operator}
  */
 public final class OperatorToken extends Token {
+    @Serial
     private static final long serialVersionUID = -3066884319239647929L;
 
     private final Operator operator;

@@ -15,6 +15,7 @@
  */
 package net.objecthunter.exp4j;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 import net.objecthunter.exp4j.function.Function;
@@ -33,7 +34,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
@@ -48,6 +48,7 @@ import static net.objecthunter.exp4j.utils.Text.l10n;
  */
 public final class Expression implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = -2510794384846712749L;
 
     private final Token[] tokens;
@@ -100,7 +101,7 @@ public final class Expression implements Serializable {
      * @return {@code true} if the result will be cached and {@code false}
      * otherwise
      */
-    protected boolean isCachingResult() {
+    boolean isCachingResult() {
         return cacheResult;
     }
 
@@ -230,23 +231,21 @@ public final class Expression implements Serializable {
         int count = 0;
         for (Token tok : tokens) {
             switch (tok.getType()) {
-                case NUMBER:
-                case VARIABLE:
-                    count++;
-                    break;
-                case FUNCTION:
+                case NUMBER, VARIABLE -> count++;
+                case FUNCTION         -> {
                     final Function func = ((FunctionToken) tok).getFunction();
                     final int argsNum = func.getNumArguments();
                     count = validateFunction(argsNum, count, errors, func);
-                    break;
-                case OPERATOR:
+                }
+                case OPERATOR         -> {
                     final Operator op = ((OperatorToken) tok).getOperator();
                     if (op.getNumOperands() == 2) {
                         count--;
                     }
-                    break;
-                default:
+                }
+                default -> {
                     //Do nothing
+                }
             }
             if (count < 1) {
                 errors.add(l10n("Too many operators"));
@@ -295,12 +294,7 @@ public final class Expression implements Serializable {
      * @see Expression#evaluate()
      */
     public Future<Double> evaluateAsync(ExecutorService executor) {
-        return executor.submit(new Callable<Double>() {
-            @Override
-            public Double call() throws Exception {
-                return evaluate();
-            }
-        });
+        return executor.submit(this::evaluate);
     }
 
     /**
@@ -321,63 +315,56 @@ public final class Expression implements Serializable {
 
         final ArrayStack output = new ArrayStack();
         for (Token t : tokens) {
-            if (null != t.getType()) switch (t.getType()) {
-                case NUMBER:
-                    output.push(((NumberToken) t).getValue());
-                    break;
-                case VARIABLE:
-                    final VariableToken vt = (VariableToken)t;
-
-                    if (!vt.isValueSet()) {
-                        throw new IllegalArgumentException(l10n(
-                            "No value has been set for variable '%s'", vt.getName()
-                        ));
+            if (null != t.getType()) {
+                switch (t.getType()) {
+                    case NUMBER   -> output.push(((NumberToken) t).getValue());
+                    case VARIABLE -> {
+                        final VariableToken vt = (VariableToken) t;
+                        if (!vt.isValueSet()) {
+                            throw new IllegalArgumentException(l10n(
+                                    "No value has been set for variable '%s'", vt.getName()
+                            ));
+                        }
+                        output.push(vt.getValue());
                     }
-
-                    output.push(vt.getValue());
-                    break;
-                case OPERATOR:
-                    final Operator op = ((OperatorToken) t).getOperator();
-
-                    if (output.size() < op.getNumOperands()) {
-                        throw new IllegalArgumentException(l10n(
-                            "Invalid number of operands available for '%s' operator",
-                            op.getSymbol()
-                        ));
+                    case OPERATOR -> {
+                        final Operator op = ((OperatorToken) t).getOperator();
+                        if (output.size() < op.getNumOperands()) {
+                            throw new IllegalArgumentException(l10n(
+                                    "Invalid number of operands available for '%s' operator",
+                                    op.getSymbol()
+                            ));
+                        }
+                        if (op.getNumOperands() == 2) {
+                            /* pop the operands and push the result of the operation */
+                            final double rightArg = output.pop();
+                            final double leftArg = output.pop();
+                            output.push(op.apply(leftArg, rightArg));
+                        } else if (op.getNumOperands() == 1) {
+                            /* pop the operand and push the result of the operation */
+                            final double arg = output.pop();
+                            output.push(op.apply(arg));
+                        }
                     }
-
-                    if (op.getNumOperands() == 2) {
-                        /* pop the operands and push the result of the operation */
-                        final double rightArg = output.pop();
-                        final double leftArg = output.pop();
-                        output.push(op.apply(leftArg, rightArg));
-                    } else if (op.getNumOperands() == 1) {
-                        /* pop the operand and push the result of the operation */
-                        final double arg = output.pop();
-                        output.push(op.apply(arg));
+                    case FUNCTION -> {
+                        final Function func = ((FunctionToken) t).getFunction();
+                        final int numArguments = func.getNumArguments();
+                        if (output.size() < numArguments) {
+                            throw new IllegalArgumentException(l10n(
+                                    "Invalid number of arguments available for '%s' function",
+                                    func.getName()
+                            ));
+                        }
+                        /* collect the arguments from the stack */
+                        final double[] args = new double[numArguments];
+                        for (int j = numArguments - 1; j >= 0; j--) {
+                            args[j] = output.pop();
+                        }
+                        output.push(func.apply(args));
                     }
-                    break;
-                case FUNCTION:
-                    final Function func = ((FunctionToken) t).getFunction();
-                    final int numArguments = func.getNumArguments();
-
-                    if (output.size() < numArguments) {
-                        throw new IllegalArgumentException(l10n(
-                            "Invalid number of arguments available for '%s' function",
-                            func.getName()
-                        ));
+                    default -> {
                     }
-                    /* collect the arguments from the stack */
-                    final double[] args = new double[numArguments];
-
-                    for (int j = numArguments - 1; j >= 0; j--) {
-                        args[j] = output.pop();
-                    }
-
-                    output.push(func.apply(args));
-                    break;
-                default:
-                    break;
+                }
             }
         }
 

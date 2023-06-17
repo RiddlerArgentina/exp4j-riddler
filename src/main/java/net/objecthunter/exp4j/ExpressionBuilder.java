@@ -239,7 +239,7 @@ public class ExpressionBuilder {
                 useBuiltInFunctions
         );
 
-        return new Expression(tokens, userFunctions.keySet().toArray(new String[userFunctions.size()]));
+        return new Expression(tokens, userFunctions.keySet().toArray(new String[0]));
     }
 
     @Override

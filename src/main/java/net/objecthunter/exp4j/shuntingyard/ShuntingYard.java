@@ -64,34 +64,26 @@ public final class ShuntingYard {
         while (tokenizer.hasNext()) {
             Token token = tokenizer.nextToken();
             switch (token.getType()) {
-            case NUMBER:
-            case VARIABLE:
-                output.push(token);
-                break;
-            case FUNCTION:
-                function(stack, token);
-                break;
-            case SEPARATOR:
-                separator(stack, output);
-                break;
-            case OPERATOR:
-                operator(stack, output, token);
-                stack.push(token);
-                break;
-            case PARENTHESES_OPEN:
-                stack.push(token);
-                break;
-            case PARENTHESES_CLOSE:
-                while (stack.peek().getType() != PARENTHESES_OPEN) {
-                    output.push(stack.pop());
+                case NUMBER, VARIABLE  -> output.push(token);
+                case FUNCTION          -> function(stack, token);
+                case SEPARATOR         -> separator(stack, output);
+                case OPERATOR          -> {
+                    operator(stack, output, token);
+                    stack.push(token);
                 }
-                stack.pop();
-                if (!stack.isEmpty() && stack.peek().getType() == FUNCTION) {
-                    output.push(stack.pop());
+                case PARENTHESES_OPEN  -> stack.push(token);
+                case PARENTHESES_CLOSE -> {
+                    while (stack.peek().getType() != PARENTHESES_OPEN) {
+                        output.push(stack.pop());
+                    }
+                    stack.pop();
+                    if (!stack.isEmpty() && stack.peek().getType() == FUNCTION) {
+                        output.push(stack.pop());
+                    }
                 }
-                break;
-            default:
-                //Do nothing
+                default -> {
+                    //Do nothing
+                }
             }
         }
 
