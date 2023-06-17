@@ -16,11 +16,13 @@
 package net.objecthunter.exp4j.operator;
 
 
+import java.io.Serial;
+
 import static net.objecthunter.exp4j.operator.Operator.*;
 import static net.objecthunter.exp4j.utils.Text.l10n;
 
 /**
- * This class implements all of the built-in operators both arithmetic and
+ * This class implements all the built-in operators both arithmetic and
  * boolean.
  * <p>Boolean values will be treated as follows:</p><ol>
  * <li>if the absolute value is less than 1e-12 it will be considered
@@ -114,6 +116,7 @@ public final class Operators {
     }
 
     private static final class OpAdd extends Operator {
+        @Serial
         private static final long serialVersionUID = -6902781239333016448L;
         OpAdd() { super("+", 2, true, PRECEDENCE_ADDITION); }
         @Override
@@ -123,6 +126,7 @@ public final class Operators {
     }
 
     private static final class OpAddUnary extends Operator {
+        @Serial
         private static final long serialVersionUID = 793924203719717929L;
         OpAddUnary() { super("+", 1, false, PRECEDENCE_UNARY_PLUS); }
         @Override
@@ -132,6 +136,7 @@ public final class Operators {
     }
 
     private static final class OpMinus extends Operator {
+        @Serial
         private static final long serialVersionUID = -3511523899514942407L;
         OpMinus() { super("-", 2, true, PRECEDENCE_ADDITION); }
         @Override
@@ -141,6 +146,7 @@ public final class Operators {
     }
 
     private static final class OpMinusUnary extends Operator {
+        @Serial
         private static final long serialVersionUID = -887228242398619895L;
         OpMinusUnary() { super("-", 1, false, PRECEDENCE_UNARY_MINUS); }
         @Override
@@ -150,6 +156,7 @@ public final class Operators {
     }
 
     private static final class OpMultiply extends Operator {
+        @Serial
         private static final long serialVersionUID = 604402774847173166L;
         OpMultiply() { super("*", 2, true, PRECEDENCE_MULTIPLICATION); }
         @Override
@@ -159,6 +166,7 @@ public final class Operators {
     }
 
     private static final class OpDivide extends Operator {
+        @Serial
         private static final long serialVersionUID = -1687653461890168296L;
         OpDivide() { super("/", 2, true, PRECEDENCE_DIVISION); }
         @Override
@@ -171,6 +179,7 @@ public final class Operators {
     }
 
     private static final class OpPower extends Operator {
+        @Serial
         private static final long serialVersionUID = 8176172587258190827L;
         OpPower() { super("^", 2, false, PRECEDENCE_POWER); }
         @Override
@@ -180,6 +189,7 @@ public final class Operators {
     }
 
     private static final class OpModulo extends Operator {
+        @Serial
         private static final long serialVersionUID = -8657864901943257599L;
         OpModulo() { super("%", 2, true, PRECEDENCE_MODULO); }
         @Override
@@ -192,6 +202,7 @@ public final class Operators {
     }
 
     private static final class OpAnd extends Operator {
+        @Serial
         private static final long serialVersionUID = 7730531744867276402L;
         OpAnd() { super("&", 2, true, PRECEDENCE_AND); }
         @Override
@@ -203,6 +214,7 @@ public final class Operators {
     }
 
     private static final class OpOr extends Operator {
+        @Serial
         private static final long serialVersionUID = 4652717701575702240L;
         OpOr() { super("|", 2, true, PRECEDENCE_OR); }
         @Override
@@ -214,6 +226,7 @@ public final class Operators {
     }
 
     private static final class OpNot extends Operator {
+        @Serial
         private static final long serialVersionUID = -8848717292894659390L;
         OpNot() { super("¬", 1, false, PRECEDENCE_NOT); }
         @Override
@@ -223,6 +236,7 @@ public final class Operators {
     }
 
     private static final class OpFactorial extends Operator {
+        @Serial
         private static final long serialVersionUID = 9103176758714614115L;
         OpFactorial() { super("!", 1, true, Operator.PRECEDENCE_POWER + 1); }
         @Override

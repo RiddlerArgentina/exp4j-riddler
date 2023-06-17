@@ -15,6 +15,8 @@
 */
 package net.objecthunter.exp4j.function;
 
+import java.io.Serial;
+
 /**
  * Class representing the builtin functions available for use in expressions
  */
@@ -220,37 +222,37 @@ public final class Functions {
      * @see Functions#E
      */
     public static Function getBuiltinFunction(final String name) {
-        switch (name) {
-            case "sin":   return SIN;
-            case "cos":   return COS;
-            case "tan":   return TAN;
-            case "asin":  return ASIN;
-            case "acos":  return ACOS;
-            case "atan":  return ATAN;
-            case "sinh":  return SINH;
-            case "cosh":  return COSH;
-            case "tanh":  return TANH;
-            case "abs":   return ABS;
-            case "log":   return LOG;
-            case "log10": return LOG10;
-            case "log2":  return LOG2;
-            case "log1p": return LOG1P;
-            case "ceil":  return CEIL;
-            case "floor": return FLOOR;
-            case "sqrt":  return SQRT;
-            case "cbrt":  return CBRT;
-            case "pow":   return POW;
-            case "exp":   return EXP;
-            case "expm1": return EXPM1;
-            case "signum":return SGN;
-            case "pi":    return PI;
-            case "e":     return E;
-            default:
-                return null;
-        }
+        return switch (name) {
+            case "sin"    -> SIN;
+            case "cos"    -> COS;
+            case "tan"    -> TAN;
+            case "asin"   -> ASIN;
+            case "acos"   -> ACOS;
+            case "atan"   -> ATAN;
+            case "sinh"   -> SINH;
+            case "cosh"   -> COSH;
+            case "tanh"   -> TANH;
+            case "abs"    -> ABS;
+            case "log"    -> LOG;
+            case "log10"  -> LOG10;
+            case "log2"   -> LOG2;
+            case "log1p"  -> LOG1P;
+            case "ceil"   -> CEIL;
+            case "floor"  -> FLOOR;
+            case "sqrt"   -> SQRT;
+            case "cbrt"   -> CBRT;
+            case "pow"    -> POW;
+            case "exp"    -> EXP;
+            case "expm1"  -> EXPM1;
+            case "signum" -> SGN;
+            case "pi"     -> PI;
+            case "e"      -> E;
+            default       -> null;
+        };
     }
 
     private static final class Sin extends Function {
+        @Serial
         private static final long serialVersionUID = -2914815912624930172L;
         Sin() { super("sin"); }
         @Override
@@ -260,6 +262,7 @@ public final class Functions {
     }
 
     private static final class Cos extends Function {
+        @Serial
         private static final long serialVersionUID = -8597756339516016820L;
         Cos() { super("cos"); }
         @Override
@@ -269,6 +272,7 @@ public final class Functions {
     }
 
     private static final class Tan extends Function {
+        @Serial
         private static final long serialVersionUID = -8768547215015498527L;
         Tan() { super("tan"); }
         @Override
@@ -278,6 +282,7 @@ public final class Functions {
     }
 
     private static final class Log extends Function {
+        @Serial
         private static final long serialVersionUID = 2780592577805165247L;
         Log() { super("log"); }
         @Override
@@ -287,6 +292,7 @@ public final class Functions {
     }
 
     private static final class Log2 extends Function {
+        @Serial
         private static final long serialVersionUID = -440311464566044720L;
         Log2() { super("log2"); }
         @Override
@@ -296,6 +302,7 @@ public final class Functions {
     }
 
     private static final class Log10 extends Function {
+        @Serial
         private static final long serialVersionUID = 4939208624837474082L;
         Log10() { super("log10"); }
         @Override
@@ -305,6 +312,7 @@ public final class Functions {
     }
 
     private static final class Log1p extends Function {
+        @Serial
         private static final long serialVersionUID = 8955502126364713001L;
         Log1p() { super("log1p"); }
         @Override
@@ -314,6 +322,7 @@ public final class Functions {
     }
 
     private static final class Abs extends Function {
+        @Serial
         private static final long serialVersionUID = 3561065212490216039L;
         Abs() { super("abs"); }
         @Override
@@ -323,6 +332,7 @@ public final class Functions {
     }
 
     private static final class ACos extends Function {
+        @Serial
         private static final long serialVersionUID = 2254051679608503250L;
         ACos() { super("acos"); }
         @Override
@@ -332,6 +342,7 @@ public final class Functions {
     }
 
     private static final class ASin extends Function {
+        @Serial
         private static final long serialVersionUID = -326395111700221980L;
         ASin() { super("asin"); }
         @Override
@@ -341,6 +352,7 @@ public final class Functions {
     }
 
     private static final class ATan extends Function {
+        @Serial
         private static final long serialVersionUID = -7050692574354752375L;
         ATan() { super("atan"); }
         @Override
@@ -350,6 +362,7 @@ public final class Functions {
     }
 
     private static final class CBRT extends Function {
+        @Serial
         private static final long serialVersionUID = 2299685413091396681L;
         CBRT() { super("cbrt"); }
         @Override
@@ -359,6 +372,7 @@ public final class Functions {
     }
 
     private static final class Floor extends Function {
+        @Serial
         private static final long serialVersionUID = 2356850441515448860L;
         Floor() { super("floor"); }
         @Override
@@ -368,6 +382,7 @@ public final class Functions {
     }
 
     private static final class Sinh extends Function {
+        @Serial
         private static final long serialVersionUID = -8338824383285606826L;
         Sinh() { super("sinh"); }
         @Override
@@ -377,6 +392,7 @@ public final class Functions {
     }
 
     private static final class Tanh extends Function {
+        @Serial
         private static final long serialVersionUID = -1652041817305063164L;
         Tanh() { super("tanh"); }
         @Override
@@ -386,6 +402,7 @@ public final class Functions {
     }
 
     private static final class Cosh extends Function {
+        @Serial
         private static final long serialVersionUID = 1997312144944632975L;
         Cosh() { super("cosh"); }
         @Override
@@ -395,6 +412,7 @@ public final class Functions {
     }
 
     private static final class Ceil extends Function {
+        @Serial
         private static final long serialVersionUID = -7245919541022618316L;
         Ceil() { super("ceil"); }
         @Override
@@ -404,6 +422,7 @@ public final class Functions {
     }
 
     private static final class Sqrt extends Function {
+        @Serial
         private static final long serialVersionUID = 398483995880506177L;
         Sqrt() { super("sqrt"); }
         @Override
@@ -413,6 +432,7 @@ public final class Functions {
     }
 
     private static final class Pow extends Function {
+        @Serial
         private static final long serialVersionUID = -3555626505791838799L;
         Pow() { super("pow", 2); }
         @Override
@@ -422,6 +442,7 @@ public final class Functions {
     }
 
     private static final class Exp extends Function {
+        @Serial
         private static final long serialVersionUID = 2154874773418461840L;
         Exp() { super("exp"); }
         @Override
@@ -431,6 +452,7 @@ public final class Functions {
     }
 
     private static final class Expm1 extends Function {
+        @Serial
         private static final long serialVersionUID = -7746496058083268582L;
         Expm1() { super("expm1"); }
         @Override
@@ -440,6 +462,7 @@ public final class Functions {
     }
 
     private static final class Signum extends Function {
+        @Serial
         private static final long serialVersionUID = -5814745953179606422L;
         Signum() { super("signum"); }
         @Override
@@ -455,6 +478,7 @@ public final class Functions {
     }
 
     private static final class Pi extends Function {
+        @Serial
         private static final long serialVersionUID = -3698084286493723333L;
         Pi () { super("pi", 0); }
         @Override
@@ -464,6 +488,7 @@ public final class Functions {
     }
 
     private static final class E extends Function {
+        @Serial
         private static final long serialVersionUID = 8712470987230587412L;
         E() { super("e", 0); }
         @Override

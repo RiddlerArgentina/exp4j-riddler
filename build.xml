@@ -4,7 +4,7 @@
     <property name="main.src.dir"   value="src/main/java"/>
     <property name="doc.dir"        value="doc"/>
     <property name="jar.dir"        value="dist"/>
-    <property name="proj.ver"       value ="1.0-riddler"/>
+    <property name="proj.ver"       value ="1.1-riddler"/>
 
     <target name="compile">
         <mkdir dir="${main.build.dir}"/>
@@ -24,7 +24,7 @@
                <exclude name="**/*.java"/>
             </fileset>
         </copy>
-        <jar destfile="${jar.dir}/${ant.project.name}-${proj.ver}.jar" basedir="${main.build.dir}"></jar>
+        <jar destfile="${jar.dir}/${ant.project.name}-${proj.ver}.jar" basedir="${main.build.dir}"/>
     </target>
 
     <target name="clean-build" depends="clean,jar"/>

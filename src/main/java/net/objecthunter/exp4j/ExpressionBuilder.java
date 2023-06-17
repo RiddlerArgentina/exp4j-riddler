@@ -64,7 +64,7 @@ public class ExpressionBuilder {
     }
 
     /**
-     * Removes all of the built-in functions
+     * Removes all the built-in functions
      * @return the ExpressionBuilder instance
      */
     public ExpressionBuilder disableBuiltInFunctions() {
@@ -119,8 +119,8 @@ public class ExpressionBuilder {
      * operator characters
      */
     public ExpressionBuilder variables(Set<String> variableNames) {
-        for (String vname : variableNames) {
-            variable(vname);
+        for (String variableName : variableNames) {
+            variable(variableName);
         }
         return this;
     }
@@ -135,8 +135,8 @@ public class ExpressionBuilder {
      * operator characters
      */
     public ExpressionBuilder variables(String ... variableNames) {
-        for (String vname : variableNames) {
-            variable(vname);
+        for (String variableName : variableNames) {
+            variable(variableName);
         }
         return this;
     }
@@ -239,7 +239,7 @@ public class ExpressionBuilder {
                 useBuiltInFunctions
         );
 
-        return new Expression(tokens, userFunctions.keySet().toArray(new String[userFunctions.size()]));
+        return new Expression(tokens, userFunctions.keySet().toArray(new String[0]));
     }
 
     @Override
@@ -247,8 +247,8 @@ public class ExpressionBuilder {
         return expression;
     }
 
-    private static void checkVariableName(String vname) throws IllegalArgumentException {
-        if (VAR_NAME_PATTERN.matcher(vname).matches()) {
+    private static void checkVariableName(String variableName) throws IllegalArgumentException {
+        if (VAR_NAME_PATTERN.matcher(variableName).matches()) {
             throw new IllegalArgumentException(l10n("Variable names can't contain non ASCII letters"));
         }
     }

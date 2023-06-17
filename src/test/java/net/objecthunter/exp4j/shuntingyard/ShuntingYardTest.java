@@ -15,22 +15,22 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
-import static net.objecthunter.exp4j.TestUtil.*;
-
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.tokenizer.Token;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import static net.objecthunter.exp4j.TestUtil.*;
 
 public class ShuntingYardTest {
 
     @Test
-    public void testShuntingYard1() throws Exception {
+    public void testShuntingYard1() {
         String expression = "2+3";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 2d);
@@ -39,16 +39,16 @@ public class ShuntingYardTest {
     }
 
     @Test
-    public void testShuntingYard2() throws Exception {
+    public void testShuntingYard2() {
         String expression = "3*x";
-        Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, new HashSet<>(Arrays.asList("x")), true);
+        Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, new HashSet<>(List.of("x")), true);
         assertNumberToken(tokens[0], 3d);
         assertVariableToken(tokens[1], "x");
         assertOperatorToken(tokens[2], "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
     }
 
     @Test
-    public void testShuntingYard3() throws Exception {
+    public void testShuntingYard3() {
         String expression = "-3";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 3d);
@@ -56,7 +56,7 @@ public class ShuntingYardTest {
     }
 
     @Test
-    public void testShuntingYard4() throws Exception {
+    public void testShuntingYard4() {
         String expression = "-2^2";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 2d);
@@ -66,7 +66,7 @@ public class ShuntingYardTest {
     }
 
     @Test
-    public void testShuntingYard5() throws Exception {
+    public void testShuntingYard5() {
         String expression = "2^-2";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 2d);
@@ -74,8 +74,9 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[2], "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
         assertOperatorToken(tokens[3], "^", 2, Operator.PRECEDENCE_POWER);
     }
+
     @Test
-    public void testShuntingYard6() throws Exception {
+    public void testShuntingYard6() {
         String expression = "2^---+2";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 2d);
@@ -86,8 +87,9 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[5], "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
         assertOperatorToken(tokens[6], "^", 2, Operator.PRECEDENCE_POWER);
     }
+
     @Test
-    public void testShuntingYard7() throws Exception {
+    public void testShuntingYard7() {
         String expression = "2^-2!";
         Operator factorial = new Operator("!", 1, true, Operator.PRECEDENCE_POWER + 1) {
 
@@ -118,7 +120,7 @@ public class ShuntingYardTest {
     }
 
     @Test
-    public void testShuntingYard8() throws Exception {
+    public void testShuntingYard8() {
         String expression = "-3^2";
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, null, true);
         assertNumberToken(tokens[0], 3d);
@@ -128,7 +130,7 @@ public class ShuntingYardTest {
     }
 
     @Test
-    public void testShuntingYard9() throws Exception {
+    public void testShuntingYard9() {
         Operator reciprocal = new Operator("$", 1, true, Operator.PRECEDENCE_DIVISION) {
             @Override
             public double apply(final double... args) {
@@ -145,19 +147,19 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[1], "$", 1, Operator.PRECEDENCE_DIVISION);
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testIssue88() throws Exception {
+    @Test
+    public void testIssue88() {
         //https://github.com/fasseg/exp4j/issues/88
         String expression = "sincos(x)";
-        HashSet<String> vars = new HashSet<>(Arrays.asList("x"));
-        ShuntingYard.convertToRPN(false, expression, null, null, vars, true);
+        HashSet<String> vars = new HashSet<>(List.of("x"));
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> ShuntingYard.convertToRPN(false, expression, null, null, vars, true));
     }
 
     @Test
-    public void testIssue88_2() throws Exception {
+    public void testIssue88_2() {
         //https://github.com/fasseg/exp4j/issues/88
         String expression = "sin(cos(x))";
-        HashSet<String> vars = new HashSet<>(Arrays.asList("x"));
+        HashSet<String> vars = new HashSet<>(List.of("x"));
         Token[] tokens = ShuntingYard.convertToRPN(false, expression, null, null, vars, true);
         assertVariableToken(tokens[0], "x");
         assertFunctionToken(tokens[1], "cos", 1);

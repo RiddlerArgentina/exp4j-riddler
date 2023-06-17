@@ -15,24 +15,21 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
-import java.util.EmptyStackException;
 import net.objecthunter.exp4j.tokenizer.FunctionToken;
 import net.objecthunter.exp4j.tokenizer.NumberToken;
 import net.objecthunter.exp4j.tokenizer.Token;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import java.util.EmptyStackException;
 
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class TokenStackTest {
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructor() {
-        new TokenStack(-1);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> new TokenStack(-1));
     }
 
     @Test
@@ -43,7 +40,7 @@ public class TokenStackTest {
         stack.push(new NumberToken(2));
         stack.push(new NumberToken(3));
 
-        assertEquals(3, stack.size());
+        Assertions.assertEquals(3, stack.size());
     }
 
     @Test
@@ -54,7 +51,7 @@ public class TokenStackTest {
             stack.push(new NumberToken(i));
         }
 
-        assertEquals(5, stack.size());
+        Assertions.assertEquals(5, stack.size());
     }
 
     @Test
@@ -66,9 +63,9 @@ public class TokenStackTest {
             stack.push(last);
         }
 
-        assertEquals(last, stack.peek());
-        assertEquals(last, stack.peek());
-        assertEquals(last, stack.peek());
+        Assertions.assertEquals(last, stack.peek());
+        Assertions.assertEquals(last, stack.peek());
+        Assertions.assertEquals(last, stack.peek());
     }
 
     @Test
@@ -77,17 +74,17 @@ public class TokenStackTest {
         Token old = new NumberToken(-1);
         stack.push(old);
         for (int i = 0; i < 5; i++) {
-            assertEquals(old, stack.peek());
+            Assertions.assertEquals(old, stack.peek());
             old = new NumberToken(i);
             stack.push(old);
-            assertEquals(old, stack.peek());
+            Assertions.assertEquals(old, stack.peek());
         }
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPeekNoData() {
         TokenStack stack = new TokenStack(5);
-        stack.peek();
+        Assertions.assertThrowsExactly(EmptyStackException.class, stack::peek);
     }
 
     @Test
@@ -98,28 +95,29 @@ public class TokenStackTest {
             stack.push(new NumberToken(i));
         }
 
-        assertEquals(5, stack.size());
-        assertFalse(stack.isEmpty());
-        
+        Assertions.assertEquals(5, stack.size());
+        Assertions.assertFalse(stack.isEmpty());
+
         while (!stack.isEmpty()) {
             stack.pop();
         }
-        
-        assertEquals(0, stack.size());
-        assertTrue(stack.isEmpty());
+
+        Assertions.assertEquals(0, stack.size());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPop2() {
         TokenStack stack = new TokenStack(5);
 
         for (int i = 0; i < 5; i++) {
             stack.push(new NumberToken(i));
         }
-
-        while (true) {
-            stack.pop();
-        }
+        Assertions.assertThrowsExactly(EmptyStackException.class, () -> {
+            while (true) {
+                stack.pop();
+            }
+        });
     }
 
     @Test
@@ -129,52 +127,52 @@ public class TokenStackTest {
         for (int i = 0; i < 5; i++) {
             NumberToken foo = new NumberToken(i);
             stack.push(foo);
-            assertEquals(1, stack.size());
-            assertEquals(foo, stack.pop());
+            Assertions.assertEquals(1, stack.size());
+            Assertions.assertEquals(foo, stack.pop());
         }
 
-        assertEquals(0, stack.size());
-        assertTrue(stack.isEmpty());
+        Assertions.assertEquals(0, stack.size());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPopNoData() {
         TokenStack stack = new TokenStack(5);
-        stack.pop();
+        Assertions.assertThrowsExactly(EmptyStackException.class, stack::pop);
     }
 
     @Test
     public void testIsEmpty() {
         TokenStack stack = new TokenStack(5);
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
         stack.push(new FunctionToken(null));
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.push(new FunctionToken(null));
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.push(new FunctionToken(null));
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.pop();
         stack.pop();
         stack.pop();
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
         stack.push(new FunctionToken(null));
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.peek();
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.pop();
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
     @Test
     public void testSize() {
         TokenStack stack = new TokenStack(5);
-        assertEquals(0, stack.size());
+        Assertions.assertEquals(0, stack.size());
         stack.push(new FunctionToken(null));
-        assertEquals(1, stack.size());
+        Assertions.assertEquals(1, stack.size());
         stack.peek();
-        assertEquals(1, stack.size());
+        Assertions.assertEquals(1, stack.size());
         stack.pop();
-        assertEquals(0, stack.size());
+        Assertions.assertEquals(0, stack.size());
     }
 
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2015-2018 Federico Vera
+ * Copyright 2015-2023 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package net.objecthunter.exp4j;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.EmptyStackException;
 import net.objecthunter.exp4j.utils.Text;
@@ -27,17 +28,18 @@ import net.objecthunter.exp4j.utils.Text;
  */
 final class ArrayStack implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1922104850295923845L;
 
     private double[] data;
 
     private int idx;
 
-    protected ArrayStack() {
+    ArrayStack() {
         this(5);
     }
 
-    protected ArrayStack(int initialCapacity) {
+    ArrayStack(int initialCapacity) {
         if (initialCapacity <= 0) {
             throw new IllegalArgumentException(
                 Text.l10n("Stack's capacity must be positive")
@@ -48,7 +50,7 @@ final class ArrayStack implements Serializable {
         idx = -1;
     }
 
-    protected void push(double value) {
+    void push(double value) {
         if (idx + 1 == data.length) {
             double[] temp = new double[(int) (data.length * 1.2) + 1];
             System.arraycopy(data, 0, temp, 0, data.length);
@@ -58,25 +60,25 @@ final class ArrayStack implements Serializable {
         data[++idx] = value;
     }
 
-    protected double peek() {
+    double peek() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx];
     }
 
-    protected double pop() {
+    double pop() {
         if (idx == -1) {
             throw new EmptyStackException();
         }
         return data[idx--];
     }
 
-    protected boolean isEmpty() {
+    boolean isEmpty() {
         return idx == -1;
     }
 
-    protected int size() {
+    int size() {
         return idx + 1;
     }
 }

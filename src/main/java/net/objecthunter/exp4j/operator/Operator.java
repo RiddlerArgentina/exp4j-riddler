@@ -15,12 +15,14 @@
 */
 package net.objecthunter.exp4j.operator;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Class representing operators that can be used in an expression
  */
 public abstract class Operator implements Serializable {
+    @Serial
     private static final long serialVersionUID = -2212179357073818713L;
 
     /**
@@ -108,7 +110,7 @@ public abstract class Operator implements Serializable {
     /**
      * Check if a character is an allowed operator char
      * @param ch the char to check
-     * @return true if the char is allowed an an operator symbol, false otherwise
+     * @return true if the char is allowed an operator symbol, false otherwise
      */
     public static boolean isAllowedOperatorChar(char ch) {
         for (char allowed: ALLOWED_OPERATOR_CHARS) {

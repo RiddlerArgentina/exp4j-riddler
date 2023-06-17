@@ -15,10 +15,13 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serial;
+
 /**
  * Represents an argument separator in functions i.e: ','
  */
 public final class ArgumentSeparatorToken extends Token {
+    @Serial
     private static final long serialVersionUID = -8983498158734385824L;
 
     /**

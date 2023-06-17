@@ -17,6 +17,8 @@ package net.objecthunter.exp4j.extras;
 
 import net.objecthunter.exp4j.operator.Operator;
 
+import java.io.Serial;
+
 import static net.objecthunter.exp4j.operator.Operator.PRECEDENCE_ADDITION;
 import static net.objecthunter.exp4j.operator.Operator.PRECEDENCE_OR;
 
@@ -24,7 +26,7 @@ import static net.objecthunter.exp4j.operator.Operator.PRECEDENCE_OR;
  * This class contains the implementation of comparison and equality operators.
  * <p>The returned values will always be 1.0 for {@code true} and 0.0 for
  * {@code false}.</p>
- * The precedence of this operators is as follows:<ul>
+ * The precedence of these operators is as follows:<ul>
  * <li>All comparison operators have the same precedence</li>
  * <li>Comparison operators have higher precedence than boolean operators</li>
  * <li>Comparison operators have lower precedence than arithmetic operators</li>
@@ -134,7 +136,7 @@ public final class OperatorsComparison {
     }
 
     /**
-     * Retrieves an operator by it's symbol.
+     * Retrieves an operator by its symbol.
      *
      * @param symbol Operator symbol
      * @return Operator corresponding to this symbol, or {@code null} if the
@@ -148,16 +150,15 @@ public final class OperatorsComparison {
      * @see OperatorsComparison#OP_NEQ
      */
     public static Operator getOperator(final String symbol) {
-        switch(symbol) {
-            case ">":  return OP_GT;
-            case ">=": return OP_GOE;
-            case "<":  return OP_LT;
-            case "<=": return OP_LOE;
-            case "==": return OP_EQU;
-            case "!=": return OP_NEQ;
-            default:
-                return null;
-        }
+        return switch (symbol) {
+            case ">"  -> OP_GT;
+            case ">=" -> OP_GOE;
+            case "<"  -> OP_LT;
+            case "<=" -> OP_LOE;
+            case "==" -> OP_EQU;
+            case "!=" -> OP_NEQ;
+            default   -> null;
+        };
     }
 
     private OperatorsComparison() {
@@ -165,6 +166,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpGT extends Operator {
+        @Serial
         private static final long serialVersionUID = -3577940809939988953L;
         OpGT() { super(">", 2, true, PRECEDENCE_COMPARISON); }
         @Override
@@ -176,6 +178,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpGOE extends Operator {
+        @Serial
         private static final long serialVersionUID = 4458035942461875803L;
         OpGOE() { super(">=", 2, true, PRECEDENCE_COMPARISON); }
         @Override
@@ -187,6 +190,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpLT extends Operator {
+        @Serial
         private static final long serialVersionUID = -1309870683874217267L;
         OpLT() { super("<", 2, false, PRECEDENCE_COMPARISON); }
         @Override
@@ -198,6 +202,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpLOE extends Operator {
+        @Serial
         private static final long serialVersionUID = 7679772268080021230L;
         OpLOE() { super("<=", 2, false, PRECEDENCE_COMPARISON); }
         @Override
@@ -209,6 +214,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpEqu extends Operator {
+        @Serial
         private static final long serialVersionUID = 7987791934260015206L;
         OpEqu() { super("==", 2, true, PRECEDENCE_EQUAL); }
         @Override
@@ -220,6 +226,7 @@ public final class OperatorsComparison {
     }
 
     private static final class OpNeq extends Operator {
+        @Serial
         private static final long serialVersionUID = -6219775221131013725L;
         OpNeq() { super("!=", 2, true, PRECEDENCE_EQUAL); }
         @Override

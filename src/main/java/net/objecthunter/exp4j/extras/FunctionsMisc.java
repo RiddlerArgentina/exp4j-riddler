@@ -15,6 +15,7 @@
 */
 package net.objecthunter.exp4j.extras;
 
+import java.io.Serial;
 import java.math.BigInteger;
 import net.objecthunter.exp4j.function.Function;
 import net.objecthunter.exp4j.function.Functions;
@@ -133,7 +134,7 @@ public final class FunctionsMisc {
     public static final Function LCM = new LCM();
 
     /**
-     * Rounds to closest integer.
+     * Rounds to the closest integer.
      *
      * @see Functions#FLOOR
      * @see Functions#CEIL
@@ -145,7 +146,7 @@ public final class FunctionsMisc {
     /**
      * Converts from degrees to radians.
      *
-     * @see Functions#RAD2DEG
+     * @see FunctionsMisc#RAD2DEG
      * @see Math#toRadians(double)
      * @since 0.9-riddler
      */
@@ -154,7 +155,7 @@ public final class FunctionsMisc {
     /**
      * Converts from radians to degrees.
      *
-     * @see Functions#DEG2RAD
+     * @see FunctionsMisc#DEG2RAD
      * @see Math#toDegrees(double)
      * @since 0.9-riddler
      */
@@ -211,20 +212,20 @@ public final class FunctionsMisc {
      * @see FunctionsMisc#RAD2DEG
      */
     public static Function getFunction(final String name) {
-        switch (name) {
-            case "equal"   : return EQUAL;
-            case "if"      : return IF;
-            case "inf"     : return INFINITY;
-            case "isnan"   : return IS_NAN;
-            case "min"     : return MIN;
-            case "max"     : return MAX;
-            case "gcd"     : return GCD;
-            case "lcm"     : return LCM;
-            case "round"   : return ROUND;
-            case "degtorad": return DEG2RAD;
-            case "radtodeg": return RAD2DEG;
-            default:         return null;
-        }
+        return switch (name) {
+            case "equal"    -> EQUAL;
+            case "if"       -> IF;
+            case "inf"      -> INFINITY;
+            case "isnan"    -> IS_NAN;
+            case "min"      -> MIN;
+            case "max"      -> MAX;
+            case "gcd"      -> GCD;
+            case "lcm"      -> LCM;
+            case "round"    -> ROUND;
+            case "degtorad" -> DEG2RAD;
+            case "radtodeg" -> RAD2DEG;
+            default         -> null;
+        };
     }
 
     private FunctionsMisc() {
@@ -232,6 +233,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Equals extends Function {
+        @Serial
         private static final long serialVersionUID = 2388827649030518290L;
         Equals() { super("equal", 2); }
         @Override
@@ -243,6 +245,7 @@ public final class FunctionsMisc {
     }
 
     private static final class If extends Function {
+        @Serial
         private static final long serialVersionUID = 3865326455639650003L;
         If() { super("if", 3); }
         @Override
@@ -255,6 +258,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Infinity extends Function {
+        @Serial
         private static final long serialVersionUID = 6249177625376818393L;
         Infinity() { super("inf", 0); }
         @Override
@@ -264,6 +268,7 @@ public final class FunctionsMisc {
     }
 
     private static final class IsNaN extends Function {
+        @Serial
         private static final long serialVersionUID = 2987603422726499329L;
         IsNaN() { super("isnan", 1); }
         @Override
@@ -274,6 +279,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Min extends Function {
+        @Serial
         private static final long serialVersionUID = -8343244242397439087L;
         Min() { super("min", 2); }
         @Override
@@ -285,6 +291,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Max extends Function {
+        @Serial
         private static final long serialVersionUID = 426041154853511222L;
         Max() { super("max", 2); }
         @Override
@@ -296,6 +303,7 @@ public final class FunctionsMisc {
     }
 
     private static final class GCD extends Function {
+        @Serial
         private static final long serialVersionUID = -6539620489548306830L;
         GCD() { super("gcd", 2); }
         @Override
@@ -307,6 +315,7 @@ public final class FunctionsMisc {
     }
 
     private static final class LCM extends Function {
+        @Serial
         private static final long serialVersionUID = -6539620489548306830L;
         LCM() { super("lcm", 2); }
         @Override
@@ -321,6 +330,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Round extends Function {
+        @Serial
         private static final long serialVersionUID = -6539620489548306830L;
         Round() { super("round", 1); }
         @Override
@@ -331,6 +341,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Deg2Rad extends Function {
+        @Serial
         private static final long serialVersionUID = -6539620489548306830L;
         Deg2Rad() { super("degtorad", 1); }
         @Override
@@ -341,6 +352,7 @@ public final class FunctionsMisc {
     }
 
     private static final class Rad2Deg extends Function {
+        @Serial
         private static final long serialVersionUID = -6539620489548306830L;
         Rad2Deg() { super("radtodeg", 1); }
         @Override

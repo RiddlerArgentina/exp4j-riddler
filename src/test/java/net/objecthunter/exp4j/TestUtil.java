@@ -16,45 +16,44 @@
 
 package net.objecthunter.exp4j;
 
-import static org.junit.Assert.assertEquals;
-
 import net.objecthunter.exp4j.tokenizer.*;
+import org.junit.jupiter.api.Assertions;
 
 public abstract class TestUtil {
 
     public static void assertVariableToken(Token token, String name) {
-        assertEquals(TokenType.VARIABLE, token.getType());
-        assertEquals(name, ((VariableToken) token).getName());
+        Assertions.assertEquals(TokenType.VARIABLE, token.getType());
+        Assertions.assertEquals(name, ((VariableToken) token).getName());
     }
 
     public static void assertOpenParenthesesToken(Token token) {
-        assertEquals(TokenType.PARENTHESES_OPEN, token.getType());
+        Assertions.assertEquals(TokenType.PARENTHESES_OPEN, token.getType());
     }
 
     public static void assertCloseParenthesesToken(Token token) {
-        assertEquals(TokenType.PARENTHESES_CLOSE, token.getType());
+        Assertions.assertEquals(TokenType.PARENTHESES_CLOSE, token.getType());
     }
 
     public static void assertFunctionToken(Token token, String name, int i) {
-        assertEquals(token.getType(), TokenType.FUNCTION);
+        Assertions.assertEquals(token.getType(), TokenType.FUNCTION);
         FunctionToken f = (FunctionToken) token;
-        assertEquals(i, f.getFunction().getNumArguments());
-        assertEquals(name, f.getFunction().getName());
+        Assertions.assertEquals(i, f.getFunction().getNumArguments());
+        Assertions.assertEquals(name, f.getFunction().getName());
     }
 
     public static void assertOperatorToken(Token tok, String symbol, int numArgs, int precedence) {
-        assertEquals(tok.getType(), TokenType.OPERATOR);
-        assertEquals(numArgs, ((OperatorToken) tok).getOperator().getNumOperands());
-        assertEquals(symbol, ((OperatorToken) tok).getOperator().getSymbol());
-        assertEquals(precedence, ((OperatorToken) tok).getOperator().getPrecedence());
+        Assertions.assertEquals(tok.getType(), TokenType.OPERATOR);
+        Assertions.assertEquals(numArgs, ((OperatorToken) tok).getOperator().getNumOperands());
+        Assertions.assertEquals(symbol, ((OperatorToken) tok).getOperator().getSymbol());
+        Assertions.assertEquals(precedence, ((OperatorToken) tok).getOperator().getPrecedence());
     }
 
     public static void assertNumberToken(Token tok, double v) {
-        assertEquals(tok.getType(), TokenType.NUMBER);
-        assertEquals(v, ((NumberToken) tok).getValue(), 0d);
+        Assertions.assertEquals(tok.getType(), TokenType.NUMBER);
+        Assertions.assertEquals(v, ((NumberToken) tok).getValue(), 0d);
     }
 
     public static void assertFunctionSeparatorToken(Token t) {
-        assertEquals(t.getType(), TokenType.SEPARATOR);
+        Assertions.assertEquals(t.getType(), TokenType.SEPARATOR);
     }
 }

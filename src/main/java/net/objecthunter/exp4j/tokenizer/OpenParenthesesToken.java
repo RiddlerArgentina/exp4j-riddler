@@ -15,10 +15,13 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serial;
+
 /**
  * Represents opened parentheses
  */
 final class OpenParenthesesToken extends Token {
+    @Serial
     private static final long serialVersionUID = 2484760300350260473L;
 
     /**

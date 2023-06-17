@@ -15,6 +15,7 @@
 */
 package net.objecthunter.exp4j;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -23,6 +24,7 @@ import java.util.List;
  * Contains the validation result for a given {@link Expression}
  */
 public final class ValidationResult implements Serializable {
+    @Serial
     private static final long serialVersionUID = -4623935821384176190L;
 
     /**

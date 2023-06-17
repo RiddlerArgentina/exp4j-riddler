@@ -15,12 +15,14 @@
 */
 package net.objecthunter.exp4j.tokenizer;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
  * Abstract class for tokens used by exp4j to tokenize expressions
  */
 public abstract class Token implements Serializable {
+    @Serial
     private static final long serialVersionUID = 2938544527369187154L;
 
     private final TokenType type;

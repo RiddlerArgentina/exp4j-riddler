@@ -17,10 +17,13 @@ package net.objecthunter.exp4j.tokenizer;
 
 import net.objecthunter.exp4j.function.Function;
 
+import java.io.Serial;
+
 /**
  * Represents a {@link Function}
  */
 public final class FunctionToken extends Token {
+    @Serial
     private static final long serialVersionUID = 6070719888134223365L;
 
     private final Function function;

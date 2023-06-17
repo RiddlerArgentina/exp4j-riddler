@@ -1,7 +1,3 @@
-This `exp4j` [![](https://gitlab.com/riddler_arg/exp4j/badges/master/build.svg)]() [![coverage](https://gitlab.com/riddler_arg/exp4j/badges/master/coverage.svg)](https://docs.riddler.com.ar/exp4j/jacoco/)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/ad8fa724765e4d7ba58400d070c5c868)](https://www.codacy.com/app/RiddlerArgentina/exp4j-riddler?utm_source=gitlab.com&amp;utm_medium=referral&amp;utm_content=riddler_arg/exp4j&amp;utm_campaign=Badge_Grade)
-
-----------
 > # ⚠️ Disclaimer
 > This is a **modified** version of [`exp4j`](https://github.com/fasseg/exp4j) which 
 > contains [changes](https://redmine.riddler.com.ar/projects/exp4j/wiki/Differences_with_the_original_exp4j) that will most likely create problems for regular 
@@ -38,6 +34,6 @@ Hacking
 -------
 - [English Documentation](https://redmine.riddler.com.ar/projects/exp4j/wiki/Getting_Started)
 - [Spanish Documentation](https://redmine.riddler.com.ar/projects/exp4j/wiki/Getting_Started_es)
-- [Test Coverage Reuslts](https://docs.riddler.com.ar/exp4j/jacoco/)
+- [Test Coverage Results](https://docs.riddler.com.ar/exp4j/jacoco/)
 - [JavaDocs](https://docs.riddler.com.ar/exp4j/apidocs/)
 - [Forums](https://redmine.riddler.com.ar/projects/exp4j/)

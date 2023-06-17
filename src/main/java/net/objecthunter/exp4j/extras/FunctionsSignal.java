@@ -17,6 +17,8 @@ package net.objecthunter.exp4j.extras;
 
 import net.objecthunter.exp4j.function.Function;
 
+import java.io.Serial;
+
 /**
  * This class contains some additional functions related with signal processing.
  *
@@ -108,14 +110,14 @@ public class FunctionsSignal {
      * @see FunctionsSignal#TRIANGLE
      */
     public static Function getFunction(final String name) {
-        switch (name) {
-            case "sinc"      : return SINC;
-            case "rectangle" : return RECTANGULAR;
-            case "heavyside" : return HEAVYSIDE;
-            case "sawtooth"  : return SAWTOOTH;
-            case "triangle"  : return TRIANGLE;
-            default:      return null;
-        }
+        return switch (name) {
+            case "sinc"      -> SINC;
+            case "rectangle" -> RECTANGULAR;
+            case "heavyside" -> HEAVYSIDE;
+            case "sawtooth"  -> SAWTOOTH;
+            case "triangle"  -> TRIANGLE;
+            default          -> null;
+        };
     }
 
     private FunctionsSignal() {
@@ -123,6 +125,7 @@ public class FunctionsSignal {
     }
 
     private static final class Sinc extends Function {
+        @Serial
         private static final long serialVersionUID = -3749047550580483555L;
         Sinc() { super("sinc", 1); }
         @Override
@@ -133,6 +136,7 @@ public class FunctionsSignal {
     }
 
     private static final class HeavySide extends Function {
+        @Serial
         private static final long serialVersionUID = 5866054076148826759L;
         HeavySide() { super("heavyside", 1); }
         @Override
@@ -143,6 +147,7 @@ public class FunctionsSignal {
     }
 
     private static final class Rectangular extends Function {
+        @Serial
         private static final long serialVersionUID = 555335310381844968L;
         Rectangular() { super("rectangle", 3); }
         @Override
@@ -159,6 +164,7 @@ public class FunctionsSignal {
     }
 
     private static final class Sawtooth extends Function {
+        @Serial
         private static final long serialVersionUID = -5240634344267244160L;
         Sawtooth() { super("sawtooth", 1); }
         @Override
@@ -169,6 +175,7 @@ public class FunctionsSignal {
     }
 
     private static final class Triangle extends Function {
+        @Serial
         private static final long serialVersionUID = 4475875502510622882L;
         Triangle() { super("triangle", 1); }
         @Override
