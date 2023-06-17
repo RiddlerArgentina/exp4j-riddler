@@ -38,6 +38,6 @@ Hacking
 -------
 - [English Documentation](https://redmine.riddler.com.ar/projects/exp4j/wiki/Getting_Started)
 - [Spanish Documentation](https://redmine.riddler.com.ar/projects/exp4j/wiki/Getting_Started_es)
-- [Test Coverage Reuslts](https://docs.riddler.com.ar/exp4j/jacoco/)
+- [Test Coverage Results](https://docs.riddler.com.ar/exp4j/jacoco/)
 - [JavaDocs](https://docs.riddler.com.ar/exp4j/apidocs/)
 - [Forums](https://redmine.riddler.com.ar/projects/exp4j/)

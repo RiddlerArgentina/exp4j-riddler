@@ -264,7 +264,7 @@ v0.9-riddler / 2018-08-02
   * Added Expression#copy() and tests
   * Rename ConcurrencyTests and "extra" test
   * Add note in ExpressionBuilder methods
-  * Rename operator to operators so it's consisten with the rest
+  * Rename operator to operators, so it's consisten with the rest
   * Tweak a bit ValidationResult
   * Add JavaDoc to all public methods of Expression
   * Fix email address
@@ -282,7 +282,7 @@ v0.9-riddler / 2018-08-02
   * Add test for the expression in the performance test
   * Small style improvement
   * Make ArrayStack final
-  * Update ShuntingYard and it's test to use the new simplifier and TokenStack
+  * Update ShuntingYard, and it's test to use the new simplifier and TokenStack
   * Move the Simplifier to the shuntingyard package
   * Add TokenStack to replace Stack<Token>
   * Minor style corrections
@@ -376,7 +376,7 @@ exp4j-0.4.7 / 2016-04-22
   * added *federico* as a contributor, sorry for typo ;)
   * added frederico as a contributor
   * refactored ArrayStock in right package and changed visibility of class/methods
-  * cherry picked the ArrayStack from https://github.com/fasseg/exp4j/issues/28
+  * cherry-picked the ArrayStack from https://github.com/fasseg/exp4j/issues/28
   * deprecated Function.getAllowedFunctionCharacters() as discussed in https://github.com/fasseg/exp4j/issues/27
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release exp4j-0.4.4
@@ -469,7 +469,7 @@ exp4j-0.4.7 / 2016-04-22
   * updated documentation and fixed unary handling
   * added some documentation, and fixed unary/power precedence, but now an errror happens
   * fixed some routines to pass all the tests
-  * fixed bugs in numberparsing and added missing exp and expm1 functions
+  * fixed bugs in number parsing and added missing exp and expm1 functions
   * added some fixes
   * imported old exp4j tests
   * added performance tests, and fixed an shunting yard error
@@ -482,7 +482,7 @@ exp4j-0.4.7 / 2016-04-22
   * fixed buf in shunting yard
   * added some missing tokens and a shunting yard skeleton
   * added perf test to tokenizer
-  * added variables, parantheses and functions to tokenizer
+  * added variables, parentheses and functions to tokenizer
   * added function skeleton
   * fixed multiple unary operators at the beginning of an expression
   * added missing unary operator and added some tests
@@ -493,7 +493,7 @@ exp4j-0.4.7 / 2016-04-22
   * updated to newer Version of BigDecimalMath. removed mcp2
   * Added perf test for complex numbers
   * added some more complex functions and tests
-  * fixed tests fro BigDecimals
+  * fixed tests for BigDecimals
   * fixed BigDecimal argument order for func and ops
   * renamed tokenizer and added some complex math. ficed the order of function and operator arguments
   * added complex number functions log, power, arg, mod
@@ -501,9 +501,9 @@ exp4j-0.4.7 / 2016-04-22
   * added ComplexNumber parsing and test
   * moved some things around and tried to fix BigDecimalMath for precise PI values
   * added some big decimal math functions
-  * added method for calculting sine by a power series
+  * added method for calculating sine by a power series
   * added cos test
-  * fixed CORDIC algo, but theree's still an error in there...
+  * fixed CORDIC algo, but there's still an error in there...
   * fixed K table
   * added failing test for sin(1/3)
   * added known values to sine function
@@ -519,7 +519,7 @@ exp4j-0.4.7 / 2016-04-22
   * added ShuntingYard implementation and some tests
   * added shunting yard impl
   * added custom function tests and fixes for tokenizer
-  * added customoperator tests and fixes
+  * added custom operator tests and fixes
   * initial creation of tests and addition of FastTokenizer
   * added same loop to list gen
   * added method to create a List of Tokens from the FastTokenizer
@@ -530,13 +530,13 @@ exp4j-0.4.7 / 2016-04-22
   * bumped version to 0.4.0-SNAPSHOT
   * added some failing tests for the Complex Number tokenizer
   * updated formatting of bench putput to include a percentage of java.lang.Math
-  * added static api methods to expressionbuilder
+  * added static api methods to expression builder
   * added Future support
   * added some complex constants
   * added some special handling in powers of complex numbers
   * added some special handling in powers of complex numbers
   * added some more complex functions and tests
-  * fixed factorial custom operator for beigdecimal test
+  * fixed factorial custom operator for big decimal test
   * added sqrt and benchmark for complex numbers
   * updated Complex Number handling and added some tests and functions from Complex numbers
   * added simple complex tokenization
@@ -551,15 +551,15 @@ exp4j-0.4.7 / 2016-04-22
   * [maven-release-plugin] rollback the release of exp4j-0.3.11
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release exp4j-0.3.11
-  * reabsing branch exp-32 onto master for bugfix release preparation ================================================================= - Fix for https://www.objecthunter.net/jira/browse/EXP-32 - changed call to 'String.isEmpty()' to a length() check in order to fix a MethodNotFoundError in Android < 2.3 - updated changes.xml file for release preparation
+  * rebasing branch exp-32 onto master for bugfix release preparation ================================================================= - Fix for https://www.objecthunter.net/jira/browse/EXP-32 - changed call to 'String.isEmpty()' to a length() check in order to fix a MethodNotFoundError in Android < 2.3 - updated changes.xml file for release preparation
   * updated pom config for cobertura
   * fixed various tests and added checks for unparseable expressions
   * fixed test for custom functions
   * updated some tests
-  * added exceptions and checking for Unknonw names
+  * added exceptions and checking for Unknown names
   * added variable handling
   * fixed some issues fixed som etests
-  * added custom operators/funtions copied tests from exp4j v0.3
+  * added custom operators/functions copied tests from exp4j v0.3
   * added variables and benchmarking for floats
   * fixed a bug in the shunting yard algorithm
   * added support for unary minus/plus
@@ -567,7 +567,7 @@ exp4j-0.4.7 / 2016-04-22
   * first implementation of float typ exp4j
   * added some more skeleton
   * changed tokenizer to be agnostic of complex syntax
-  * fixed parsing of decimal separator fomr complex part
+  * fixed parsing of decimal separator for complex part
   * added simple parsing of Complex numbers
   * initial rewrite
   * [maven-release-plugin] prepare for next development iteration
@@ -610,11 +610,11 @@ exp4j-0.4.7 / 2016-04-22
   * removed support for EXP-18 ==========================  - problem is that ambiguities arise  - e.g. declare variable 'x' and variable 'xx' then evaluate 'xx' and the interpreter will not know if x*x or the var xx is meant.
   * added support for EXP-18
   * Added check if implicit multiplication is used ==============================================  - But since i now have to check explicitly for these error condition onoe could also replace them by proper multiplications and therefore implement the feature EXP-18
-  * fixed noramlization of scientific notation
+  * fixed normalization of scientific notation
   * EXP-20: No exception is thrown for unmatched parenthesis in build =================================================================  - added a check for bracket count, so that unmatched paratheses can be reported to the user
   * EXP-17: parse Exponential (scientific) eg: 1.5e+3 ->1500 ========================================================  - added handling of numbers in scientific notation
   * EXP-19: error message does not count spaces ============================================  - fix for https://www.objecthunter.net/jira/browse/EXP-19  - changed error message created when unable to parse an expression to include the expresion itself  - changed subtitueUnaryOperators() to leave Whitespace untouched instead of removing it from an expression
-  * added getArgumentCount() implmentation to CustomFunction
+  * added getArgumentCount() implementation to CustomFunction
   * Revert "EXP-18: Add support for implicit multiplication"
   * EXP-18: Add support for implicit multiplication ===============================================  - added check for implicit multiplication usage  - added test which checks that a proper exception is thrown
   * EXP-17:parse Exponential (scientific) eg: 1.5e+3 ->1500 =======================================================  - added feature to parse numbers in scientific notation  - added tests for scientific notation
@@ -659,17 +659,17 @@ exp4j-0.4.7 / 2016-04-22
   * [maven-release-plugin] prepare release 0.3.0
   * Merge branch '1.0-DEV' from Github ==================================
   * Added test for EXP-11 =====================
-  * changed visibility to portected so users can actaully implement..gnaah
+  * changed visibility to protected so users can actually implement..gnaah
   * Fixed some more doc issues
   * fixed size of the jar which grew a bit in the readme
   * Fixed some doc issues
-  * Added some documentation and API change notes in the docu
+  * Added some documentation and API change notes in the doc
   * Updated changes document
   * Added some javadocs for CustomOperator and fixed precedence problems
   * Added some tests
   *  Fixed bug with operator scanning
-  * Alowed "=" in CustomOperators =============================  - changed inpiut format for functions so that "f(x)=" decalaration are no longer possible this is an API change  - see http://jira.congrace.de/jira/browse/EXP-1
-  * Set constrinats on the symbols to use for CustomOperators =========================================================  - added logic to dont let the user overwrite the builtin operators
+  * Alowe "=" in CustomOperators =============================  - changed inpiut format for functions so that "f(x)=" decalaration are no longer possible this is an API change  - see http://jira.congrace.de/jira/browse/EXP-1
+  * Set constraints on the symbols to use for CustomOperators =========================================================  - added logic to dont let the user overwrite the builtin operators
   * Added functionality to have operators symbols be represented by Strings =======================================================================  - changed the cistructor for CustomOperator to take a String as the operator symbol  - changed the strucutre and the unary opertor substitutions  - still a problem with the = character because of normalizeExpression()
   * Added reference to jHepWOrk
   * FIXED visibility of CustomOperator ==================================  - changed Consutrctors from package private to protected (see http://jira.congrace.de/jira/browse/EXP-1)
@@ -680,7 +680,7 @@ exp4j-0.4.7 / 2016-04-22
   * added test case for faculty operator
   * increased version number to reflect changes
   * Rewrite of great parts to enable custom operations ==================================================  - removed PostFixExpression  - reimplemented RPNConverter and Tokenizer  - added custom operations
-  * updated scm url for github
+  * updated scm url for GitHub
   * Changed pom.xml to include sonatype repos for publishing on maven central
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release 0.2.9
@@ -717,10 +717,10 @@ exp4j-0.4.7 / 2016-04-22
   * Release 0.2.5 preparation
   * updated size info
   * removed extra unary plus handling, updates site
-  * added small docu for multi argumetn functions
-  * fixed mutliargument support in custom functions
-  * addd some tests -- multi argumetn still broken
-  * added CustomFunction with variable arguments\nThis is a broken commit since mutliargumetn functions wont work as intended
+  * added small doc for multi argument functions
+  * fixed multi-argument support in custom functions
+  * add some tests -- multi argument still broken
+  * added CustomFunction with variable arguments\nThis is a broken commit since multi-argument functions wont work as intended
   * [maven-release-plugin] rollback the release of 0.2.5
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release 0.2.5
@@ -735,7 +735,7 @@ exp4j-0.4.7 / 2016-04-22
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release 0.2.3
   * preparing 0.2.3 release
-  * fixed docu typo
+  * fixed doc typo
   * marked PostfixExpression.fromInfix deprecated
   * added some function/NaN tests
   * changed benches
@@ -743,7 +743,7 @@ exp4j-0.4.7 / 2016-04-22
   * cleaned up bench
   * added javascript benchmark
   * removed role
-  * added browseable scm url
+  * added browsable scm url
   * [maven-release-plugin] rollback the release of 0.2.2
   * [maven-release-plugin] prepare for next development iteration
   * [maven-release-plugin] prepare release 0.2.2
@@ -774,11 +774,11 @@ exp4j-0.4.7 / 2016-04-22
   * refactoring for reduced API visibility
   * fixed issue custom function in OperatorToken
   * added documentation to apt site
-  * updated apidocs for custom functions
+  * updated api-docs for custom functions
   * added custom functions
   * added custom functions
-  * removed ExpressioNBuilder example from README
+  * removed ExpressionBuilder example from README
   * removed version String on README
   * fixed spelling
   * added README
-  * added ExpressionBuilder, moved to github
+  * added ExpressionBuilder, moved to GitHub
