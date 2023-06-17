@@ -1,30 +1,28 @@
 /*
-* Copyright 2016-2018 Federico Vera
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2016-2018 Federico Vera
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.objecthunter.exp4j;
 
-import java.util.HashMap;
 import net.objecthunter.exp4j.extras.FunctionsBoolean;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
 
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class OperatorsComparisonTest {
@@ -45,8 +43,8 @@ public class OperatorsComparisonTest {
                 .operators(OperatorsComparison.getOperators())
                 .build();
 
-        assertEquals(1, e1.evaluate(), 0D);
-        assertEquals(e2.evaluate(), e1.evaluate(), 0D);
+        Assertions.assertEquals(1, e1.evaluate(), 0D);
+        Assertions.assertEquals(e2.evaluate(), e1.evaluate(), 0D);
     }
 
     @Test
@@ -58,20 +56,20 @@ public class OperatorsComparisonTest {
                 .operators(OperatorsComparison.getOperators())
                 .build();
 
-        assertEquals(1, e1.evaluate(), 0D);
+        Assertions.assertEquals(1, e1.evaluate(), 0D);
     }
 
     @Test
     public void testOperatorList() {
-        Assert.assertNotNull(OperatorsComparison.getOperator(">" ));
-        Assert.assertNotNull(OperatorsComparison.getOperator(">="));
-        Assert.assertNotNull(OperatorsComparison.getOperator("<" ));
-        Assert.assertNotNull(OperatorsComparison.getOperator("<="));
-        Assert.assertNotNull(OperatorsComparison.getOperator("=="));
-        Assert.assertNotNull(OperatorsComparison.getOperator("!="));
-        Assert.assertNull(OperatorsComparison.getOperator("==="));
-        Assert.assertNull(OperatorsComparison.getOperator("+"));
-        Assert.assertNull(OperatorsComparison.getOperator(""));
+        Assertions.assertNotNull(OperatorsComparison.getOperator(">"));
+        Assertions.assertNotNull(OperatorsComparison.getOperator(">="));
+        Assertions.assertNotNull(OperatorsComparison.getOperator("<"));
+        Assertions.assertNotNull(OperatorsComparison.getOperator("<="));
+        Assertions.assertNotNull(OperatorsComparison.getOperator("=="));
+        Assertions.assertNotNull(OperatorsComparison.getOperator("!="));
+        Assertions.assertNull(OperatorsComparison.getOperator("==="));
+        Assertions.assertNull(OperatorsComparison.getOperator("+"));
+        Assertions.assertNull(OperatorsComparison.getOperator(""));
     }
 
     @Test
@@ -83,7 +81,7 @@ public class OperatorsComparisonTest {
                 .operators(OperatorsComparison.getOperators())
                 .build();
 
-        assertEquals(1, e1.evaluate(), 0D);
+        Assertions.assertEquals(1, e1.evaluate(), 0D);
     }
 
     @Test
@@ -95,7 +93,7 @@ public class OperatorsComparisonTest {
                 .operators(OperatorsComparison.getOperators())
                 .build();
 
-        assertEquals(1, e1.evaluate(), 0D);
+        Assertions.assertEquals(1, e1.evaluate(), 0D);
     }
 
     @Test
@@ -112,7 +110,7 @@ public class OperatorsComparisonTest {
             for (int b : VALUES) {
                 e1.setVariable("a", a);
                 e1.setVariable("b", b);
-                assertEquals(1, e1.evaluate(), 0d);
+                Assertions.assertEquals(1, e1.evaluate(), 0d);
             }
         }
     }
@@ -131,7 +129,7 @@ public class OperatorsComparisonTest {
             for (int b : VALUES) {
                 e1.setVariable("a", a);
                 e1.setVariable("b", b);
-                assertEquals(1, e1.evaluate(), 0d);
+                Assertions.assertEquals(1, e1.evaluate(), 0d);
             }
         }
     }
@@ -148,7 +146,7 @@ public class OperatorsComparisonTest {
 
         for (int a : VALUES) {
             e1.setVariable("a", a);
-            assertEquals(1, e1.evaluate(), 0d);
+            Assertions.assertEquals(1, e1.evaluate(), 0d);
         }
     }
 
@@ -166,7 +164,7 @@ public class OperatorsComparisonTest {
             for (int b : VALUES) {
                 e1.setVariable("a", a);
                 e1.setVariable("b", b);
-                assertEquals(0, e1.evaluate(), 0d);
+                Assertions.assertEquals(0, e1.evaluate(), 0d);
             }
         }
     }
@@ -176,7 +174,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -184,7 +182,7 @@ public class OperatorsComparisonTest {
         String expr1 = "10 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -192,7 +190,7 @@ public class OperatorsComparisonTest {
         String expr1 = "2 < 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -200,7 +198,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -208,7 +206,7 @@ public class OperatorsComparisonTest {
         String expr1 = "10 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -216,7 +214,7 @@ public class OperatorsComparisonTest {
         String expr1 = "2 <= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -224,7 +222,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -232,7 +230,7 @@ public class OperatorsComparisonTest {
         String expr1 = "10 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -240,7 +238,7 @@ public class OperatorsComparisonTest {
         String expr1 = "2 > 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -248,7 +246,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -256,7 +254,7 @@ public class OperatorsComparisonTest {
         String expr1 = "10 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -264,7 +262,7 @@ public class OperatorsComparisonTest {
         String expr1 = "2 >= 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -272,7 +270,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 == 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -280,7 +278,7 @@ public class OperatorsComparisonTest {
         String expr1 = "0 == 0";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -288,7 +286,7 @@ public class OperatorsComparisonTest {
         String expr1 = "154 * 54 + 4 == 154 * 54 + 4";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -301,7 +299,7 @@ public class OperatorsComparisonTest {
                 .variables("a")
                 .build();
 
-        assertEquals(1, e1.setVariable("a", 1).evaluate(), 0d);
+        Assertions.assertEquals(1, e1.setVariable("a", 1).evaluate(), 0d);
     }
 
     @Test
@@ -309,7 +307,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 != 2";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -317,7 +315,7 @@ public class OperatorsComparisonTest {
         String expr1 = "0 != 0";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -325,7 +323,7 @@ public class OperatorsComparisonTest {
         String expr1 = "154 * 54 + 4 != 154 * 54 + 4";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -333,7 +331,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 != 1.0000000000001";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(0, e1.evaluate(), 0d);
+        Assertions.assertEquals(0, e1.evaluate(), 0d);
     }
 
     @Test
@@ -341,7 +339,7 @@ public class OperatorsComparisonTest {
         String expr1 = "1 != 1.000000000001";
         Expression e1 = new ExpressionBuilder(expr1)
                 .operators(OperatorsComparison.getOperators()).build();
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -357,7 +355,7 @@ public class OperatorsComparisonTest {
         e1.setVariable("d", Math.random());
         e1.setVariable("f", Math.random());
         e1.setVariable("g", Math.random());
-        assertEquals(1, e1.evaluate(), 0d);
+        Assertions.assertEquals(1, e1.evaluate(), 0d);
     }
 
     @Test
@@ -387,7 +385,7 @@ public class OperatorsComparisonTest {
         e1.setVariables(vars);
         e2.setVariables(vars);
         e3.setVariables(vars);
-        assertEquals(e1.evaluate(), e2.evaluate(), 0d);
-        assertEquals(e2.evaluate(), e3.evaluate(), 0d);
+        Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+        Assertions.assertEquals(e2.evaluate(), e3.evaluate(), 0d);
     }
 }

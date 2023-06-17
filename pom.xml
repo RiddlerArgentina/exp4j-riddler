@@ -33,13 +33,14 @@
             <roles>
                 <role>developer</role>
             </roles>
+            <timezone>-3</timezone>
         </developer>
         <developer>
             <id>fas</id>
             <name>frank</name>
             <email>frank.asseg@objecthunter.net</email>
-            <url>http://www.objecthunter.net/</url>
-            <organizationUrl>http://www.objecthunter.net</organizationUrl>
+            <url>https://www.objecthunter.net/</url>
+            <organizationUrl>https://www.objecthunter.net</organizationUrl>
             <roles>
                 <role>developer</role>
             </roles>
@@ -65,7 +66,7 @@
         <contributor>
             <name>Sergey Solovyev</name>
             <email>se.solovyev@gmail.com</email>
-            <url>http://se.solovyev.org/</url>
+            <url>https://se.solovyev.org/</url>
             <roles>
                 <role>developer</role>
             </roles>
@@ -74,9 +75,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>5.9.3</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -115,11 +116,10 @@
                     </execution>
                 </executions>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>3.11.0</version>
                 <configuration>
                     <debug>true</debug>
                     <showDeprecation>true</showDeprecation>

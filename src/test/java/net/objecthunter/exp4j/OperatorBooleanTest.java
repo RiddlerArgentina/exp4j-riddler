@@ -1,34 +1,32 @@
-/* 
-* Copyright 2016-2018 Federico Vera
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License. 
-*/
+/*
+ * Copyright 2016-2018 Federico Vera
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.objecthunter.exp4j;
 
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class OperatorBooleanTest {
     private static final int[] VALUES = {0, 1};
-    
+
     @Test
     public void testAnd() {
-        
+
         String expr1 = "a & b";
 
         Expression e1 = new ExpressionBuilder(expr1)
@@ -39,10 +37,11 @@ public class OperatorBooleanTest {
             for (int b : VALUES) {
                 e1.setVariable("a", a);
                 e1.setVariable("b", b);
-                assertEquals(((a==1)&&(b==1)) ? 1 : 0, e1.evaluate(), 0d);
+                Assertions.assertEquals(((a == 1) && (b == 1)) ? 1 : 0, e1.evaluate(), 0d);
             }
         }
     }
+
     @Test
     public void testOr() {
         String expr1 = "a | b";
@@ -55,11 +54,11 @@ public class OperatorBooleanTest {
             for (int b : VALUES) {
                 e1.setVariable("a", a);
                 e1.setVariable("b", b);
-                assertEquals(((a==1)||(b==1)) ? 1 : 0, e1.evaluate(), 0d);
+                Assertions.assertEquals(((a == 1) || (b == 1)) ? 1 : 0, e1.evaluate(), 0d);
             }
         }
     }
-    
+
     @Test
     public void testDeMorgan1() {
         String expr1 = "¬(a & b)";
@@ -78,7 +77,7 @@ public class OperatorBooleanTest {
                 e1.setVariable("b", b);
                 e2.setVariable("a", a);
                 e2.setVariable("b", b);
-                assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
             }
         }
     }
@@ -101,7 +100,7 @@ public class OperatorBooleanTest {
                 e1.setVariable("b", b);
                 e2.setVariable("a", a);
                 e2.setVariable("b", b);
-                assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
             }
         }
     }
@@ -116,7 +115,7 @@ public class OperatorBooleanTest {
 
         for (int a : VALUES) {
             e.setVariable("a", a);
-            assertEquals(a == 0 ? 1 : 0, e.evaluate(), 0d);
+            Assertions.assertEquals(a == 0 ? 1 : 0, e.evaluate(), 0d);
         }
     }
 
@@ -130,7 +129,7 @@ public class OperatorBooleanTest {
 
         for (int a : VALUES) {
             e.setVariable("a", a);
-            assertEquals(a == 0 ? 1 : 0, e.evaluate(), 0d);
+            Assertions.assertEquals(a == 0 ? 1 : 0, e.evaluate(), 0d);
         }
     }
 
@@ -144,7 +143,7 @@ public class OperatorBooleanTest {
 
         for (int a : VALUES) {
             e.setVariable("a", a);
-            assertEquals(a != 0 ? 1 : 0, e.evaluate(), 0d);
+            Assertions.assertEquals(a != 0 ? 1 : 0, e.evaluate(), 0d);
         }
     }
 
@@ -166,7 +165,7 @@ public class OperatorBooleanTest {
                 e1.setVariable("b", b);
                 e2.setVariable("a", a);
                 e2.setVariable("b", b);
-                assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
             }
         }
     }
@@ -192,7 +191,7 @@ public class OperatorBooleanTest {
                     e2.setVariable("a", a);
                     e2.setVariable("b", b);
                     e2.setVariable("c", c);
-                    assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                    Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
                 }
             }
         }
@@ -219,7 +218,7 @@ public class OperatorBooleanTest {
                     e2.setVariable("a", a);
                     e2.setVariable("b", b);
                     e2.setVariable("c", c);
-                    assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                    Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
                 }
             }
         }
@@ -249,7 +248,7 @@ public class OperatorBooleanTest {
                         e2.setVariable("b", b);
                         e2.setVariable("c", c);
                         e2.setVariable("d", d);
-                        assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                        Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
                     }
                 }
             }
@@ -280,7 +279,7 @@ public class OperatorBooleanTest {
                         e2.setVariable("b", b);
                         e2.setVariable("c", c);
                         e2.setVariable("d", d);
-                        assertEquals(e1.evaluate(), e2.evaluate(), 0d);
+                        Assertions.assertEquals(e1.evaluate(), e2.evaluate(), 0d);
                     }
                 }
             }
@@ -296,7 +295,7 @@ public class OperatorBooleanTest {
         Expression e1 = new ExpressionBuilder(expr1)
                 .variables("a", "b", "c", "d")
                 .build();
-        
-        assertEquals(1, e1.evaluate(), 0D);
+
+        Assertions.assertEquals(1, e1.evaluate(), 0D);
     }
 }

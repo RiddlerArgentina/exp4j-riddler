@@ -1,29 +1,28 @@
 /*
-* Copyright 2014 Frank Asseg
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2014 Frank Asseg
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.objecthunter.exp4j;
 
-import java.util.Formatter;
-import java.util.Random;
-import javax.script.Invocable;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
+import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
-import org.junit.Assert;
-
-import org.junit.Test;
+import java.util.Formatter;
+import java.util.Random;
 
 public final class PerformanceTest {
     private static final long BENCH_TIME = 2L;
@@ -65,7 +64,7 @@ public final class PerformanceTest {
 //        double jsRate = (double) js / (double) BENCH_TIME;
 //        fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
-        Assert.assertNotNull(sb.toString()); //Silence warning
+        Assertions.assertNotNull(sb.toString()); //Silence warning
         System.out.print(sb);
     }
 
@@ -84,7 +83,7 @@ public final class PerformanceTest {
             count++;
         }
 
-        return count + (int)(val / val);
+        return count + (int) (1.0);
     }
 
     private int benchDouble() {
@@ -101,7 +100,7 @@ public final class PerformanceTest {
             val += expression.evaluate();
             count++;
         }
-        return count + (int)(val / val);
+        return count + (int) (1.0);
     }
 
     private int benchJavaMath() {
@@ -117,7 +116,7 @@ public final class PerformanceTest {
             val += Math.log(x) - (2 + 1) * y * (Math.sqrt(Math.pow(x, Math.cos(y))));
             count++;
         }
-        return count + (int)(val / val);
+        return count + (int) (1.0);
     }
 
     private int benchJavaScript() throws Exception {
@@ -138,11 +137,11 @@ public final class PerformanceTest {
             while (time > System.nanoTime()) {
                 x = rnd.nextDouble();
                 y = rnd.nextDouble();
-                val += (Double)inv.invokeFunction("f", x, y);
+                val += (Double) inv.invokeFunction("f", x, y);
                 count++;
             }
         }
-        return count + (int)(val / val);
+        return count + (int) (1.0);
     }
 
 }

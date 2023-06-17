@@ -1,29 +1,27 @@
 /*
-* Copyright 2018 Federico Vera
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*    http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*/
+ * Copyright 2018 Federico Vera
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package net.objecthunter.exp4j;
 
 import net.objecthunter.exp4j.extras.FunctionExpresion;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class FunctionExpresionTest {
@@ -31,18 +29,18 @@ public class FunctionExpresionTest {
     public void testFunctionExpression() {
         FunctionExpresion fe = new FunctionExpresion("foo", 2, "a + b");
         Expression e = new ExpressionBuilder("foo(1, 2)")
-                            .function(fe)
-                            .build();
-        assertEquals(3, e.evaluate(), 0d);
+                .function(fe)
+                .build();
+        Assertions.assertEquals(3, e.evaluate(), 0d);
     }
 
     @Test
     public void testFunctionExpression2() {
         FunctionExpresion fe = new FunctionExpresion("foo", 2, "a + b");
         Expression e = new ExpressionBuilder("foo(1, 2)")
-                            .function(fe)
-                            .build(true);
-        assertEquals(3, e.evaluate(), 0d);
+                .function(fe)
+                .build(true);
+        Assertions.assertEquals(3, e.evaluate(), 0d);
     }
 
     @Test
@@ -54,9 +52,9 @@ public class FunctionExpresionTest {
                 OperatorsComparison.getOperators()
         );
         Expression e = new ExpressionBuilder("foo(1, 2, 3)")
-                            .function(fe)
-                            .build();
-        assertEquals(4, e.evaluate(), 0d);
+                .function(fe)
+                .build();
+        Assertions.assertEquals(4, e.evaluate(), 0d);
     }
 
     @Test
@@ -68,9 +66,9 @@ public class FunctionExpresionTest {
                 OperatorsComparison.getOperators()
         );
         Expression e = new ExpressionBuilder("foo(3, 2, 1)")
-                            .function(fe)
-                            .build();
-        assertEquals(1, e.evaluate(), 0d);
+                .function(fe)
+                .build();
+        Assertions.assertEquals(1, e.evaluate(), 0d);
     }
 
     @Test
@@ -82,9 +80,9 @@ public class FunctionExpresionTest {
                 OperatorsComparison.getOperators()
         );
         Expression e = new ExpressionBuilder("foo(3, 2, foo(3, 2, 1)) * foo(3, 2, 1)")
-                            .function(fe)
-                            .build();
-        assertEquals(4, e.evaluate(), 0d);
+                .function(fe)
+                .build();
+        Assertions.assertEquals(4, e.evaluate(), 0d);
     }
 
     @Test
@@ -96,9 +94,9 @@ public class FunctionExpresionTest {
                 OperatorsComparison.getOperators()
         );
         Expression e = new ExpressionBuilder("foo(3, 2, foo(3, 2, 1)) * foo(3, 2, 1)")
-                            .function(fe)
-                            .build(true);
-        assertEquals(4, e.evaluate(), 0d);
+                .function(fe)
+                .build(true);
+        Assertions.assertEquals(4, e.evaluate(), 0d);
     }
 
     @Test
@@ -109,20 +107,19 @@ public class FunctionExpresionTest {
                 FunctionsMisc.getFunctions()
         );
         Expression e = new ExpressionBuilder("foo(3, 5)")
-                            .function(fe)
-                            .build(true);
-        assertEquals(45, e.evaluate(), 0d);
+                .function(fe)
+                .build(true);
+        Assertions.assertEquals(45, e.evaluate(), 0d);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testFunctionExpression8() {
-        FunctionExpresion fe = new FunctionExpresion(
-                "foo", 27,
-                "a * lcm(a, b)",
-                FunctionsMisc.getFunctions()
-        );
-        Expression e = new ExpressionBuilder("foo(3, 5)")
-                            .function(fe)
-                            .build(true);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
+            FunctionExpresion fe = new FunctionExpresion(
+                    "foo", 27,
+                    "a * lcm(a, b)",
+                    FunctionsMisc.getFunctions()
+            );
+        });
     }
 }

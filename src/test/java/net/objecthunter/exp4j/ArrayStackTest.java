@@ -1,5 +1,5 @@
-/* 
- * Copyright 2015-2018 Federico Vera
+/*
+ * Copyright 2015-2023 Federico Vera
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -11,27 +11,23 @@
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
- * limitations under the License. 
+ * limitations under the License.
  */
 package net.objecthunter.exp4j;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.EmptyStackException;
 
-import org.junit.Test;
-
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class ArrayStackTest {
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testConstructor() {
-        new ArrayStack(-1);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> new ArrayStack(-1));
     }
 
     @Test
@@ -42,7 +38,7 @@ public class ArrayStackTest {
         stack.push(1);
         stack.push(3);
 
-        assertEquals(3, stack.size());
+        Assertions.assertEquals(3, stack.size());
     }
 
     @Test
@@ -53,7 +49,7 @@ public class ArrayStackTest {
             stack.push(i);
         }
 
-        assertEquals(5, stack.size());
+        Assertions.assertEquals(5, stack.size());
     }
 
     @Test
@@ -64,9 +60,9 @@ public class ArrayStackTest {
             stack.push(i);
         }
 
-        assertEquals(4d, stack.peek(), 0d);
-        assertEquals(4d, stack.peek(), 0d);
-        assertEquals(4d, stack.peek(), 0d);
+        Assertions.assertEquals(4d, stack.peek(), 0d);
+        Assertions.assertEquals(4d, stack.peek(), 0d);
+        Assertions.assertEquals(4d, stack.peek(), 0d);
     }
 
     @Test
@@ -75,17 +71,17 @@ public class ArrayStackTest {
         stack.push(-1);
         double old = -1;
         for (int i = 0; i < 5; i++) {
-            assertEquals(old, stack.peek(), 0d);
+            Assertions.assertEquals(old, stack.peek(), 0d);
             stack.push(i);
             old = i;
-            assertEquals(old, stack.peek(), 0d);
+            Assertions.assertEquals(old, stack.peek(), 0d);
         }
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPeekNoData() {
         ArrayStack stack = new ArrayStack(5);
-        stack.peek();
+        Assertions.assertThrowsExactly(EmptyStackException.class, stack::peek);
     }
 
     @Test
@@ -95,29 +91,30 @@ public class ArrayStackTest {
         for (int i = 0; i < 5; i++) {
             stack.push(i);
         }
-        
-        assertEquals(5, stack.size());
-        assertFalse(stack.isEmpty());
+
+        Assertions.assertEquals(5, stack.size());
+        Assertions.assertFalse(stack.isEmpty());
 
         while (!stack.isEmpty()) {
             stack.pop();
         }
-        
-        assertEquals(0, stack.size());
-        assertTrue(stack.isEmpty());
+
+        Assertions.assertEquals(0, stack.size());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPop2() {
         ArrayStack stack = new ArrayStack(5);
 
         for (int i = 0; i < 5; i++) {
             stack.push(i);
         }
-
-        while (true) {
-            stack.pop();
-        }
+        Assertions.assertThrowsExactly(EmptyStackException.class, () -> {
+            while (true) {
+                stack.pop();
+            }
+        });
     }
 
     @Test
@@ -126,52 +123,52 @@ public class ArrayStackTest {
 
         for (int i = 0; i < 5; i++) {
             stack.push(i);
-            assertEquals(1, stack.size());
-            assertEquals(i, stack.pop(), 0d);
+            Assertions.assertEquals(1, stack.size());
+            Assertions.assertEquals(i, stack.pop(), 0d);
         }
 
-        assertEquals(0, stack.size());
-        assertTrue(stack.isEmpty());
+        Assertions.assertEquals(0, stack.size());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = EmptyStackException.class)
+    @Test
     public void testPopNoData() {
         ArrayStack stack = new ArrayStack(5);
-        stack.pop();
+        Assertions.assertThrowsExactly(EmptyStackException.class, stack::pop);
     }
 
     @Test
     public void testIsEmpty() {
         ArrayStack stack = new ArrayStack(5);
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
         stack.push(4);
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.push(4);
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.push(4);
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.pop();
         stack.pop();
         stack.pop();
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
         stack.push(4);
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.peek();
-        assertFalse(stack.isEmpty());
+        Assertions.assertFalse(stack.isEmpty());
         stack.pop();
-        assertTrue(stack.isEmpty());
+        Assertions.assertTrue(stack.isEmpty());
     }
 
     @Test
     public void testSize() {
         ArrayStack stack = new ArrayStack(5);
-        assertEquals(0, stack.size());
+        Assertions.assertEquals(0, stack.size());
         stack.push(4);
-        assertEquals(1, stack.size());
+        Assertions.assertEquals(1, stack.size());
         stack.peek();
-        assertEquals(1, stack.size());
+        Assertions.assertEquals(1, stack.size());
         stack.pop();
-        assertEquals(0, stack.size());
+        Assertions.assertEquals(0, stack.size());
     }
 
 }

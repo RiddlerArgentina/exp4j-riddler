@@ -15,357 +15,356 @@
  */
 package net.objecthunter.exp4j.tokenizer;
 
-import static net.objecthunter.exp4j.TestUtil.*;
-import static org.junit.Assert.*;
+import net.objecthunter.exp4j.function.Function;
+import net.objecthunter.exp4j.operator.Operator;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import net.objecthunter.exp4j.function.Function;
-import net.objecthunter.exp4j.operator.Operator;
-
-import org.junit.Test;
+import static net.objecthunter.exp4j.TestUtil.*;
 
 public class TokenizerTest {
 
     @Test
     public void testTokenization1() {
-        final Tokenizer tokenizer = new Tokenizer("1.222331",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("1.222331", null, null, null, true);
         assertNumberToken(tokenizer.nextToken(), 1.222331d);
     }
 
     @Test
     public void testTokenization2() {
-        final Tokenizer tokenizer = new Tokenizer(".222331",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer(".222331", null, null, null, true);
         assertNumberToken(tokenizer.nextToken(), .222331d);
     }
 
     @Test
     public void testTokenization3() {
-        final Tokenizer tokenizer = new Tokenizer("3e2",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("3e2", null, null, null, true);
         assertNumberToken(tokenizer.nextToken(), 300d);
     }
 
     @Test
     public void testTokenization4() {
-        final Tokenizer tokenizer = new Tokenizer("3+1",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("3+1", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 1d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization5() {
-        final Tokenizer tokenizer = new Tokenizer("+3",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("+3", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization6() {
-        final Tokenizer tokenizer = new Tokenizer("-3",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("-3", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization7() {
-        final Tokenizer tokenizer = new Tokenizer("---++-3",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("---++-3", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization8() {
-        final Tokenizer tokenizer = new Tokenizer("---++-3.004",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("---++-3.004", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3.004d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization9() {
-        final Tokenizer tokenizer = new Tokenizer("3+-1",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("3+-1", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 1d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization10() {
-        final Tokenizer tokenizer = new Tokenizer("3+-1-.32++2",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("3+-1-.32++2", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 1d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 2, Operator.PRECEDENCE_SUBTRACTION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 0.32d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 1, Operator.PRECEDENCE_UNARY_PLUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization11() {
-        final Tokenizer tokenizer = new Tokenizer("2+",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("2+", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization12() {
-        final Tokenizer tokenizer = new Tokenizer("log(1)",null, null, null, true);
+        final Tokenizer tokenizer = new Tokenizer("log(1)", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 1d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization13() {
-        final Tokenizer tokenizer = new Tokenizer("x",null, null, new HashSet<>(List.of("x")), true);
+        final Tokenizer tokenizer = new Tokenizer("x", null, null, new HashSet<>(List.of("x")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization14() {
-        final Tokenizer tokenizer = new Tokenizer("2*x-log(3)",null, null, new HashSet<>(List.of("x")), true);
+        final Tokenizer tokenizer = new Tokenizer("2*x-log(3)", null, null, new HashSet<>(List.of("x")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 2, Operator.PRECEDENCE_SUBTRACTION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization15() {
-        final Tokenizer tokenizer = new Tokenizer("2*xlog+log(3)",null, null, new HashSet<>(List.of("xlog")), true);
+        final Tokenizer tokenizer = new Tokenizer("2*xlog+log(3)", null, null, new HashSet<>(List.of("xlog")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "xlog");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization16() {
-        final Tokenizer tokenizer = new Tokenizer("2*x+-log(3)",null, null, new HashSet<>(List.of("x")), true);
+        final Tokenizer tokenizer = new Tokenizer("2*x+-log(3)", null, null, new HashSet<>(List.of("x")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization17() {
-        final Tokenizer tokenizer = new Tokenizer("2 * x + -log(3)",null, null, new HashSet<>(List.of("x")), true);
+        final Tokenizer tokenizer = new Tokenizer("2 * x + -log(3)", null, null, new HashSet<>(List.of("x")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "+", 2, Operator.PRECEDENCE_ADDITION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 3d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
@@ -382,19 +381,19 @@ public class TokenizerTest {
         funcs.put(log2.getName(), log2);
         final Tokenizer tokenizer = new Tokenizer("log2(4)", funcs, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log2", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 4d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
@@ -414,25 +413,25 @@ public class TokenizerTest {
         funcs.put(avg.getName(), avg);
         final Tokenizer tokenizer = new Tokenizer("avg(1,2)", funcs, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "avg", 2);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 1d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionSeparatorToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
@@ -448,13 +447,13 @@ public class TokenizerTest {
 
         final Tokenizer tokenizer = new Tokenizer("2!", null, operators, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "!", factorial.getNumOperands(), factorial.getPrecedence());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
@@ -463,91 +462,91 @@ public class TokenizerTest {
                 "log(x) - y * (sqrt(x^cos(y)))", null, null,
                 new HashSet<>(Arrays.asList("x", "y")), true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "log", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 2, Operator.PRECEDENCE_SUBTRACTION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "y");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "sqrt", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "x");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "^", 2, Operator.PRECEDENCE_POWER);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertFunctionToken(tokenizer.nextToken(), "cos", 1);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertVariableToken(tokenizer.nextToken(), "y");
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 
     @Test
     public void testTokenization22() {
         final Tokenizer tokenizer = new Tokenizer("--2 * (-14)", null, null, null, true);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 2d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "*", 2, Operator.PRECEDENCE_MULTIPLICATION);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOpenParenthesesToken(tokenizer.nextToken());
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertOperatorToken(tokenizer.nextToken(), "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertNumberToken(tokenizer.nextToken(), 14d);
 
-        assertTrue(tokenizer.hasNext());
+        Assertions.assertTrue(tokenizer.hasNext());
         assertCloseParenthesesToken(tokenizer.nextToken());
 
-        assertFalse(tokenizer.hasNext());
+        Assertions.assertFalse(tokenizer.hasNext());
     }
 }

@@ -15,14 +15,17 @@
  */
 package net.objecthunter.exp4j.shuntingyard;
 
-import static net.objecthunter.exp4j.TestUtil.*;
-
-import java.util.*;
-
 import net.objecthunter.exp4j.operator.Operator;
 import net.objecthunter.exp4j.tokenizer.Token;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+
+import static net.objecthunter.exp4j.TestUtil.*;
 
 public class ShuntingYardTest {
 
@@ -71,6 +74,7 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[2], "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
         assertOperatorToken(tokens[3], "^", 2, Operator.PRECEDENCE_POWER);
     }
+
     @Test
     public void testShuntingYard6() {
         String expression = "2^---+2";
@@ -83,6 +87,7 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[5], "-", 1, Operator.PRECEDENCE_UNARY_MINUS);
         assertOperatorToken(tokens[6], "^", 2, Operator.PRECEDENCE_POWER);
     }
+
     @Test
     public void testShuntingYard7() {
         String expression = "2^-2!";
@@ -142,12 +147,12 @@ public class ShuntingYardTest {
         assertOperatorToken(tokens[1], "$", 1, Operator.PRECEDENCE_DIVISION);
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void testIssue88() {
         //https://github.com/fasseg/exp4j/issues/88
         String expression = "sincos(x)";
         HashSet<String> vars = new HashSet<>(List.of("x"));
-        ShuntingYard.convertToRPN(false, expression, null, null, vars, true);
+        Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> ShuntingYard.convertToRPN(false, expression, null, null, vars, true));
     }
 
     @Test

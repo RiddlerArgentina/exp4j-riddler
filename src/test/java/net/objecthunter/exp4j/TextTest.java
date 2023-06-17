@@ -15,16 +15,14 @@
  */
 package net.objecthunter.exp4j;
 
+import net.objecthunter.exp4j.utils.Text;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
 import java.util.Locale;
 import java.util.ResourceBundle;
-import net.objecthunter.exp4j.utils.Text;
-import org.junit.Assert;
-import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 /**
- *
  * @author Federico Vera {@literal <fede@riddler.com.ar>}
  */
 public class TextTest {
@@ -34,10 +32,10 @@ public class TextTest {
         ResourceBundle L10N_es = ResourceBundle.getBundle("net.objecthunter.exp4j.utils.Bundle", new Locale("es"));
 
         for (String key : L10N_en.keySet()) {
-            assertTrue(L10N_es.containsKey(key));
+            Assertions.assertTrue(L10N_es.containsKey(key));
         }
         for (String key : L10N_es.keySet()) {
-            assertTrue(L10N_en.containsKey(key));
+            Assertions.assertTrue(L10N_en.containsKey(key));
         }
     }
 
@@ -45,25 +43,25 @@ public class TextTest {
     public void testText2() {
         String foo = "Unexistent String ofhaiwogheowihgoih;";
         String bar = Text.l10n(foo);
-        Assert.assertEquals(foo, bar);
+        Assertions.assertEquals(foo, bar);
     }
 
     @Test
     public void testText3() {
         String foo = "Unexistent String ofhaiwogheowihgoih;";
         String bar = Text.l10n(foo, 10);
-        Assert.assertEquals(foo, bar);
+        Assertions.assertEquals(foo, bar);
     }
 
     @Test
     public void testText4() {
         String bar = Text.l10n(null);
-        Assert.assertNull(bar);
+        Assertions.assertNull(bar);
     }
 
     @Test
     public void testText5() {
         String bar = Text.l10n(null, 10);
-        Assert.assertNull(bar);
+        Assertions.assertNull(bar);
     }
 }
