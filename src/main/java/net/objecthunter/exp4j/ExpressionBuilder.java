@@ -64,7 +64,7 @@ public class ExpressionBuilder {
     }
 
     /**
-     * Removes all of the built-in functions
+     * Removes all the built-in functions
      * @return the ExpressionBuilder instance
      */
     public ExpressionBuilder disableBuiltInFunctions() {

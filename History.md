@@ -18,7 +18,7 @@
   * Don't reassign parameter (Codacy)
   * Minor improvements in Expression class
   * Add some consistency tests
-  * Add test for excesive arguments in FunctionExpression
+  * Add test for excessive arguments in FunctionExpression
   * Add a small test for the text class
   * Make text class final
   * Add private constructor to Text class
@@ -33,7 +33,7 @@ v0.9-riddler / 2018-08-02
 =========================
 
   * Bump to version 0.9-RIDDLER
-  * Add horribly superflous default labels (Codacy)
+  * Add horribly superfluous default labels (Codacy)
   * Declare one variable per line (Codacy)
   * Implement tests for d2r & r2d (Task #795)
   * Implement d2r & r2d (Task #795)
@@ -107,7 +107,7 @@ v0.9-riddler / 2018-08-02
   * Remove JaCoCo
   * Add .gitlab-ci.yml
   * Add missing JavaDocs Task #759 - Corregir todas las advertencias de JavaDoc
-  * Add lot's of missing JavaDocs Task #759 - Corregir todas las advertencias de JavaDoc
+  * Add lots of missing JavaDocs Task #759 - Corregir todas las advertencias de JavaDoc
   * Adapt tests Task #759 - Corregir todas las advertencias de JavaDoc
   * Make some fields final Task #759 - Corregir todas las advertencias de JavaDoc
   * Fix JavaDoc Task #759 - Corregir todas las advertencias de JavaDoc
@@ -121,7 +121,7 @@ v0.9-riddler / 2018-08-02
   * Add properties files in Ant
   * Add Spanish strings Task #756 - Allow translating messages
   * Extract Strings to properties file Task #756 - Allow translating messages
-  * Corregir Test Task #756 - Allow translating messages
+  * Fix Test Task #756 - Allow translating messages
   * Extract Strings to Text
   * Add a ResourceBundle wrapper Task #756 - Allow translating messages
   * Merge branch 'serialize-expressions' into 'master'
@@ -164,7 +164,7 @@ v0.9-riddler / 2018-08-02
   * Fix issue 79
   * Add tests for issue 79
   * Merge pull request #16 from RiddlerArgentina/issue-88
-  * Add a second test to checkout if correct expression is still valid
+  * Add a second test to check out if correct expression is still valid
   * Fix issue 88
   * Add test for issue 88
   * Change factorial limit to 170

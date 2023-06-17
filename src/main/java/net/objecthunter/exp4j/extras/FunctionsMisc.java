@@ -145,7 +145,7 @@ public final class FunctionsMisc {
     /**
      * Converts from degrees to radians.
      *
-     * @see Functions#RAD2DEG
+     * @see FunctionsMisc#RAD2DEG
      * @see Math#toRadians(double)
      * @since 0.9-riddler
      */
@@ -154,7 +154,7 @@ public final class FunctionsMisc {
     /**
      * Converts from radians to degrees.
      *
-     * @see Functions#DEG2RAD
+     * @see FunctionsMisc#DEG2RAD
      * @see Math#toDegrees(double)
      * @since 0.9-riddler
      */
