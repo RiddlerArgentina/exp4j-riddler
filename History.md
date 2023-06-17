@@ -1,3 +1,9 @@
+1.1-riddler / 2023-06-17
+========================
+
+  * Migrate Tests to JUnit 5
+  * Change target to Java 17
+ 
 1.0-riddler / 2018-08-05
 ========================
 
