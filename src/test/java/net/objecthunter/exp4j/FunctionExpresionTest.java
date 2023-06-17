@@ -18,6 +18,7 @@ package net.objecthunter.exp4j;
 import net.objecthunter.exp4j.extras.FunctionExpresion;
 import net.objecthunter.exp4j.extras.FunctionsMisc;
 import net.objecthunter.exp4j.extras.OperatorsComparison;
+import net.objecthunter.exp4j.tokenizer.UnknownFunctionOrVariableException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -117,6 +118,16 @@ public class FunctionExpresionTest {
         Assertions.assertThrowsExactly(IllegalArgumentException.class, () -> {
             FunctionExpresion fe = new FunctionExpresion(
                     "foo", 27,
+                    "a * lcm(a, b)",
+                    FunctionsMisc.getFunctions()
+            );
+        });
+    }
+    @Test
+    public void testFunctionExpression9() {
+        Assertions.assertThrowsExactly(UnknownFunctionOrVariableException.class, () -> {
+            FunctionExpresion fe = new FunctionExpresion(
+                    "foo", 0,
                     "a * lcm(a, b)",
                     FunctionsMisc.getFunctions()
             );

@@ -34,11 +34,13 @@ public class FunctionsSignalTest {
     }
 
     @Test
+    public void testUnknownName() {
+        Assertions.assertNull(FunctionsSignal.getFunction("non_existent"));
+    }
+
+    @Test
     public void testSinc() {
-        Expression sinc = new ExpressionBuilder("sinc(x)")
-                .functions(FunctionsSignal.getFunctions())
-                .variable("x")
-                .build();
+        Expression sinc = new ExpressionBuilder("sinc(x)").functions(FunctionsSignal.getFunctions()).variable("x").build();
 
         Assertions.assertEquals(1, sinc.setVariable("x", 0).evaluate(), 0d);
         Assertions.assertEquals(0, sinc.setVariable("x", Math.PI).evaluate(), 1e-12);
@@ -52,91 +54,70 @@ public class FunctionsSignalTest {
 
     @Test
     public void testHeavySide() {
-        Expression e1 = new ExpressionBuilder("heavyside(10)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("heavyside(10)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(1.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testHeavySide2() {
-        Expression e1 = new ExpressionBuilder("heavyside(0)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("heavyside(0)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(1.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testHeavySide3() {
-        Expression e1 = new ExpressionBuilder("heavyside(-23)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("heavyside(-23)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(0.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testRectangle() {
-        Expression e1 = new ExpressionBuilder("rectangle(0, 0, 1)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("rectangle(0, 0, 1)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(1.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testRectangle2() {
-        Expression e1 = new ExpressionBuilder("rectangle(10, 10, 1)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("rectangle(10, 10, 1)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(1.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testRectangle3() {
-        Expression e1 = new ExpressionBuilder("rectangle(0, 10, 5)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("rectangle(0, 10, 5)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(0.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testRectangle4() {
-        Expression e1 = new ExpressionBuilder("rectangle(13, 10, 5)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("rectangle(13, 10, 5)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(0.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testSawtooth() {
-        Expression e1 = new ExpressionBuilder("sawtooth(1)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("sawtooth(1)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(0.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testSawtooth1() {
-        Expression e1 = new ExpressionBuilder("sawtooth(0)")
-                .functions(FunctionsSignal.getFunctions())
-                .build();
+        Expression e1 = new ExpressionBuilder("sawtooth(0)").functions(FunctionsSignal.getFunctions()).build();
 
         Assertions.assertEquals(0.0, e1.evaluate(), 0d);
     }
 
     @Test
     public void testSawtooth2() {
-        Expression e1 = new ExpressionBuilder("sawtooth(x)")
-                .functions(FunctionsSignal.getFunctions())
-                .variable("x")
-                .build();
+        Expression e1 = new ExpressionBuilder("sawtooth(x)").functions(FunctionsSignal.getFunctions()).variable("x").build();
 
         for (double x = -10; x < 10; x += 0.02) {
             double res = e1.setVariable("x", x).evaluate();
@@ -147,10 +128,7 @@ public class FunctionsSignalTest {
 
     @Test
     public void testSawtooth3() {
-        Expression e1 = new ExpressionBuilder("sawtooth(x)")
-                .functions(FunctionsSignal.getFunctions())
-                .variable("x")
-                .build();
+        Expression e1 = new ExpressionBuilder("sawtooth(x)").functions(FunctionsSignal.getFunctions()).variable("x").build();
         double x = Math.random() * 5 - 10;
         double r = e1.setVariable("x", x).evaluate();
         for (; x < 10; x += 1) {
@@ -161,10 +139,7 @@ public class FunctionsSignalTest {
 
     @Test
     public void testTriangle1() {
-        Expression e1 = new ExpressionBuilder("triangle(x)")
-                .functions(FunctionsSignal.getFunctions())
-                .variable("x")
-                .build();
+        Expression e1 = new ExpressionBuilder("triangle(x)").functions(FunctionsSignal.getFunctions()).variable("x").build();
         for (double x = -10; x < 10; x += 0.01) {
             double res = e1.setVariable("x", x).evaluate();
             Assertions.assertTrue(res <= 1);
@@ -174,10 +149,7 @@ public class FunctionsSignalTest {
 
     @Test
     public void testTriangle2() {
-        Expression e1 = new ExpressionBuilder("triangle(x)")
-                .functions(FunctionsSignal.getFunctions())
-                .variable("x")
-                .build();
+        Expression e1 = new ExpressionBuilder("triangle(x)").functions(FunctionsSignal.getFunctions()).variable("x").build();
         double x = Math.random() * 5 - 10;
         double r = e1.setVariable("x", x).evaluate();
         for (; x < 10; x += 1) {
