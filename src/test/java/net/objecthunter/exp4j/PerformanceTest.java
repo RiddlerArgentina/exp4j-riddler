@@ -27,7 +27,7 @@ import org.junit.Test;
 
 public final class PerformanceTest {
     private static final long BENCH_TIME = 2l;
-    private static final String EXPRESSION = "log(x) - (2 + 1) * y * (sqrt(pow(x,cos(y))))";
+    private static final String EXPRESSION = "log(x + y) - (2 + 1 - 1) * y * (sqrt(pow(x,cos(y))))";
 
     @Test
     public void testBenches() throws Exception {
