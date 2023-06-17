@@ -60,10 +60,10 @@ public final class PerformanceTest {
         System.out.print(sb.toString());
         sb.setLength(0);
 
-        int js = benchJavaScript();
-        js = benchJavaScript();
-        double jsRate = (double) js / (double) BENCH_TIME;
-        fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
+//        int js = benchJavaScript();
+//        js = benchJavaScript();
+//        double jsRate = (double) js / (double) BENCH_TIME;
+//        fmt.format("| %-22s | %25.2f | %22.4f %% |%n", "JSR-223 (Java Script)", jsRate, jsRate * 100 / mathRate);
         fmt.format("+------------------------+---------------------------+--------------------------+%n");
         Assert.assertNotNull(sb.toString()); //Silence warning
         System.out.print(sb.toString());
